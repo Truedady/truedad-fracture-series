@@ -1,0 +1,20 @@
+{
+  "series": "TrueDad / Daily Cases",
+  "caseName": "Fracture Case",
+  "episodeDay": 1,
+  "experimentDays": 30,
+  "initialDailyQuantity": 20,
+  "dailyIncrement": 5,
+  "purchasedToday": 20,
+  "cumulativePurchased": 20,
+  "finalDayQuantity": 165,
+  "monthlyTargetCases": 2775,
+  "purchaseTotalRub": null,
+  "averageActualBuyPriceRub": null,
+  "pnlNetRub": null,
+  "steamAskSnapshotRub": 40.61,
+  "steamAskSnapshotLabel": "Observed asking price in footage, NOT actual purchase price",
+  "marketOffersSnapshotApprox": 172000,
+  "marketSnapshotTime": "Snapshot from user-supplied video; not a live quote",
+  "disclaimer": "Never invent fills, returns, volumes or prices"
+}
