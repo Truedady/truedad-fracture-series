@@ -11,7 +11,16 @@ export const day01: Episode = {
   dailyStep: 5,
   voiceover: 'assets/voiceover-day01.mp3',
   voDurationSec: 44.042,
-  footage: {src: 'assets/footage-curated.mp4', width: 1600, height: 900},
+  // Author's 1080p recording (1920×1080, 30 fps). Same framing as the 1600×900 proxy, so crop
+  // rects stay in that 1600×900 reference space.
+  footage: {src: 'assets/master/footage-master.mp4', coordW: 1600, coordH: 900},
+  clips: {
+    listing: {from: 0.0, rate: 0.33}, // listing page is static only for 0–1.2 s
+    buyDialog: {from: 13.87}, // price 40,30 ₽, qty 20, max 806 ₽ → Purchase
+    buySuccess: {from: 20.23}, // "Success! Your buy order has been placed."
+    portfolio: {from: 45.7, rate: 0.55}, // TrueSkins entry visible 45.6–47.1 s, inventory pop-up after
+    inventory: {from: 52.47}, // 20 × Fracture Case tiles
+  },
   captions: captions.pages,
   beats: {
     hook: 0,
@@ -66,47 +75,17 @@ export const day01: Episode = {
     comment: 41.5,
     follow: 42.62,
   },
+  // Sparse, quiet sound design: only on meaning, never competing with the voice.
   sfx: [
-    {at: 0.0, file: 'impact.wav', volume: 0.5},
-    {at: 0.7, file: 'whoosh-short.wav', volume: 0.28},
-    {at: 0.98, file: 'whoosh.wav', volume: 0.32},
-    {at: 1.45, file: 'counter.wav', volume: 0.22},
-    {at: 2.48, file: 'tick.wav', volume: 0.4},
-    {at: 2.86, file: 'whoosh.wav', volume: 0.3},
-    {at: 4.38, file: 'tick.wav', volume: 0.42},
-    {at: 6.3, file: 'whoosh.wav', volume: 0.28},
-    {at: 8.12, file: 'tick.wav', volume: 0.3},
-    {at: 10.56, file: 'impact.wav', volume: 0.26},
-    {at: 11.14, file: 'whoosh.wav', volume: 0.28},
-    {at: 11.5, file: 'counter.wav', volume: 0.16},
-    {at: 13.12, file: 'tick.wav', volume: 0.38},
-    {at: 13.45, file: 'riser.wav', volume: 0.26},
-    {at: 14.6, file: 'impact.wav', volume: 0.32},
-    {at: 15.38, file: 'whoosh.wav', volume: 0.26},
-    {at: 16.68, file: 'tick.wav', volume: 0.42},
-    {at: 17.72, file: 'tick.wav', volume: 0.42},
-    {at: 19.04, file: 'tick.wav', volume: 0.42},
-    {at: 19.72, file: 'counter.wav', volume: 0.2},
-    {at: 21.6, file: 'tick.wav', volume: 0.36},
-    {at: 22.12, file: 'whoosh.wav', volume: 0.28},
-    {at: 23.86, file: 'counter.wav', volume: 0.26},
-    {at: 25.26, file: 'impact.wav', volume: 0.36},
-    {at: 25.78, file: 'whoosh.wav', volume: 0.26},
-    {at: 26.54, file: 'tick.wav', volume: 0.32},
-    {at: 28.78, file: 'impact.wav', volume: 0.26},
-    {at: 29.38, file: 'whoosh.wav', volume: 0.28},
-    {at: 30.9, file: 'confirm.wav', volume: 0.42},
-    {at: 31.26, file: 'whoosh-short.wav', volume: 0.24},
-    {at: 31.4, file: 'counter.wav', volume: 0.18},
-    {at: 33.18, file: 'confirm.wav', volume: 0.3},
-    {at: 33.5, file: 'whoosh.wav', volume: 0.26},
-    {at: 35.94, file: 'whoosh.wav', volume: 0.26},
-    {at: 37.18, file: 'tick.wav', volume: 0.42},
-    {at: 38.08, file: 'whoosh.wav', volume: 0.26},
-    {at: 38.98, file: 'tick.wav', volume: 0.34},
-    {at: 40.66, file: 'tick.wav', volume: 0.34},
-    {at: 41.5, file: 'confirm.wav', volume: 0.26},
-    {at: 42.62, file: 'tick.wav', volume: 0.3},
+    {at: 0.0, file: 'impact.wav', volume: 0.14}, // hook
+    {at: 1.0, file: 'whoosh.wav', volume: 0.06}, // camera move to «я покупаю»
+    {at: 4.38, file: 'tick.wav', volume: 0.08}, // −38 %
+    {at: 11.14, file: 'whoosh.wav', volume: 0.05}, // into the experiment
+    {at: 14.55, file: 'whoosh-short.wav', volume: 0.06}, // case reveal
+    {at: 25.26, file: 'impact.wav', volume: 0.1}, // 2 775 lands
+    {at: 29.38, file: 'whoosh.wav', volume: 0.05}, // into the real purchase
+    {at: 30.9, file: 'confirm.wav', volume: 0.09}, // «куплены»
+    {at: 42.62, file: 'tick.wav', volume: 0.06}, // follow cue
   ],
-  bed: {file: 'assets/sfx/bed.m4a', volume: 0.09},
+  bed: {file: 'assets/sfx/bed.m4a', volume: 0.05},
 };

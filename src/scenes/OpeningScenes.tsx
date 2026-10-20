@@ -130,15 +130,13 @@ export const EvidenceScene: React.FC<SceneProps> = ({ep, start, dur}) => {
       </div>
       <div style={{position: 'absolute', left: 60, top: 300, transform: `perspective(1600px) rotateY(${-7 + 7 * push}deg) rotateX(${3 - 3 * push}deg)`}}>
         <SteamEvidenceFrame
-          src={ep.footage.src}
-          srcW={ep.footage.width}
-          srcH={ep.footage.height}
-          fromSec={0.2}
-          playbackRate={0.9}
+          footage={ep.footage}
+          fromSec={ep.clips.listing.from}
+          playbackRate={ep.clips.listing.rate}
           boxW={960}
           boxH={700}
           rectA={{x: 410, y: 245, w: 760, h: 554}}
-          rectB={{x: 712, y: 290, w: 400, h: 292}}
+          rectB={{x: 640, y: 255, w: 520, h: 379}}
           t={push}
           label="REC · 20.10.2026"
           overlay={

@@ -78,14 +78,12 @@ export const ProofScene: React.FC<SceneProps> = ({ep, start, dur}) => {
       <div style={{position: 'absolute', left: 60, top: 310, transform: `perspective(1600px) rotateY(${-5 + 5 * prog(frame, 0, 20)}deg)`}}>
         {phase === 0 && (
           <SteamEvidenceFrame
-            src={ep.footage.src}
-            srcW={ep.footage.width}
-            srcH={ep.footage.height}
-            fromSec={21.85}
+            footage={ep.footage}
+            fromSec={ep.clips.buyDialog.from}
             boxW={960}
             boxH={600}
             rectA={{x: 486, y: 214, w: 624, h: 390}}
-            rectB={{x: 832, y: 238, w: 274, h: 171}}
+            rectB={{x: 640, y: 205, w: 470, h: 294}}
             t={push}
             label={label}
             overlay={
@@ -99,10 +97,8 @@ export const ProofScene: React.FC<SceneProps> = ({ep, start, dur}) => {
         {phase === 1 && (
           <div style={{opacity: swap(fSuccess), position: 'relative'}}>
             <SteamEvidenceFrame
-              src={ep.footage.src}
-              srcW={ep.footage.width}
-              srcH={ep.footage.height}
-              fromSec={28.4}
+              footage={ep.footage}
+              fromSec={ep.clips.buySuccess.from}
               boxW={960}
               boxH={600}
               rectA={{x: 486, y: 214, w: 624, h: 390}}
@@ -116,10 +112,8 @@ export const ProofScene: React.FC<SceneProps> = ({ep, start, dur}) => {
         {phase === 2 && (
           <div style={{opacity: swap(fInv)}}>
             <SteamEvidenceFrame
-              src={ep.footage.src}
-              srcW={ep.footage.width}
-              srcH={ep.footage.height}
-              fromSec={66.4}
+              footage={ep.footage}
+              fromSec={ep.clips.inventory.from}
               boxW={960}
               boxH={600}
               rectA={{x: 40, y: 122, w: 960, h: 600}}
@@ -197,14 +191,12 @@ export const PortfolioScene: React.FC<SceneProps> = ({ep, start, dur}) => {
       </div>
       <div style={{position: 'absolute', left: 60, top: 310, transform: `perspective(1600px) rotateX(${6 - 6 * prog(frame, 0, dur)}deg)`}}>
         <SteamEvidenceFrame
-          src={ep.footage.src}
-          srcW={ep.footage.width}
-          srcH={ep.footage.height}
-          fromSec={60.12}
-          playbackRate={0.3} // the portfolio entry is on screen for ~1 s in the source; stretch it, never run into the next shot
+          footage={ep.footage}
+          fromSec={ep.clips.portfolio.from}
+          playbackRate={ep.clips.portfolio.rate}
           boxW={960}
           boxH={420}
-          rectA={{x: 200, y: 140, w: 1190, h: 521}}
+          rectA={{x: 180, y: 210, w: 680, h: 298}}
           rectB={{x: 196, y: 222, w: 630, h: 276}}
           t={prog(frame, 0, dur - 6, EASE_IN_OUT)}
           label="ПОРТФЕЛЬ · TRUESKINS"

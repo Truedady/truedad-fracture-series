@@ -44,7 +44,7 @@ def onepole_lp(x, cutoff):
 def whoosh(sec=0.5):
     n = t(sec); p = n / sec
     noise = rng.standard_normal(len(n))
-    cutoff = 300 + 5200 * np.sin(np.pi * p) ** 2
+    cutoff = 250 + 2600 * np.sin(np.pi * p) ** 2  # soft, airy — no hiss
     band = onepole_lp(noise, cutoff) - onepole_lp(noise, cutoff * 0.25)
     env = np.sin(np.pi * p) ** 2 * (1 - p) ** 0.4
     return band * env
@@ -72,34 +72,12 @@ def confirm(sec=0.9):
     return x
 
 
-def riser(sec=1.2):
-    n = t(sec); p = n / sec
-    noise = rng.standard_normal(len(n))
-    band = onepole_lp(noise, 200 + 6000 * p ** 2)
-    tone = np.sin(2 * np.pi * np.cumsum(180 + 520 * p ** 2) / SR) * 0.25
-    return (band * 0.6 + tone) * p ** 2.2
-
-
-def counter_roll(sec=1.6, start_rate=9, end_rate=26):
-    n = t(sec); x = np.zeros(len(n)); tk = tick(0.04, 2900)
-    pos, i = 0.0, 0
-    while pos < sec - 0.05:
-        rate = start_rate + (end_rate - start_rate) * pos / sec
-        s = int(pos * SR); x[s:s + len(tk)] += tk[: len(x) - s] * (0.35 + 0.4 * pos / sec)
-        pos += 1 / rate; i += 1
-    return x
-
-
 def bed(sec):
-    """Quiet dark pad: D minor-ish sine stack, slow movement, low-passed, plus a soft pulse."""
+    """Quiet dark pad: D minor-ish sine stack with slow movement. No rhythmic pulse (nothing repetitive under the voice)."""
     n = t(sec); x = np.zeros(len(n))
     for f, a in ((73.42, 0.5), (110.0, 0.32), (146.83, 0.22), (174.61, 0.12), (220.0, 0.08)):
         lfo = 1 + 0.004 * np.sin(2 * np.pi * 0.11 * n + f)
         x += a * np.sin(2 * np.pi * f * lfo * n) * (0.75 + 0.25 * np.sin(2 * np.pi * 0.07 * n + f))
-    beat = 60 / 96
-    ph = (n % beat) / beat
-    pulse = np.sin(2 * np.pi * 52 * n) * np.exp(-ph * beat * 9) * 0.35
-    x = x + pulse
     fade = np.minimum(1, n / 0.6) * np.minimum(1, (sec - n) / 1.5)
     return x * fade
 
@@ -111,7 +89,5 @@ if __name__ == "__main__":
     write("impact.wav", impact())
     write("tick.wav", tick())
     write("confirm.wav", confirm(), 1)
-    write("riser.wav", riser(), 1)
-    write("counter.wav", counter_roll())
     write("bed.wav", bed(dur), 1)
     print("sfx written to", os.path.abspath(OUT))

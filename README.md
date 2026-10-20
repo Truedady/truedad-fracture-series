@@ -11,6 +11,7 @@ A Remotion-based vertical video series for TikTok / YouTube Shorts.
 ```bash
 npm install
 bash scripts/fetch-assets.sh   # unpack source media from the kit ZIP into public/assets/
+# + put the author's 1080p recording at public/assets/master/footage-master.mp4 (kept out of git: private screen capture)
 npm run dev                    # Remotion Studio
 npm run render                 # master render + finalize (yuv420p BT.709, -1.5 dB, stills)
 ```

@@ -1,18 +1,18 @@
 import React from 'react';
 import {OffthreadVideo, staticFile} from 'remotion';
 import {C, F, FPS} from '../brand/tokens';
-import type {Rect} from '../episodes/types';
+import type {Footage, Rect} from '../episodes/types';
 import {lerp} from '../lib/anim';
 
 /**
- * A window onto the REAL screen recording. The crop animates between two source rects
- * (in source pixels), so it reads as a camera move over authentic UI. Overlays are given
- * in source coordinates and follow the camera.
+ * A window onto the REAL screen recording. The crop animates between two rects so it reads
+ * as a camera move over authentic UI. Rects and overlays use the footage's reference
+ * coordinate space (`footage.coordW × coordH`), independent of the file's native resolution.
+ * The video is laid out at its final on-screen size (no CSS upscaling of a smaller layer),
+ * so pixels come straight from the native-resolution frames.
  */
 export const SteamEvidenceFrame: React.FC<{
-  src: string;
-  srcW: number;
-  srcH: number;
+  footage: Footage;
   fromSec: number;
   playbackRate?: number;
   boxW: number;
@@ -25,15 +25,15 @@ export const SteamEvidenceFrame: React.FC<{
   overlay?: React.ReactNode;
   style?: React.CSSProperties;
   radius?: number;
-  dim?: number;
   labelSide?: 'left' | 'right';
-}> = ({src, srcW, srcH, fromSec, playbackRate = 1, boxW, boxH, rectA, rectB, t = 0, label, live = true, overlay, style, radius = 20, dim = 0, labelSide = 'left'}) => {
+}> = ({footage, fromSec, playbackRate = 1, boxW, boxH, rectA, rectB, t = 0, label, live = true, overlay, style, radius = 20, labelSide = 'left'}) => {
   const r = rectB
     ? {x: lerp(rectA.x, rectB.x, t), y: lerp(rectA.y, rectB.y, t), w: lerp(rectA.w, rectB.w, t), h: lerp(rectA.h, rectB.h, t)}
     : rectA;
-  const scale = Math.max(boxW / r.w, boxH / r.h);
-  const ox = -r.x * scale + (boxW - r.w * scale) / 2;
-  const oy = -r.y * scale + (boxH - r.h * scale) / 2;
+  // screen px per reference unit
+  const s = Math.max(boxW / r.w, boxH / r.h);
+  const ox = -r.x * s + (boxW - r.w * s) / 2;
+  const oy = -r.y * s + (boxH - r.h * s) / 2;
   return (
     <div
       style={{
@@ -48,11 +48,14 @@ export const SteamEvidenceFrame: React.FC<{
         ...style,
       }}
     >
-      <div style={{position: 'absolute', left: 0, top: 0, width: srcW, height: srcH, transformOrigin: '0 0', transform: `translate(${ox}px, ${oy}px) scale(${scale})`}}>
-        <OffthreadVideo src={staticFile(src)} muted trimBefore={Math.round(fromSec * FPS)} playbackRate={playbackRate} style={{width: srcW, height: srcH}} />
-        {overlay}
-      </div>
-      {dim > 0 && <div style={{position: 'absolute', inset: 0, background: `rgba(11,14,19,${dim})`}} />}
+      <OffthreadVideo
+        src={staticFile(footage.src)}
+        muted
+        trimBefore={Math.round(fromSec * FPS)}
+        playbackRate={playbackRate}
+        style={{position: 'absolute', left: ox, top: oy, width: footage.coordW * s, height: footage.coordH * s, maxWidth: 'none'}}
+      />
+      <div style={{position: 'absolute', left: ox, top: oy, width: footage.coordW, height: footage.coordH, transformOrigin: '0 0', transform: `scale(${s})`}}>{overlay}</div>
       <div style={{position: 'absolute', inset: 0, boxShadow: 'inset 0 0 80px rgba(0,0,0,0.45)', pointerEvents: 'none'}} />
       {label && (
         <div
