@@ -3,7 +3,7 @@
 Writes 48 kHz stereo WAVs into public/assets/sfx/. Deterministic (fixed seed).
 Usage: python3 scripts/generate-sfx.py [duration_seconds_for_bed]
 """
-import os, sys, wave
+import json, os, sys, wave
 import numpy as np
 
 SR = 48000
@@ -85,15 +85,13 @@ def pan_lr(x, start=-0.8, end=0.8):
     return np.stack([x * np.sqrt((1 - p) / 2), x * np.sqrt((1 + p) / 2)], 1)
 
 
-def market_fall(sec=1.4):
-    """Red Steam curve falling: cinematic down-sweep — filtered noise closing from bright to dark, plus a soft sub."""
-    n = t(sec); p = n / sec
-    noise = rng.standard_normal(len(n))
-    cutoff = 150 + 3800 * (1 - p) ** 2.2
-    sweep = onepole_lp(noise, cutoff) - onepole_lp(noise, cutoff * 0.15)
-    sweep *= (1 - np.exp(-n * 60)) * np.exp(-n * 2.2)
-    sub = np.sin(2 * np.pi * 48 * n) * (1 - np.exp(-n * 40)) * np.exp(-n * 3.0) * 0.55
-    return sweep + sub
+def market_fall(sec=1.1):
+    """Red Steam curve falling: exponential pitch glide down + soft low thump."""
+    n = t(sec)
+    f = 880 * (220 / 880) ** (n / sec)
+    glide = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-n * 2.2) * (1 - np.exp(-n * 200))
+    thump = np.sin(2 * np.pi * np.cumsum(70 * np.exp(-n * 6) + 40) / SR) * np.exp(-n * 7) * 0.6
+    return glide * 0.7 + thump
 
 
 def ladder_rise():
@@ -102,13 +100,23 @@ def ladder_rise():
     return place(1.9, [(i * 0.2, note(f, 0.7) * (0.6 + 0.08 * i)) for i, f in enumerate(freqs)])
 
 
-def chart_trace(sec=2.4):
-    """12-month chart drawing: thin airy scanning tone moving left to right."""
-    n = t(sec)
-    tone = np.sin(2 * np.pi * 1174.7 * n + 0.6 * np.sin(2 * np.pi * 5 * n)) * 0.35
-    air = onepole_lp(rng.standard_normal(len(n)), 3000) - onepole_lp(rng.standard_normal(len(n)), 900)
-    env = np.minimum(1, n / 0.35) * np.minimum(1, (sec - n) / 0.6)
-    return pan_lr((tone + air * 0.25) * env)
+def chart_trace(sec=2.4, chart_path=None):
+    """12-month chart drawing: a "data melody" — one soft pluck per month, pitch from the real
+    monthly median price (data/day01.chart.json), quantized to D minor pentatonic, panned L→R."""
+    path = chart_path or os.path.join(os.path.dirname(__file__), "..", "data", "day01.chart.json")
+    series = json.load(open(path))["series"]
+    months = {}
+    for pt in series:
+        months.setdefault(pt["date"][:7], []).append(pt["rub"])
+    prices = [float(np.mean(v)) for _, v in sorted(months.items())][-12:]
+    lo, hi = min(prices), max(prices)
+    scale = [146.83, 174.61, 196.0, 220.0, 261.63, 293.66, 349.23, 392.0, 440.0, 523.25]
+    ev = []
+    for i, pr in enumerate(prices):
+        f = scale[round((pr - lo) / (hi - lo) * (len(scale) - 1))]
+        ev.append((0.15 + i * (sec - 0.5) / (len(prices) - 1), note(f, 0.5, decay=9, partials=((1, 1.0), (2.0, 0.25), (3.0, 0.08))) * 0.6))
+    mono = place(sec + 0.5, ev)
+    return pan_lr(mono, -0.6, 0.6)
 
 
 def ladder_run(sec=2.3):
