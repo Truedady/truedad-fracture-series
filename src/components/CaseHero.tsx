@@ -2,13 +2,13 @@ import React from 'react';
 import {Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {C} from '../brand/tokens';
 
-/** The real CS2 case render (cut from the inventory screenshot) presented as a floating 2.5D hero. */
-export const CaseHero: React.FC<{src: string; width: number; t: number; sweep: number}> = ({src, width, t, sweep}) => {
+/** The case render (transparent PNG cut-out) presented as a floating 2.5D hero. `aspect` = height / width of the PNG. */
+export const CaseHero: React.FC<{src: string; width: number; aspect: number; t: number; sweep: number}> = ({src, width, aspect, t, sweep}) => {
   const frame = useCurrentFrame();
   const ry = -16 + 10 * t + Math.sin(frame / 22) * 2.5;
   const rx = 6 + Math.sin(frame / 31) * 1.5;
   const floatY = Math.sin(frame / 18) * 8;
-  const h = width * (405 / 655);
+  const h = width * aspect;
   const url = staticFile(src);
   const sx = interpolate(sweep, [0, 1], [-60, 160]);
   return (

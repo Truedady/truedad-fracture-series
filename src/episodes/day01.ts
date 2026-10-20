@@ -78,7 +78,7 @@ export const day01: Episode = {
   // Sparse, quiet sound design: only on meaning, never competing with the voice.
   sfx: [
     // Charts — each graph has its own sound
-    {at: 0.0, file: 'chart-market-fall.wav', volume: 0.13}, // red Steam curve falls
+    {at: 0.0, file: 'chart-market-fall.wav', volume: 0.12}, // red Steam curve falls: dark noise down-sweep
     {at: 1.1, file: 'chart-ladder-rise.wav', volume: 0.09}, // gold ladder grows
     {at: 6.45, file: 'chart-trace.wav', volume: 0.08}, // 12-month chart draws
     {at: 16.68, file: 'chart-bar-20.wav', volume: 0.09}, // bar 20

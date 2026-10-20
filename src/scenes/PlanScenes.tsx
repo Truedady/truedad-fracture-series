@@ -57,8 +57,8 @@ export const CaseHeroScene: React.FC<SceneProps> = ({ep, start, dur}) => {
       <div style={{position: 'absolute', left: SAFE.left, top: 250}}>
         <Kicker t={tIn}>Выбранный актив</Kicker>
       </div>
-      <div style={{position: 'absolute', left: 130, top: 420}}>
-        <CaseHero src="assets/derived/case_cutout.png" width={820} t={tIn} sweep={sweep} />
+      <div style={{position: 'absolute', left: 120, top: 400}}>
+        <CaseHero src="assets/derived/case_cutout.png" width={840} aspect={905 / 1386} t={tIn} sweep={sweep} />
       </div>
       <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1000}}>
         <MaskLine t={title}>

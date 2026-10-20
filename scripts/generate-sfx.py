@@ -85,13 +85,15 @@ def pan_lr(x, start=-0.8, end=0.8):
     return np.stack([x * np.sqrt((1 - p) / 2), x * np.sqrt((1 + p) / 2)], 1)
 
 
-def market_fall(sec=1.1):
-    """Red Steam curve falling: exponential pitch glide down + soft low thump."""
-    n = t(sec)
-    f = 880 * (220 / 880) ** (n / sec)
-    glide = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-n * 2.2) * (1 - np.exp(-n * 200))
-    thump = np.sin(2 * np.pi * np.cumsum(70 * np.exp(-n * 6) + 40) / SR) * np.exp(-n * 7) * 0.6
-    return glide * 0.7 + thump
+def market_fall(sec=1.4):
+    """Red Steam curve falling: cinematic down-sweep — filtered noise closing from bright to dark, plus a soft sub."""
+    n = t(sec); p = n / sec
+    noise = rng.standard_normal(len(n))
+    cutoff = 150 + 3800 * (1 - p) ** 2.2
+    sweep = onepole_lp(noise, cutoff) - onepole_lp(noise, cutoff * 0.15)
+    sweep *= (1 - np.exp(-n * 60)) * np.exp(-n * 2.2)
+    sub = np.sin(2 * np.pi * 48 * n) * (1 - np.exp(-n * 40)) * np.exp(-n * 3.0) * 0.55
+    return sweep + sub
 
 
 def ladder_rise():
