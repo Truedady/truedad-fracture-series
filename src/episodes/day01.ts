@@ -77,12 +77,21 @@ export const day01: Episode = {
   },
   // Sparse, quiet sound design: only on meaning, never competing with the voice.
   sfx: [
-    {at: 0.0, file: 'impact.wav', volume: 0.14}, // hook
-    {at: 1.0, file: 'whoosh.wav', volume: 0.06}, // camera move to «я покупаю»
+    // Charts — each graph has its own sound
+    {at: 0.0, file: 'chart-market-fall.wav', volume: 0.13}, // red Steam curve falls
+    {at: 1.1, file: 'chart-ladder-rise.wav', volume: 0.09}, // gold ladder grows
+    {at: 6.45, file: 'chart-trace.wav', volume: 0.08}, // 12-month chart draws
+    {at: 16.68, file: 'chart-bar-20.wav', volume: 0.09}, // bar 20
+    {at: 17.72, file: 'chart-bar-25.wav', volume: 0.09}, // bar 25
+    {at: 19.04, file: 'chart-bar-30.wav', volume: 0.09}, // bar 30
+    {at: 19.72, file: 'chart-ladder-run.wav', volume: 0.07}, // cascade to 165
+    {at: 22.4, file: 'chart-cumulative.wav', volume: 0.09}, // cumulative curve, bell on «…пять» (25.26)
+    {at: 26.45, file: 'chart-mini-down.wav', volume: 0.08}, // market mini-chart ↓
+    {at: 27.55, file: 'chart-mini-up.wav', volume: 0.08}, // purchases mini-ladder ↑
+    // Other accents
     {at: 4.38, file: 'tick.wav', volume: 0.08}, // −38 %
     {at: 11.14, file: 'whoosh.wav', volume: 0.05}, // into the experiment
     {at: 14.55, file: 'whoosh-short.wav', volume: 0.06}, // case reveal
-    {at: 25.26, file: 'impact.wav', volume: 0.1}, // 2 775 lands
     {at: 29.38, file: 'whoosh.wav', volume: 0.05}, // into the real purchase
     {at: 30.9, file: 'confirm.wav', volume: 0.09}, // «куплены»
     {at: 42.62, file: 'tick.wav', volume: 0.06}, // follow cue
