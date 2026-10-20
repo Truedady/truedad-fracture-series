@@ -6,3 +6,7 @@ dist/
 !.env.example
 .DS_Store
 *.log
+# Source media lives in TrueDad_Fracture_Remotion_Kit.zip -> run scripts/fetch-assets.sh
+public/assets/voiceover-day01.mp3
+public/assets/footage-curated.mp4
+public/assets/proof/

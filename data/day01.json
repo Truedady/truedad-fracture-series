@@ -16,5 +16,24 @@
   "steamAskSnapshotLabel": "Observed asking price in footage, NOT actual purchase price",
   "marketOffersSnapshotApprox": 172000,
   "marketSnapshotTime": "Snapshot from user-supplied video; not a live quote",
-  "disclaimer": "Never invent fills, returns, volumes or prices"
+  "disclaimer": "Never invent fills, returns, volumes or prices",
+  "purchaseTotalUsd": 9.6,
+  "purchaseTotalUsdSource": "Spoken in voiceover (31.3-33.4s) and shown in TrueSkins portfolio capture (footage-curated.mp4 @60.5s): 20 x 0.48 USD = 9.6 USD (user-entered portfolio values)",
+  "averageBuyPriceUsd": 0.48,
+  "steamBuyOrderRub": {
+    "pricePerItem": 40.3,
+    "quantity": 20,
+    "maximumTotal": 806,
+    "status": "Steam dialog: 'Success! Your buy order has been placed' (footage @28.3s); maximum, not an audited receipt"
+  },
+  "inventoryConfirmed": 20,
+  "inventorySource": "CS2 inventory capture: 20 x Fracture Case tiles, item navigator 1/20 (footage @61-71s)",
+  "steamMedianChart": {
+    "peakRub": 88.1,
+    "peakDate": "2026-04-12",
+    "lastRub": 44.7,
+    "lastDate": "2026-10-20",
+    "source": "data/day01.chart.json, digitized from steam_chart.jpg"
+  },
+  "sihMonthChangeLabel": "-38% за месяц (SIH widget on Steam listing, EUR price, footage @0-3.5s)"
 }
