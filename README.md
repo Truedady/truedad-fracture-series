@@ -29,3 +29,12 @@ Hook: market decline vs progressively larger daily purchases. Show real evidence
 
 ## Publishing
 The GitHub repository is public: avoid secrets, private screen captures, authentication tokens, personally identifying information or sensitive account details.
+
+## TrueDad News template
+Reusable vertical news format in `src/news/`: `TrueDadNews.tsx` (shell), `primitives.tsx` (camera over real footage,
+source-space highlights, word captions, headers, Telegram icon), `brand.ts` (tokens, layout, fonts from `public/fonts`).
+A new story = one `NewsEpisode` config in `src/news/episodes/` + footage/voice in `public/news/<id>/` + word timings in
+`data/news/<id>.words.json`, registered in `src/root.tsx`.
+
+- Episode 01 — Evil Geniuses: `npm run render:news-eg01` · notes in `docs/news/EVIL_GENIUSES_01.md`
+- Sandboxed render without Chrome download: `REMOTION_BROWSER=/path/to/headless_shell npm run render:news-eg01`
