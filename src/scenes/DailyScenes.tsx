@@ -1,6 +1,6 @@
 import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
-import {Digits, Kicker, MaskLine, SceneShell} from '../brand/primitives';
+import {Digits, MaskLine, SceneShell} from '../brand/primitives';
 import {C, F, SAFE} from '../brand/tokens';
 import {CaseHero} from '../components/CaseHero';
 import {CompareCard} from '../components/CompareCard';
@@ -24,14 +24,6 @@ const useWin = (start: number) => {
 
 const Stage: React.FC<{ep: Episode; clip: StageClip; start: number; overlay?: Parameters<typeof FootageStage>[0]['overlay']}> = ({ep, clip, start, overlay}) => (
   <FootageStage footage={ep.footage} fromSec={clip.from} rate={clip.rate} start={start} shots={clip.shots} spots={clip.spots} overlay={overlay} />
-);
-
-const Top: React.FC<{children: React.ReactNode; t?: number; color?: string}> = ({children, t = 1, color}) => (
-  <div style={{position: 'absolute', left: SAFE.left, top: 236}}>
-    <Kicker t={t} color={color}>
-      {children}
-    </Kicker>
-  </div>
 );
 
 const Pill: React.FC<{t: number; children: React.ReactNode; color?: string; style?: React.CSSProperties}> = ({t, children, color = C.gold, style}) => (
@@ -77,7 +69,6 @@ export const DailyHook: React.FC<SceneProps> = ({ep, start, dur}) => {
         start={start}
         overlay={() => (
           <>
-            <Top t={w(-1, 4.04, 1)}>CS2 · {ep.caseName}</Top>
             {/* Beat 1: no drops — the real Steam page dimmed behind the case render, case centred */}
             <div style={{position: 'absolute', inset: 0, opacity: head, background: 'radial-gradient(70% 40% at 50% 30%, rgba(11,14,19,0.7), rgba(11,14,19,0.9) 60%, rgba(11,14,19,0.96))'}} />
             <div style={{position: 'absolute', left: 130, top: 420, opacity: head, transform: `scale(${1 - 0.06 * (1 - head)})`}}>
@@ -125,7 +116,6 @@ export const DailyIntro: React.FC<SceneProps> = ({ep, start, dur}) => {
         start={start}
         overlay={() => (
           <>
-            <Top t={w(start)}>Инвестиционный эксперимент</Top>
             <div style={{position: 'absolute', left: SAFE.left, top: 300, display: 'flex', alignItems: 'flex-end', gap: 26}}>
               <div style={{fontFamily: F.display, fontWeight: 800, fontSize: 96, color: C.ivory, lineHeight: 1, paddingBottom: 26, opacity: w(start + 0.1)}}>ДЕНЬ</div>
               <div
@@ -166,7 +156,6 @@ export const DailyMarket: React.FC<SceneProps> = ({ep, start, dur}) => {
         start={start}
         overlay={() => (
           <>
-            <Top t={w(start)}>Steam Market · за сутки</Top>
             <CompareCard
               start={start}
               show={c.from172 - 0.4}
@@ -216,7 +205,6 @@ export const DailyOrder: React.FC<SceneProps> = ({ep, start, dur}) => {
         start={start}
         overlay={() => (
           <>
-            <Top t={w(start)}>Steam · Place Buy Order</Top>
             <CompareCard
               start={start}
               show={c.orderPrice}
@@ -251,7 +239,6 @@ export const DailyMyOrder: React.FC<SceneProps> = ({ep, start, dur}) => {
         start={start}
         overlay={() => (
           <>
-            <Top t={w(start)}>Мой ордер · активен</Top>
             <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1150, display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start'}}>
               <Pill t={w(start + 0.5)}>
                 <span style={{fontFamily: F.mono, color: C.gold}}>{d.today.qty} шт.</span> × <span style={{fontFamily: F.mono}}>{fmt2(d.today.orderPrice)} ₽</span>
@@ -279,7 +266,6 @@ export const DailySuccess: React.FC<SceneProps> = ({ep, start, dur}) => {
         start={start}
         overlay={() => (
           <>
-            <Top t={w(start)}>Объём растёт</Top>
             <div style={{position: 'absolute', left: 0, right: 0, top: 1110, display: 'flex', justifyContent: 'center'}}>
               <Pill t={w(start + 0.25)}>
                 <span style={{width: 40, height: 40, borderRadius: 40, background: C.gold, color: C.canvas, display: 'grid', placeItems: 'center', fontSize: 26}}>✓</span>
@@ -323,7 +309,6 @@ export const DailyInventory: React.FC<SceneProps> = ({ep, start, dur}) => {
         start={start}
         overlay={(toScreen) => (
           <>
-            <Top t={w(start)}>CS2 · инвентарь · по новизне</Top>
             {Array.from({length: nNew + nOld}, (_, i) => {
               const isNew = i < nNew;
               const t = isNew ? newT(i) : oldT(i - nNew);
@@ -414,7 +399,6 @@ export const DailyForecast: React.FC<SceneProps> = ({ep, start, dur}) => {
         start={start}
         overlay={() => (
           <>
-            <Top t={w(start)}>Твой прогноз · через месяц</Top>
             <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 940, display: 'flex', flexDirection: 'column', gap: 14}}>
               {row(w(c.pricier - 0.1), C.gold, '↑', 'Будет дороже')}
               {row(w(c.cheaperFc - 0.1), C.loss, '↓', 'Рынок упадёт — дешевле')}

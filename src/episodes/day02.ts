@@ -29,6 +29,7 @@ export const day02: Episode = {
   footage: {src: 'assets/day02/footage-1080p.mp4', coordW: 1600, coordH: 900},
   clips: {},
   captions: captions.pages,
+  hudProgress: false, // author: header shows only TRUEDAD + case/day chip
   captionY: 1500, // lower caption block: content uses the screen down to ~1470
   beats: {
     hook: 0,

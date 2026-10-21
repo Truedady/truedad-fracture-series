@@ -55,7 +55,7 @@ export const FractureEpisode: React.FC<{ep: Episode; scenes: SceneList}> = ({ep,
           </Sequence>
         );
       })}
-      <Hud day={ep.day} totalDays={ep.totalDays} caseName={ep.caseName} />
+      <Hud day={ep.day} totalDays={ep.totalDays} caseName={ep.caseName} progress={ep.hudProgress ?? true} />
       <AbsoluteFill
         style={{
           background: `linear-gradient(to bottom, transparent ${((capY - 140) / H) * 100}%, rgba(11,14,19,0.82) ${((capY + 90) / H) * 100}%, rgba(11,14,19,0.82) ${((capY + 320) / H) * 100}%, transparent 100%)`,

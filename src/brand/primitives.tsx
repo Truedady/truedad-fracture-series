@@ -219,7 +219,7 @@ export const SceneShell: React.FC<{children: React.ReactNode; dur: number; enter
 };
 
 /** Persistent top HUD: wordmark + episode chip + thin episode progress. */
-export const Hud: React.FC<{day: number; totalDays: number; caseName: string}> = ({day, totalDays, caseName}) => {
+export const Hud: React.FC<{day: number; totalDays: number; caseName: string; progress?: boolean}> = ({day, totalDays, caseName, progress = true}) => {
   const frame = useCurrentFrame();
   const {durationInFrames} = useVideoConfig();
   return (
@@ -248,9 +248,11 @@ export const Hud: React.FC<{day: number; totalDays: number; caseName: string}> =
           {caseName.toUpperCase()} · ДЕНЬ {String(day).padStart(2, '0')}/{totalDays}
         </div>
       </div>
-      <div style={{marginTop: 22, height: 3, background: '#1E2530', borderRadius: 3, overflow: 'hidden'}}>
-        <div style={{width: `${((frame + 1) / durationInFrames) * 100}%`, height: '100%', background: `linear-gradient(90deg, ${C.gold}66, ${C.gold})`}} />
-      </div>
+      {progress && (
+        <div style={{marginTop: 22, height: 3, background: '#1E2530', borderRadius: 3, overflow: 'hidden'}}>
+          <div style={{width: `${((frame + 1) / durationInFrames) * 100}%`, height: '100%', background: `linear-gradient(90deg, ${C.gold}66, ${C.gold})`}} />
+        </div>
+      )}
     </div>
   );
 };

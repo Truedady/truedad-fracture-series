@@ -48,4 +48,6 @@ export type Episode = {
   daily?: DailyUpdate;
   /** Top of the caption block (px). Default SAFE.captionY. */
   captionY?: number;
+  /** Show the episode progress bar under the HUD (Day 01 style). Default true. */
+  hudProgress?: boolean;
 };
