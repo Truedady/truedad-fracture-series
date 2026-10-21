@@ -1,8 +1,9 @@
 import captions from '../../data/day02.captions.json';
 import type {Episode} from './types';
 
-// Footage: author's 4K recording 1021.mp4 (3840×2160, 60 fps). Rects are in a 1600×900
-// reference space (= source / 2.4), measured on frames of the recording.
+// Footage: author's 4K recording 1021.mp4 (3840×2160, 60 fps), rendered from a one-off
+// 1080p/30 fps copy (scripts/fetch-day.sh --prep). Rects are in a 1600×900 reference space
+// (= 4K / 2.4 = 1080p / 1.2). Keep rect width ≥ ~450 so the 1080p source is upscaled ≤ 2×.
 // All times below are word onsets from captions/day02.asr-raw.json.
 
 const R = {
@@ -25,9 +26,10 @@ export const day02: Episode = {
   dailyStep: 5,
   voiceover: 'assets/day02/1021.1.MP3',
   voDurationSec: 41.822,
-  footage: {src: 'assets/day02/1021.mp4', coordW: 1600, coordH: 900},
+  footage: {src: 'assets/day02/footage-1080p.mp4', coordW: 1600, coordH: 900},
   clips: {},
   captions: captions.pages,
+  captionY: 1500, // lower caption block: content uses the screen down to ~1470
   beats: {
     hook: 0,
     intro: 5.92, // «итак, сегодня второй день»
@@ -76,31 +78,27 @@ export const day02: Episode = {
         from: 28.05,
         rate: 0.45,
         shots: [
-          {at: 0, rect: {x: 442, y: 132, w: 300, h: 533}},
-          {at: 1.62, rect: {x: 467, y: 300, w: 260, h: 462}, move: 10},
-          {at: 4.04, rect: {x: 420, y: 140, w: 760, h: 560}, cy: 800, move: 18},
+          {at: 0, rect: {x: 372, y: 100, w: 450, h: 800}},
+          {at: 4.04, rect: {x: 420, y: 140, w: 760, h: 560}, cy: 860, move: 18},
         ],
-        spots: [
-          {from: -1, to: 1.62, rect: R.caseImg, pad: 10},
-          {from: 1.75, to: 4.1, rect: R.lotsHeader},
-        ],
+        spots: [{from: 1.75, to: 4.1, rect: R.lotsHeader}],
       },
       // Listing top, static 40.9–46.2 s
       intro: {
         from: 41.0,
         rate: 0.6,
         shots: [
-          {at: 5.92, rect: {x: 420, y: 135, w: 760, h: 240}, cy: 980},
-          {at: 8.2, rect: {x: 470, y: 140, w: 440, h: 200}, cy: 980, move: 20},
+          {at: 5.92, rect: {x: 420, y: 135, w: 760, h: 300}, cy: 1060},
+          {at: 8.2, rect: {x: 460, y: 140, w: 470, h: 260}, cy: 1060, move: 20},
         ],
       },
       market: {
         from: 28.05,
         rate: 0.22,
         shots: [
-          {at: 9.12, rect: {x: 440, y: 330, w: 320, h: 569}},
-          {at: 11.0, rect: {x: 470, y: 360, w: 260, h: 462}, move: 22},
-          {at: 17.3, rect: {x: 470, y: 380, w: 260, h: 462}, move: 16},
+          {at: 9.12, rect: {x: 420, y: 420, w: 520, h: 400}, cy: 720},
+          {at: 11.0, rect: {x: 450, y: 440, w: 470, h: 360}, cy: 720, move: 22},
+          {at: 17.3, rect: {x: 450, y: 452, w: 470, h: 360}, cy: 720, move: 16},
         ],
         spots: [
           {from: 9.88, to: 17.36, rect: R.lotsHeader},
@@ -111,7 +109,7 @@ export const day02: Episode = {
       order: {
         from: 7.6,
         rate: 0.75,
-        shots: [{at: 21.5, rect: {x: 830, y: 120, w: 300, h: 533}}],
+        shots: [{at: 21.5, rect: {x: 640, y: 200, w: 470, h: 360}, cy: 720}],
         spots: [{from: 22.0, to: 25.34, rect: R.dialogFields}],
       },
       // SIH chip "Снять ордер 25 шт. | 40.00 ₽" on the orderbook page (order is open, not filled)
@@ -119,8 +117,8 @@ export const day02: Episode = {
         from: 21.0,
         rate: 1,
         shots: [
-          {at: 25.3, rect: {x: 850, y: 540, w: 330, h: 200}, cy: 660},
-          {at: 26.6, rect: {x: 960, y: 640, w: 230, h: 100}, cy: 660, move: 22},
+          {at: 25.3, rect: {x: 700, y: 520, w: 480, h: 260}, cy: 760},
+          {at: 26.6, rect: {x: 740, y: 580, w: 450, h: 200}, cy: 760, move: 22},
         ],
         spots: [{from: 25.6, to: 28.74, rect: R.sihOrder}],
       },
@@ -128,24 +126,20 @@ export const day02: Episode = {
       success: {
         from: 16.45,
         rate: 0.72,
-        shots: [{at: 28.74, rect: {x: 496, y: 318, w: 300, h: 132}, cy: 720}],
+        shots: [{at: 28.74, rect: {x: 496, y: 250, w: 450, h: 230}, cy: 760}],
         spots: [{from: 28.95, to: 30.3, rect: R.successLine}],
       },
-      // CS2 inventory: "Новый предмет 1/25" (48.3–52 s)
+      // CS2 inventory grid, sorted by newest (static 53.6–54.6 s): 25 «Новое!» + yesterday's 20
       inventory: {
-        from: 48.95,
-        rate: 0.11, // stay on «1 / 25» until the scene ends (next-item animation starts ~49.6 s)
-        shots: [
-          {at: 30.26, rect: {x: 360, y: 210, w: 890, h: 480}, cy: 700},
-          {at: 32.4, rect: {x: 596, y: 288, w: 600, h: 340}, cy: 700, move: 20},
-        ],
-        spots: [{from: 32.66, to: 35.19, rect: R.navigator, pad: 8}],
+        from: 53.65,
+        rate: 0.19,
+        shots: [{at: 30.26, rect: {x: 46, y: 126, w: 1462, h: 780}, cy: 760}],
       },
       // Median Sale Prices — Month (static 37.2–40.4 s)
       forecast: {
         from: 37.2,
         rate: 0.45,
-        shots: [{at: 35.19, rect: {x: 425, y: 488, w: 745, h: 268}, cy: 560}],
+        shots: [{at: 35.19, rect: {x: 425, y: 470, w: 745, h: 330}, cy: 650}],
         spots: [{from: 38.95, to: 40.3, rect: R.chartEnd, pad: 4}],
       },
     },

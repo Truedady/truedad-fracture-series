@@ -46,4 +46,6 @@ export type Episode = {
   sfx: SfxCue[];
   bed: {file: string; volume: number};
   daily?: DailyUpdate;
+  /** Top of the caption block (px). Default SAFE.captionY. */
+  captionY?: number;
 };

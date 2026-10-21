@@ -125,7 +125,7 @@ export const FootageStage: React.FC<{
         {/* soft top/bottom shading so HUD and captions stay readable over bright UI */}
         {full && (
           <AbsoluteFill
-            style={{background: 'linear-gradient(to bottom, rgba(11,14,19,0.78) 0%, transparent 16%, transparent 58%, rgba(11,14,19,0.55) 70%, rgba(11,14,19,0.9) 100%)'}}
+            style={{background: 'linear-gradient(to bottom, rgba(11,14,19,0.78) 0%, transparent 16%, transparent 70%, rgba(11,14,19,0.5) 80%, rgba(11,14,19,0.88) 100%)'}}
           />
         )}
       </div>

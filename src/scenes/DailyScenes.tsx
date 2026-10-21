@@ -2,6 +2,7 @@ import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
 import {Digits, Kicker, MaskLine, SceneShell} from '../brand/primitives';
 import {C, F, SAFE} from '../brand/tokens';
+import {CaseHero} from '../components/CaseHero';
 import {CompareCard} from '../components/CompareCard';
 import {FootageStage} from '../components/FootageStage';
 import {cumulative, dailyQty} from '../components/PurchaseLadder';
@@ -78,9 +79,12 @@ export const DailyHook: React.FC<SceneProps> = ({ep, start, dur}) => {
         overlay={() => (
           <>
             <Top t={w(-1, 4.04, 1)}>CS2 · {ep.caseName}</Top>
-            {/* Beat 1: no drops */}
-            <div style={{position: 'absolute', left: 0, right: 0, top: 820, height: 420, opacity: head, background: 'linear-gradient(to bottom, transparent, rgba(11,14,19,0.92) 30%, rgba(11,14,19,0.92) 85%, transparent)'}} />
-            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 920, opacity: head}}>
+            {/* Beat 1: no drops — the real Steam page dimmed behind the case render, case centred */}
+            <div style={{position: 'absolute', inset: 0, opacity: head, background: 'radial-gradient(70% 40% at 50% 30%, rgba(11,14,19,0.7), rgba(11,14,19,0.9) 60%, rgba(11,14,19,0.96))'}} />
+            <div style={{position: 'absolute', left: 130, top: 420, opacity: head, transform: `scale(${1 - 0.06 * (1 - head)})`}}>
+              <CaseHero src="assets/derived/case_cutout.png" width={820} aspect={905 / 1386} t={1} sweep={interpolate(f, [sec(0.2), sec(1.2)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
+            </div>
+            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1150, opacity: head, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
               <div style={{fontFamily: F.text, fontWeight: 800, fontSize: 60, color: C.ivory, lineHeight: 1}}>Больше</div>
               <div style={{position: 'relative', display: 'inline-block', marginTop: 10}}>
                 <div style={{fontFamily: F.display, fontWeight: 800, fontSize: 90, color: C.ivory, letterSpacing: -2, lineHeight: 1, whiteSpace: 'nowrap'}}>НЕ ВЫПАДАЕТ</div>
@@ -88,7 +92,7 @@ export const DailyHook: React.FC<SceneProps> = ({ep, start, dur}) => {
               </div>
             </div>
             {/* Beat 2: supply keeps growing */}
-            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 960, opacity: w(1.7, 4.04)}}>
+            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1110, opacity: w(1.7, 4.04)}}>
               <div style={{fontFamily: F.mono, fontWeight: 600, fontSize: 26, letterSpacing: 3, color: C.muted}}>ЛОТОВ НА ПРОДАЖЕ · STEAM</div>
               <div style={{display: 'flex', alignItems: 'center', gap: 22, marginTop: 10}}>
                 <Digits value={Math.round(lotsV)} digitWidth={0.66} style={{fontFamily: F.display, fontWeight: 800, fontSize: 132, color: C.ivory, letterSpacing: -3, lineHeight: 1}} />
@@ -117,7 +121,7 @@ export const DailyHook: React.FC<SceneProps> = ({ep, start, dur}) => {
                 </div>
               </MaskLine>
             </div>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 1216, display: 'flex', justifyContent: 'center'}}>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 1360, display: 'flex', justifyContent: 'center'}}>
               <Pill t={w(c.month - 0.1)} style={{fontSize: 30, fontFamily: F.mono, fontWeight: 600}}>
                 30 ДНЕЙ · 20 → 165 В ДЕНЬ · {fmtInt(cumulative(ep.totalDays, ep.dailyStart, ep.dailyStep))}
               </Pill>
@@ -153,7 +157,7 @@ export const DailyIntro: React.FC<SceneProps> = ({ep, start, dur}) => {
               </div>
               <div style={{fontFamily: F.mono, fontWeight: 600, fontSize: 40, color: C.muted, paddingBottom: 30, opacity: s}}>/{ep.totalDays}</div>
             </div>
-            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 640, display: 'flex', gap: 16, opacity: w(c.secondDay + 0.4)}}>
+            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 660, display: 'flex', gap: 16, opacity: w(c.secondDay + 0.4)}}>
               <Pill t={w(c.secondDay + 0.4)} style={{fontSize: 30, fontFamily: F.mono, fontWeight: 600}} color={C.border}>
                 <span style={{color: C.muted}}>КУПЛЕНО</span> {done}
               </Pill>
@@ -196,7 +200,7 @@ export const DailyMarket: React.FC<SceneProps> = ({ep, start, dur}) => {
               countTo={c.to174End}
               delta={{at: c.plus1800, text: `▲ +${fmtInt(dLots)} · +${pct.replace(/0$/, '')} %`, color: C.gold}}
               note="Steam · 20.10 → 21.10"
-              style={{top: 940}}
+              style={{top: 1170}}
             />
             <CompareCard
               start={start}
@@ -211,7 +215,7 @@ export const DailyMarket: React.FC<SceneProps> = ({ep, start, dur}) => {
               suffix=" ₽"
               delta={{at: c.unchanged, text: dMin === 0 ? '= 0,00 ₽' : `${dMin > 0 ? '+' : '−'}${fmt2(Math.abs(dMin))} ₽`, color: C.muted}}
               note="без изменений"
-              style={{top: 940}}
+              style={{top: 1170}}
             />
           </>
         )}
@@ -247,7 +251,7 @@ export const DailyOrder: React.FC<SceneProps> = ({ep, start, dur}) => {
               suffix=" ₽"
               delta={{at: c.to40End, text: `▼ ${dOrder < 0 ? '−' : '+'}${fmt2(Math.abs(dOrder))} ₽`, color: C.ivory}}
               note="заявка, ещё не сделка"
-              style={{top: 940}}
+              style={{top: 1170}}
             />
           </>
         )}
@@ -270,7 +274,7 @@ export const DailyMyOrder: React.FC<SceneProps> = ({ep, start, dur}) => {
         overlay={() => (
           <>
             <Top t={w(start)}>Мой ордер · активен</Top>
-            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1030, display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start'}}>
+            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1150, display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start'}}>
               <Pill t={w(start + 0.5)}>
                 <span style={{fontFamily: F.mono, color: C.gold}}>{d.today.qty} шт.</span> × <span style={{fontFamily: F.mono}}>{fmt2(d.today.orderPrice)} ₽</span>
               </Pill>
@@ -298,7 +302,7 @@ export const DailySuccess: React.FC<SceneProps> = ({ep, start, dur}) => {
         overlay={() => (
           <>
             <Top t={w(start)}>Объём растёт</Top>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 960, display: 'flex', justifyContent: 'center'}}>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 1110, display: 'flex', justifyContent: 'center'}}>
               <Pill t={w(start + 0.25)}>
                 <span style={{width: 40, height: 40, borderRadius: 40, background: C.gold, color: C.canvas, display: 'grid', placeItems: 'center', fontSize: 26}}>✓</span>
                 Ордер на {d.today.qty} шт. размещён
@@ -311,14 +315,26 @@ export const DailySuccess: React.FC<SceneProps> = ({ep, start, dur}) => {
   );
 };
 
-/** 30.3–35.2 s: CS2 inventory «Новый предмет 1/25» + the 20 → 25 → 30 ladder. */
+// Inventory grid (1600×900 reference): 9 columns, sorted by newest. Today's purchase carries «Новое!».
+const TILE = {x0: 62, y0: 140, dx: 160, dy: 158, w: 144, h: 126, cols: 9};
+const tileRect = (i: number) => ({x: TILE.x0 + (i % TILE.cols) * TILE.dx, y: TILE.y0 + Math.floor(i / TILE.cols) * TILE.dy, w: TILE.w, h: TILE.h});
+
+/** 30.3–35.2 s: real CS2 inventory — yesterday's 20 and today's 25 «Новое!» cases, + the 20 → 25 → 30 ladder. */
 export const DailyInventory: React.FC<SceneProps> = ({ep, start, dur}) => {
   const d = ep.daily!;
   const c = ep.cues;
   const w = useWin(start);
+  const f = useCurrentFrame() + sec(start);
+  const nNew = d.today.qty;
+  const nOld = d.yesterday.qty;
+  // reveal: yesterday's tiles on «двадцать», today's tiles one by one, landing on «двадцать пять»
+  const oldT = (k: number) => interpolate(f, [sec(c.y20) + k * 0.6, sec(c.y20) + k * 0.6 + 6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const newAt = (k: number) => sec(c.t25 - 0.9) + (k / (nNew - 1)) * (sec(c.t25 + 0.45) - sec(c.t25 - 0.9));
+  const newT = (k: number) => interpolate(f, [newAt(k), newAt(k) + 5], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const lit = Array.from({length: nNew}, (_, k) => newT(k)).filter((t) => t > 0.5).length;
   const steps: Array<{day: number; at: number; state: 'done' | 'today' | 'plan'}> = [
     {day: ep.day - 1, at: c.y20, state: 'done'},
-    {day: ep.day, at: c.t25, state: 'today'},
+    {day: ep.day, at: c.t25 - 0.9, state: 'today'},
     {day: ep.day + 1, at: c.tomorrow30, state: 'plan'},
   ];
   return (
@@ -327,13 +343,37 @@ export const DailyInventory: React.FC<SceneProps> = ({ep, start, dur}) => {
         ep={ep}
         clip={d.stages.inventory}
         start={start}
-        overlay={() => (
+        overlay={(toScreen) => (
           <>
-            <Top t={w(start)}>CS2 · инвентарь</Top>
-            <div style={{position: 'absolute', left: SAFE.left - 20, right: SAFE.right - 20, top: 1112, display: 'flex', gap: 14}}>
+            <Top t={w(start)}>CS2 · инвентарь · по новизне</Top>
+            {Array.from({length: nNew + nOld}, (_, i) => {
+              const isNew = i < nNew;
+              const t = isNew ? newT(i) : oldT(i - nNew);
+              if (t <= 0) return null;
+              const r = toScreen(tileRect(i));
+              return (
+                <div
+                  key={i}
+                  style={{
+                    position: 'absolute',
+                    left: r.x,
+                    top: r.y,
+                    width: r.w,
+                    height: r.h,
+                    borderRadius: 8,
+                    border: `${isNew ? 3 : 2}px solid ${isNew ? C.gold : C.ivory}`,
+                    boxShadow: isNew ? `0 0 14px ${C.gold}aa` : 'none',
+                    opacity: t * (isNew ? 1 : 0.75),
+                    transform: `scale(${1.15 - 0.15 * t})`,
+                  }}
+                />
+              );
+            })}
+            <div style={{position: 'absolute', left: SAFE.left - 20, right: SAFE.right - 20, top: 1110, display: 'flex', gap: 14}}>
               {steps.map((s) => {
                 const t = w(s.at - 0.08);
                 const gold = s.state === 'today';
+                const value = s.state === 'today' ? lit : dailyQty(s.day, ep.dailyStart, ep.dailyStep);
                 return (
                   <div
                     key={s.day}
@@ -348,11 +388,9 @@ export const DailyInventory: React.FC<SceneProps> = ({ep, start, dur}) => {
                     }}
                   >
                     <div style={{fontFamily: F.mono, fontWeight: 600, fontSize: 22, letterSpacing: 2, color: gold ? C.canvas : C.muted}}>
-                      ДЕНЬ {String(s.day).padStart(2, '0')} {s.state === 'done' ? '✓' : s.state === 'plan' ? '· ПЛАН' : ''}
+                      ДЕНЬ {String(s.day).padStart(2, '0')} {s.state === 'done' ? '✓' : s.state === 'plan' ? '· ПЛАН' : '· НОВЫЕ'}
                     </div>
-                    <div style={{fontFamily: F.display, fontWeight: 800, fontSize: 72, color: gold ? C.canvas : C.ivory, lineHeight: 1.05}}>
-                      {dailyQty(s.day, ep.dailyStart, ep.dailyStep)}
-                    </div>
+                    <div style={{fontFamily: F.display, fontWeight: 800, fontSize: 92, color: gold ? C.canvas : C.ivory, lineHeight: 1.05}}>{value}</div>
                   </div>
                 );
               })}
@@ -399,11 +437,11 @@ export const DailyForecast: React.FC<SceneProps> = ({ep, start, dur}) => {
         overlay={() => (
           <>
             <Top t={w(start)}>Твой прогноз · через месяц</Top>
-            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 790, display: 'flex', flexDirection: 'column', gap: 14}}>
+            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 940, display: 'flex', flexDirection: 'column', gap: 14}}>
               {row(w(c.pricier - 0.1), C.gold, '↑', 'Будет дороже')}
               {row(w(c.cheaperFc - 0.1), C.loss, '↓', 'Рынок упадёт — дешевле')}
             </div>
-            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1092, opacity: w(c.comment - 0.05), transform: `translateY(${(1 - w(c.comment - 0.05)) * 30}px)`}}>
+            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1250, opacity: w(c.comment - 0.05), transform: `translateY(${(1 - w(c.comment - 0.05)) * 30}px)`}}>
               <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 26px', borderRadius: 20, background: C.card, border: `1.5px solid ${C.border}`}}>
                 <div>
                   <div style={{fontFamily: F.mono, fontSize: 22, letterSpacing: 2, color: C.muted}}>ЗАВТРА · ДЕНЬ {String(ep.day + 1).padStart(2, '0')}/{ep.totalDays}</div>

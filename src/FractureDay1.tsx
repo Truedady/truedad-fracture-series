@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Sequence} from 'remotion';
 import {ensureFonts} from './brand/fonts';
 import {Backdrop, Finish, Hud} from './brand/primitives';
-import {C} from './brand/tokens';
+import {C, H, SAFE} from './brand/tokens';
 import {CaptionLayer} from './components/CaptionLayer';
 import {SoundDesign} from './components/SoundDesign';
 import {day01} from './episodes/day01';
@@ -40,6 +40,7 @@ export const episodeFrames = (ep: Episode) => Math.ceil(ep.voDurationSec * 30);
 /** Shared episode shell: backdrop, scenes on beats, HUD, captions, grain, sound. */
 export const FractureEpisode: React.FC<{ep: Episode; scenes: SceneList}> = ({ep, scenes}) => {
   const end = episodeFrames(ep);
+  const capY = ep.captionY ?? SAFE.captionY;
   return (
     <AbsoluteFill style={{background: C.canvas, overflow: 'hidden'}}>
       <Backdrop />
@@ -55,8 +56,12 @@ export const FractureEpisode: React.FC<{ep: Episode; scenes: SceneList}> = ({ep,
         );
       })}
       <Hud day={ep.day} totalDays={ep.totalDays} caseName={ep.caseName} />
-      <AbsoluteFill style={{background: 'linear-gradient(to bottom, transparent 62%, rgba(11,14,19,0.82) 74%, rgba(11,14,19,0.82) 86%, transparent 100%)'}} />
-      <CaptionLayer pages={ep.captions} />
+      <AbsoluteFill
+        style={{
+          background: `linear-gradient(to bottom, transparent ${((capY - 140) / H) * 100}%, rgba(11,14,19,0.82) ${((capY + 90) / H) * 100}%, rgba(11,14,19,0.82) ${((capY + 320) / H) * 100}%, transparent 100%)`,
+        }}
+      />
+      <CaptionLayer pages={ep.captions} y={capY} />
       <Finish />
       <SoundDesign ep={ep} />
     </AbsoluteFill>
