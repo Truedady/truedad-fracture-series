@@ -134,10 +134,10 @@ export const day02: Episode = {
       // CS2 inventory: "Новый предмет 1/25" (48.3–52 s)
       inventory: {
         from: 48.95,
-        rate: 0.18, // stay on «1 / 25» (next-item click at ~49.9 s)
+        rate: 0.11, // stay on «1 / 25» until the scene ends (next-item animation starts ~49.6 s)
         shots: [
           {at: 30.26, rect: {x: 360, y: 210, w: 890, h: 480}, cy: 700},
-          {at: 32.4, rect: {x: 760, y: 300, w: 480, h: 330}, cy: 700, move: 20},
+          {at: 32.4, rect: {x: 596, y: 288, w: 600, h: 340}, cy: 700, move: 20},
         ],
         spots: [{from: 32.66, to: 35.19, rect: R.navigator, pad: 8}],
       },
