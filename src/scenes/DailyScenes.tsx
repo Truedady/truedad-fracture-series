@@ -67,7 +67,6 @@ export const DailyHook: React.FC<SceneProps> = ({ep, start, dur}) => {
   const c = ep.cues;
   const w = useWin(start);
   const f = useCurrentFrame() + sec(start);
-  const lotsV = interpolate(f, [sec(1.75), sec(c.grows + 0.2)], [d.yesterday.lots, d.today.lots], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: EASE_OUT});
   const strike = interpolate(f, [sec(c.notDrop), sec(c.notDrop) + 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: EASE_OUT});
   const head = w(-1, 1.62, 1, 6);
   return (
@@ -91,28 +90,7 @@ export const DailyHook: React.FC<SceneProps> = ({ep, start, dur}) => {
                 <div style={{position: 'absolute', left: -6, top: '52%', height: 9, width: `${strike * 104}%`, background: C.loss, borderRadius: 6, transform: 'rotate(-2deg)'}} />
               </div>
             </div>
-            {/* Beat 2: supply keeps growing */}
-            <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1110, opacity: w(1.7, 4.04)}}>
-              <div style={{fontFamily: F.mono, fontWeight: 600, fontSize: 26, letterSpacing: 3, color: C.muted}}>ЛОТОВ НА ПРОДАЖЕ · STEAM</div>
-              <div style={{display: 'flex', alignItems: 'center', gap: 22, marginTop: 10}}>
-                <Digits value={Math.round(lotsV)} digitWidth={0.66} style={{fontFamily: F.display, fontWeight: 800, fontSize: 132, color: C.ivory, letterSpacing: -3, lineHeight: 1}} />
-                <div
-                  style={{
-                    fontFamily: F.display,
-                    fontWeight: 800,
-                    fontSize: 46,
-                    color: C.canvas,
-                    background: C.gold,
-                    borderRadius: 14,
-                    padding: '8px 16px',
-                    opacity: w(c.grows - 0.05),
-                    transform: `scale(${0.7 + 0.3 * w(c.grows - 0.05)})`,
-                  }}
-                >
-                  ▲
-                </div>
-              </div>
-            </div>
+            {/* Beat 2: supply keeps growing — real footage only, full-screen, lots line spotlighted */}
             {/* Beat 3: the experiment */}
             <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 268, opacity: w(4.2)}}>
               <MaskLine t={w(4.2)}>

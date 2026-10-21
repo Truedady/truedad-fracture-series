@@ -79,6 +79,7 @@ export const day02: Episode = {
         rate: 0.45,
         shots: [
           {at: 0, rect: {x: 372, y: 100, w: 450, h: 800}},
+          {at: 1.62, rect: {x: 372, y: 78, w: 450, h: 800}, move: 12}, // full-screen; ad banner (≤95) and taskbar (≥868) stay under the edge shading
           {at: 4.04, rect: {x: 420, y: 140, w: 760, h: 560}, cy: 860, move: 18},
         ],
         spots: [{from: 1.75, to: 4.1, rect: R.lotsHeader}],
