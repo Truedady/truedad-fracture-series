@@ -1,59 +1,16 @@
-"""Build caption pages from the word-level ASR timing sheet.
+"""Build caption pages from a word-level ASR timing sheet and a display script.
 
-Input: captions/day01.asr-raw.json (GigaAM-v2 RNNT via sherpa-onnx, cross-checked
-with Zipformer-ru). Each display token below consumes N spoken words, so text
-stays faithful to the audio while numbers are rendered as digits.
-'|' starts a new caption page. '*' marks a key token (gold highlight).
+Usage: python3 scripts/build-captions.py captions/dayNN.asr-raw.json captions/dayNN.script.txt data/dayNN.captions.json
+
+The ASR sheet comes from sherpa-onnx (GigaAM-v2 RNNT, cross-checked with Zipformer-ru).
+In the script each display token `text:N` consumes N spoken words, so captions stay
+faithful to the audio while numbers are rendered as digits. '|' starts a new caption page,
+'*' marks a key token (gold highlight), '_' renders as a space.
 """
 import json, sys
 
 raw = json.load(open(sys.argv[1]))
-SCRIPT = """
-Рынок:1 *CS2:2 падает,:1 |
-а:1 я:1 решил:1 купить:1 |
-почти:1 *3_000:2 кейсов,:1 |
-пока:1 они:1 дешевеют.:1 |
-За:1 последний:1 *месяц:1 |
-большинство:1 предметов:1 |
-потеряли:1 в:1 цене.:1 |
-И:1 я:1 решил:1 проверить:1 |
-а:1 можно:1 ли:1 *заработать,:1 |
-если:1 начать:1 закупаться:1 |
-прямо:1 во:1 время:1 *падения.:1 |
-Для:1 этого:1 я:1 запускаю:1 |
-эксперимент:1 на:1 *30:1 дней.:1 |
-Выбрал:1 для:1 него:1 |
-*Fracture-кейс.:2 |
-Сегодня:1 покупаю:1 |
-первые:1 *20:1 штук,:1 |
-завтра:1 *25,:2 |
-послезавтра:1 *30.:1 |
-И:1 каждый:1 день:1 буду:1 |
-увеличивать:1 закупку:1 |
-ещё:1 на:1 *5:1 кейсов.:1 |
-В:1 итоге:1 за:1 месяц:1 |
-у:1 меня:1 накопится:1 |
-*2_775:5 кейсов.:1 |
-И:1 даже:1 если:1 |
-рынок:1 продолжит:1 *падать,:1 |
-останавливать:1 закупки:1 |
-я:1 *не:1 собираюсь.:1 |
-Итак,:1 первые:1 *20:1 кейсов:1 |
-*куплены!:1 |
-Потратил:1 я:1 на:1 них:1 |
-*$9,60:4 |
-Каждую:1 неделю:1 я:1 буду:1 |
-показывать:1 вам:1 |
-результаты:1 *портфеля,:1 |
-а:1 завтра:1 закуплю:1 |
-ещё:1 *25:2 кейсов.:1 |
-Как:1 думаешь,:1 |
-я:1 *вовремя:1 начал:1 закупаться:1 |
-или:1 просто:1 |
-*выбрасываю:1 деньги?:1 |
-Пиши:1 в:1 комментариях:1 |
-и:1 следи:1 за:1 экспериментом!:1
-"""
+SCRIPT = open(sys.argv[2], encoding="utf-8").read()
 TOKEN_END_PAD = 0.12  # token timestamps mark token starts; pad to the end of the final phoneme
 pages, cur, i = [], [], 0
 for part in SCRIPT.split():
@@ -70,5 +27,5 @@ for part in SCRIPT.split():
     i += n
 if cur: pages.append(cur)
 assert i == len(raw), f"consumed {i} of {len(raw)} words"
-json.dump({"source": "captions/day01.asr-raw.json", "pages": pages}, open(sys.argv[2], "w"), ensure_ascii=False, indent=1)
+json.dump({"source": sys.argv[1], "pages": pages}, open(sys.argv[3], "w"), ensure_ascii=False, indent=1)
 print(len(pages), "pages")

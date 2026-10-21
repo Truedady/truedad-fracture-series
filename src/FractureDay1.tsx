@@ -15,8 +15,10 @@ import type {SceneProps} from './scenes/types';
 
 ensureFonts();
 
-// Scene order is fixed for the series; each scene starts on its beat from the episode config.
-const SCENES: Array<[keyof Episode['beats'], React.FC<SceneProps>]> = [
+export type SceneList = Array<[string, React.FC<SceneProps>]>;
+
+// Day 01 launch format; each scene starts on its beat from the episode config.
+const DAY01_SCENES: SceneList = [
   ['hook', HookScene],
   ['evidence', EvidenceScene],
   ['question', QuestionScene],
@@ -35,15 +37,16 @@ const OVERLAP = 4; // frames the outgoing scene keeps playing under the incoming
 
 export const episodeFrames = (ep: Episode) => Math.ceil(ep.voDurationSec * 30);
 
-export const FractureEpisode: React.FC<{ep: Episode}> = ({ep}) => {
+/** Shared episode shell: backdrop, scenes on beats, HUD, captions, grain, sound. */
+export const FractureEpisode: React.FC<{ep: Episode; scenes: SceneList}> = ({ep, scenes}) => {
   const end = episodeFrames(ep);
   return (
     <AbsoluteFill style={{background: C.canvas, overflow: 'hidden'}}>
       <Backdrop />
-      {SCENES.map(([key, Scene], i) => {
+      {scenes.map(([key, Scene], i) => {
         const startS = ep.beats[key];
         const from = sec(startS);
-        const next = SCENES[i + 1];
+        const next = scenes[i + 1];
         const to = next ? sec(ep.beats[next[0]]) + OVERLAP : end;
         return (
           <Sequence key={key} from={from} durationInFrames={to - from} name={key} premountFor={30}>
@@ -60,4 +63,4 @@ export const FractureEpisode: React.FC<{ep: Episode}> = ({ep}) => {
   );
 };
 
-export const FractureDay1: React.FC = () => <FractureEpisode ep={day01} />;
+export const FractureDay1: React.FC = () => <FractureEpisode ep={day01} scenes={DAY01_SCENES} />;

@@ -9,8 +9,9 @@
     "render:draft": "remotion render src/index.ts FractureDay1 out/draft.mp4 --scale 0.5",
     "still": "remotion still src/index.ts FractureDay1 out/preview.png --frame 30",
     "typecheck": "tsc --noEmit -p .",
-    "captions": "python3 scripts/build-captions.py captions/day01.asr-raw.json data/day01.captions.json",
-    "sfx": "python3 scripts/generate-sfx.py 44.1"
+    "captions": "python3 scripts/build-captions.py captions/day01.asr-raw.json captions/day01.script.txt data/day01.captions.json && python3 scripts/build-captions.py captions/day02.asr-raw.json captions/day02.script.txt data/day02.captions.json",
+    "sfx": "python3 scripts/generate-sfx.py 44.1",
+    "render:day02": "remotion render src/index.ts FractureDay2 out/fracture-day02.mp4 --codec h264 --crf 17 --pixel-format yuv420p --audio-codec aac --audio-bitrate 256k --timeout 120000 && bash scripts/finalize.sh out/fracture-day02.mp4 0.0 2.6 14.9 23.8 32.9 41.0"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",

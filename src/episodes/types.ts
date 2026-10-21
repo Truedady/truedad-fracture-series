@@ -8,6 +8,23 @@ export type Footage = {src: string; coordW: number; coordH: number};
 /** Where each real shot lives in the footage file (seconds) and how fast to play it. */
 export type Clip = {from: number; rate?: number};
 
+/** Camera keyframe / spotlight over the recording (see components/FootageStage). */
+export type ShotKey = {at: number; rect: Rect; cy?: number; move?: number};
+export type SpotKey = {from: number; to: number; rect: Rect; pad?: number};
+
+/** A real shot from the recording: where it starts in the file, its camera path and highlights. */
+export type StageClip = Clip & {shots: ShotKey[]; spots?: SpotKey[]};
+
+/** Day-over-day market numbers, read from the recordings (never estimated). */
+export type MarketDay = {lots: number; minPrice: number; orderPrice: number; qty: number};
+
+/** Format of daily update episodes (day 2+): mostly real footage with numbers laid over it. */
+export type DailyUpdate = {
+  yesterday: MarketDay;
+  today: MarketDay;
+  stages: Record<'hook' | 'intro' | 'market' | 'order' | 'myOrder' | 'success' | 'inventory' | 'forecast', StageClip>;
+};
+
 export type SfxCue = {at: number; file: string; volume: number};
 
 export type Episode = {
@@ -20,7 +37,7 @@ export type Episode = {
   voiceover: string;
   voDurationSec: number;
   footage: Footage;
-  clips: Record<'listing' | 'buyDialog' | 'buySuccess' | 'portfolio' | 'inventory', Clip>;
+  clips: Record<string, Clip>;
   captions: Caption[][];
   /** Scene boundaries in seconds, cut on spoken-word onsets from the timing sheet. */
   beats: Record<string, number>;
@@ -28,4 +45,5 @@ export type Episode = {
   cues: Record<string, number>;
   sfx: SfxCue[];
   bed: {file: string; volume: number};
+  daily?: DailyUpdate;
 };
