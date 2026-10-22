@@ -131,9 +131,17 @@ const BackgroundVideo: React.FC = () => {
 		transformOrigin: '50% 27%',
 	};
 
+	// Once the portal covers the frame this layer is hidden; skip decoding it
+	if (f >= T.portalCovered) {
+		return null;
+	}
+	// The edge-defocus copy only matters before the full defocus kicks in
+	const showEdge = f < T.dimEnd + 2;
+
 	return (
 		<AbsoluteFill style={{filter: `blur(${blur}px) brightness(${brightness}) saturate(${lerp(1, 0.75, dim)})`}}>
-			<OffthreadVideo src={VIDEO} style={videoStyle} />
+			<OffthreadVideo src={VIDEO} muted style={videoStyle} />
+			{showEdge ? (
 			<AbsoluteFill
 				style={{
 					WebkitMaskImage: 'radial-gradient(ellipse 62% 58% at 50% 32%, transparent 40%, black 100%)',
@@ -143,6 +151,7 @@ const BackgroundVideo: React.FC = () => {
 			>
 				<OffthreadVideo src={VIDEO} muted style={videoStyle} />
 			</AbsoluteFill>
+			) : null}
 		</AbsoluteFill>
 	);
 };

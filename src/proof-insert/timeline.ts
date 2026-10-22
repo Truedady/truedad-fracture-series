@@ -20,5 +20,7 @@ export const T = {
 	// 0:02.4–0:03.5 — push into the thumbnail, which opens onto the live portfolio
 	portalStart: 74,
 	portalEnd: 100,
+	// From here the portal (thumbnail window) fully covers the frame
+	portalCovered: 96,
 	settleEnd: 112,
 };
