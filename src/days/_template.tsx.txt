@@ -1,0 +1,35 @@
+import React from 'react';
+import words from '../../data/dayNN.words.json';
+import {DayOpening} from '../core/DayOpening';
+import type {CinemaEpisode} from '../core/TrueDadNewsCinema';
+
+// Day NN — copy to src/days/dayNN.tsx and register it in src/days/index.ts.
+// Follow .claude/skills/fracture-day/SKILL.md: footage map first, then takes from the speech.
+// All coordinates are SOURCE pixels; measure them on frames where the page is not moving.
+//   <src s>–<src s>  <what is on screen>
+
+export const dayNN: CinemaEpisode = {
+  footage: 'days/dayNN/footage.mp4',
+  footageSize: {w: 3840, h: 2160},
+  // keep browser tabs, ads, wallet/avatar, sidebars and the taskbar out of frame
+  safeSource: {x0: 60, y0: 240, x1: 3800, y1: 2080},
+  voice: 'days/dayNN/voiceover.mp3',
+  words,
+  durationSec: 0, // voiceover length + ~1 s
+  dateStamp: 'DD.MM.YYYY',
+  titles: [],
+  textless: true,
+  panel: {y: 190, h: 1300},
+  captions: {y: 1540},
+  // opening ends where the first footage take starts; «ДЕНЬ N / 30» lands on the words about the month/plan
+  Opening: () => <DayOpening day={0} end={0} dayAt={0} />,
+  shots: [
+    // 5–10 s takes; cam keyframes {t (master s), cx, cy, w}; h = 1.2·w; one spotlight at a time on exactly what is said
+    // {id: 'listing', from: 5.9, to: 17.3, src: {start: 1.3, rate: 0.33}, cam: [...], spots: [...]},
+  ],
+  // no swishes: boom 0 + shimmer 0.55 (opening), tick at dayAt, clicks/keys on real UI actions, quiet shimmer on rich reveals
+  sfx: [
+    {at: 0, kind: 'boom'},
+    {at: 0.55, kind: 'shimmer'},
+  ],
+};

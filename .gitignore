@@ -1,0 +1,6 @@
+node_modules/
+out/
+.env
+*.log
+# day footage is large (4K); rebuild it with scripts/fetch-day.sh
+public/days/*/footage.mp4
