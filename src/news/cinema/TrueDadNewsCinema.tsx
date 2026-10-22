@@ -41,6 +41,8 @@ export type CinemaEpisode = {
   sfx: {at: number; kind: SfxKind; volume?: number}[];
   /** Footage only: no titles, captions, brand bar or outro. */
   textless?: boolean;
+  /** With `textless`, still show the word captions (top edge in px). */
+  captions?: {y: number};
   /** Sharp footage panel; the rest of the frame is the same footage blurred. Default 1080x1080 at y=404. */
   panel?: {y: number; h: number};
 };
@@ -165,14 +167,14 @@ const Titles: React.FC<{titles: CinemaTitle[]}> = ({titles}) => {
   );
 };
 
-const Captions: React.FC<{words: Word[]; until: number}> = ({words, until}) => {
+const Captions: React.FC<{words: Word[]; until: number; y?: number}> = ({words, until, y = CAPTIONS_Y}) => {
   const t = useT();
   const phrases = useMemo(() => toPhrases(words, 22), [words]);
   const p = phrases.find((x) => t >= x.start - 0.04 && t < x.end);
   if (!p || t >= until) return null;
   const a = enter(t, p.start - 0.04, 0.18);
   return (
-    <div style={{position: 'absolute', top: CAPTIONS_Y, left: 70, right: 70, textAlign: 'center', fontFamily: FONT.sans, fontWeight: 800, fontSize: 56, lineHeight: 1.14, opacity: a, transform: `translateY(${(1 - a) * 10}px)`, textShadow: '0 3px 16px rgba(0,0,0,0.7)'}}>
+    <div style={{position: 'absolute', top: y, left: 70, right: 70, textAlign: 'center', fontFamily: FONT.sans, fontWeight: 800, fontSize: 56, lineHeight: 1.14, opacity: a, transform: `translateY(${(1 - a) * 10}px)`, textShadow: '0 3px 16px rgba(0,0,0,0.7)'}}>
       {p.words.map((w, i) => {
         const on = t >= w.start - 0.03;
         const now = on && (i === p.words.length - 1 || t < p.words[i + 1].start - 0.03);
@@ -218,6 +220,7 @@ export const TrueDadNewsCinema: React.FC<{episode: CinemaEpisode}> = ({episode: 
           );
         })}
         <AbsoluteFill style={{background: 'linear-gradient(to bottom, rgba(11,14,19,0.55) 0%, transparent 22%, transparent 78%, rgba(11,14,19,0.6) 100%)'}} />
+        {ep.textless && ep.captions ? <Captions words={ep.words} until={Infinity} y={ep.captions.y} /> : null}
         {ep.textless ? null : (
           <>
             <TopBar date={ep.dateStamp} />

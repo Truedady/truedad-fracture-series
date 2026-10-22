@@ -35,3 +35,11 @@ The Telegram post in the footage says «по CS2 состава нет ещё с
 The camera keeps that line of the post out of frame. Check the date before publishing.
 
 Privacy: crops exclude the browser tab bar, the Steam wallet/avatar, the Windows taskbar and the Steam ad banner.
+
+## Footage-only cut (v2)
+Composition `TrueDadNewsFootage-EvilGeniuses01` (`npm run render:news-eg01-footage`), master in
+`renders/evil-geniuses-news-01-footage/`. Same voiceover and recording. No titles, cards or drawn graphics, only the word captions.
+Six long takes: chart hook 0–5.05, Telegram post 5.05–9.75, one continuous Steam take (price box, real scroll, month, week hover)
+9.75–17.85, sticker 17.85–24.35, order book sell to buy 24.35–34.3, Telegram channel 34.3–39.5.
+Effects: 1080×1300 sharp panel over the same footage blurred, slow camera moves, soft spotlights, focus-pull transitions, light grade.
+`review-30/` holds the 30 stills approved before rendering (taken before captions were added).

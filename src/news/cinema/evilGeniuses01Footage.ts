@@ -1,7 +1,7 @@
 import type {CinemaEpisode} from './TrueDadNewsCinema';
 import {evilGeniuses01Cinema} from './evilGeniuses01Cinema';
 
-// Footage-only cut: no on-screen text at all. Bigger 4:5 panel (camera squares become 4:5, h = 1.25 w).
+// Footage-only cut: no titles or cards, only word captions. Tall panel (camera rects are h = 1.2 w).
 const LISTING_TOP = 335; // Steam ad banner sits above this on the un-scrolled listing
 
 const cams: Record<string, CinemaEpisode['shots'][number]['cam']> = {
@@ -43,7 +43,9 @@ const cams: Record<string, CinemaEpisode['shots'][number]['cam']> = {
 export const evilGeniuses01Footage: CinemaEpisode = {
   ...evilGeniuses01Cinema,
   textless: true,
-  panel: {y: 285, h: 1350},
+  // panel lifted so the captions below it stay clear of the platform UI
+  panel: {y: 190, h: 1300},
+  captions: {y: 1540},
   shots: evilGeniuses01Cinema.shots.map((s) => ({
     ...s,
     cam: cams[s.id] ?? s.cam,
