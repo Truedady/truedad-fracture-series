@@ -11,6 +11,12 @@ shell `src/news/cinema/TrueDadNewsCinema.tsx`. Approved master: `renders/evil-ge
 ## What the style is
 - The author's footage is the whole picture. No titles, plates, cards, frames, icons, drawn charts or numbers.
   The only text on screen is the word captions. Every price or date the viewer sees is a pixel of the recording.
+- **Exception: the opening (first ~4–6 s) may be a designed graphic of the episode's hero object**, built from real
+  pixels (e.g. the item cut out of the recording with `scripts/cutout_case.py`) as a product shot. Include a short
+  title and a factual counter (e.g. «ДЕНЬ 2 / 30» + 30-cell bar), with focus-in, a light sweep and a floor reflection.
+  The first footage take focus-pulls in over it. Frame 0 must already show the object (it is the thumbnail).
+  Never slowed-down footage as an opener (author: «супер замедленные кадры» look bad). Reference: `Opening` in
+  `src/news/cinema/fractureDay02Footage.tsx`.
 - Few long takes, 5–10 s each (EG: 6 takes over 39.5 s). Never cut every 2–3 s. Prefer one continuous piece of
   the recording (the real scroll, the real cursor hover) over several cuts.
 - Picture: sharp panel 1080×1300 at y=190. The rest of the frame is the same footage blurred 46 px at 0.38 brightness.
@@ -18,13 +24,17 @@ shell `src/news/cinema/TrueDadNewsCinema.tsx`. Approved master: `renders/evil-ge
 - Camera: slow eased push-ins and lateral dollies in source pixels (`cam` keyframes, h = 1.2·w). The one-off push lands
   on the detail while the voiceover says it.
 - Emphasis: soft spotlight only (`spots`). It dims the surroundings with a feathered edge and fades in over 0.6 s.
-  One spotlight at a time. No boxes, arrows or labels.
+  One spotlight at a time. No boxes, arrows or labels. **The spotlight sits on exactly what the voice is talking
+  about** (lot count -> the «N for sale» line, not the price table). Measure its rect on a frame where the page has
+  stopped moving (check scene changes first), never on a frame taken mid-scroll.
 - Transitions: 0.6 s focus pull (incoming shot de-blurs 14→0 px and settles from 1.04 scale). No wipes, no glitches.
 - Captions: Inter 800, 56 px, centred at y=1540 under the panel. Phrases of ≤22 chars. The spoken word is gold
   (#D9A93D), spoken words are ivory and upcoming words are 45 % ivory. They stay above the TikTok/Shorts bottom UI.
-- Sound: the voiceover is untouched (check that the output LUFS/peak equal the source). SFX are minimal: a soft hit
-  on frame 0 (0.22), and the soft `swish.wav` (0.14, starts 0.45 s before the cut) **only on story turns**, at most 2–3 per
-  video. No swish on every cut, no ticks, no pops. Regenerate the swish with `python3 scripts/make_swish.py`.
+- Sound: the voiceover is untouched (check that the output LUFS/peak equal the source). **No swishes/whooshes at all**
+  (the author removed them). Sound only where something happens on screen: `boom` + `shimmer` on the opening
+  (shimmer on the light sweep), `click`/`key` synced to the real clicks and keystrokes in the recording (find them
+  with scene detection on the cropped UI region), a quiet `shimmer` when something visually rich appears.
+  Kit: `python3 scripts/make_sfx.py public/news/sfx`. Keep the mix peak equal to the voiceover peak.
 
 ## Process
 1. Download the sources unchanged into `public/news/<id>/`. Probe them, then make a frame sheet of the footage (1 fps)

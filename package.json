@@ -9,7 +9,8 @@
     "render:news-eg01": "remotion render src/index.ts TrueDadNews-EvilGeniuses01 out/truedad-news-evil-geniuses-01.mp4 --codec h264 --crf 16 --audio-bitrate 320k --pixel-format yuv420p",
     "still:news-eg01": "remotion still src/index.ts TrueDadNews-EvilGeniuses01 out/stills/eg01-hook.png --frame 45",
     "render:news-eg01-footage": "remotion render src/index.ts TrueDadNewsFootage-EvilGeniuses01 out/truedad-news-evil-geniuses-01-footage.mp4 --codec h264 --crf 16 --audio-bitrate 320k --pixel-format yuv420p",
-    "render:day02": "remotion render src/index.ts FractureDay02-Footage out/fracture-day02-footage.mp4 --codec h264 --crf 16 --audio-bitrate 320k --pixel-format yuv420p"
+    "render:day02": "remotion render src/index.ts FractureDay02-Footage out/fracture-day02-footage.mp4 --codec h264 --crf 16 --audio-bitrate 320k --pixel-format yuv420p --concurrency=3 --timeout=120000",
+    "render:day02:draft": "remotion render src/index.ts FractureDay02-Footage out/fracture-day02-draft.mp4 --codec h264 --crf 20 --audio-bitrate 320k --pixel-format yuv420p --concurrency=3 --timeout=120000"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",

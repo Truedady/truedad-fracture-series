@@ -47,6 +47,8 @@ export type CinemaEpisode = {
   panel?: {y: number; h: number};
   /** Opening title over the bottom of the panel (the only graphic in a footage-first cut). */
   intro?: Intro;
+  /** Full-frame opening graphic shown until the first footage shot (which then focus-pulls in over it). */
+  Opening?: React.FC;
 };
 
 export type Intro = {until: number; kicker: string; big: string; bigSuffix?: string; line: string};
@@ -231,7 +233,7 @@ const Outro: React.FC<{from: number; text: string}> = ({from, text}) => {
   );
 };
 
-const SFX_VOL: Record<SfxKind, number> = {whoosh: 0.16, swish: 0.14, hit: 0.3, tick: 0.12, pop: 0.22, riser: 0.12};
+const SFX_VOL: Record<SfxKind, number> = {whoosh: 0.16, swish: 0.14, hit: 0.3, tick: 0.12, pop: 0.22, riser: 0.12, boom: 0.35, shimmer: 0.16, click: 0.25, key: 0.15};
 
 export const TrueDadNewsCinema: React.FC<{episode: CinemaEpisode}> = ({episode: ep}) => {
   const frame = useCurrentFrame();
@@ -241,12 +243,17 @@ export const TrueDadNewsCinema: React.FC<{episode: CinemaEpisode}> = ({episode: 
   return (
     <TimeCtx.Provider value={t}>
       <AbsoluteFill style={{background: C.bg, overflow: 'hidden'}}>
+        {ep.Opening ? (
+          <Sequence from={0} durationInFrames={Math.round(ep.shots[0].from * fps) + 1} layout="none">
+            <ep.Opening />
+          </Sequence>
+        ) : null}
         {ep.shots.map((s, i) => {
-          const from = Math.round((i ? s.from - XFADE : 0) * fps);
+          const from = Math.round((s.from > 0 ? s.from - XFADE : 0) * fps);
           const dur = Math.round(s.to * fps) - from;
           return (
             <Sequence key={s.id} from={from} durationInFrames={dur} layout="none">
-              <Shot ep={ep} shot={s} first={i === 0} />
+              <Shot ep={ep} shot={s} first={s.from === 0} />
             </Sequence>
           );
         })}

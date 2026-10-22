@@ -6,7 +6,7 @@ import type {NewsEpisode, SfxKind} from './types';
 
 loadBrandFonts();
 
-const SFX_VOL: Record<SfxKind, number> = {whoosh: 0.22, swish: 0.14, hit: 0.35, tick: 0.18, pop: 0.3, riser: 0.16};
+const SFX_VOL: Record<SfxKind, number> = {whoosh: 0.22, swish: 0.14, hit: 0.35, tick: 0.18, pop: 0.3, riser: 0.16, boom: 0.35, shimmer: 0.16, click: 0.25, key: 0.15};
 
 /**
  * TrueDad News shell: brand bar, header, real-footage evidence window, word captions,
