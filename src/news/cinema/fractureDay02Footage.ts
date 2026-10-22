@@ -107,7 +107,7 @@ export const fractureDay02Footage: CinemaEpisode = {
   // soft hit on frame 0; swishes only on the two story turns (to the purchase, to the question)
   sfx: [
     {at: 0, kind: 'hit', volume: 0.22},
-    {at: 28.32, kind: 'swish'},
-    {at: 34.65, kind: 'swish'},
+    {at: 28.05, kind: 'swish', volume: 0.09}, // peaks mid-transition; its tail stays under the loud word at 29.0
+    {at: 34.65, kind: 'swish', volume: 0.09},
   ],
 };
