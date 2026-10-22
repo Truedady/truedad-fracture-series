@@ -292,9 +292,12 @@ const Scene: React.FC<{showLabel: boolean}> = ({showLabel}) => (
 );
 
 export const ProofInsert: React.FC<ProofInsertProps> = ({motionBlur, motionBlurSamples, showLabel, sfxVolume}) => {
+	const frame = useCurrentFrame();
+	// Blur only the animated part; the tail is the untouched original recording
+	const blurOn = motionBlur && frame < T.settleEnd;
 	return (
 		<AbsoluteFill style={{background: C.graphite}}>
-			{motionBlur ? (
+			{blurOn ? (
 				<CameraMotionBlur shutterAngle={180} samples={motionBlurSamples}>
 					<Scene showLabel={showLabel} />
 				</CameraMotionBlur>
