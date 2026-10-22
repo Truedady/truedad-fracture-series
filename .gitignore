@@ -6,3 +6,8 @@ dist/
 !.env.example
 .DS_Store
 *.log
+
+# ProofInsert: personal source media and preview stills stay out of the public repo
+public/insert/trueskins.mp4
+public/insert/youtube-prev.jpg
+previews/
