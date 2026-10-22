@@ -7,7 +7,7 @@ import type {Cam, Header, Mark, NewsEpisode, Shot, Word} from './types';
 export const TimeCtx = createContext(0);
 export const useT = () => useContext(TimeCtx);
 
-const EASE = Easing.bezier(0.33, 0, 0.2, 1);
+export const EASE = Easing.bezier(0.33, 0, 0.2, 1);
 const OUT = Easing.bezier(0.16, 1, 0.3, 1);
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
@@ -21,7 +21,7 @@ const TRANS = 0.3; // shot transition, seconds
 
 // ---------------------------------------------------------------- camera
 
-const camAt = (cams: Cam[], t: number) => {
+export const camAt = (cams: Cam[], t: number) => {
   if (t <= cams[0].t) return cams[0];
   for (let i = 1; i < cams.length; i++) {
     const a = cams[i - 1];
