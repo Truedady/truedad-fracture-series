@@ -51,5 +51,10 @@ export const evilGeniuses01Footage: CinemaEpisode = {
     cam: cams[s.id] ?? s.cam,
     minY: s.id === 'sticker' || s.id === 'order-book' ? LISTING_TOP : undefined,
   })),
-  sfx: evilGeniuses01Cinema.sfx.filter((x) => x.kind !== 'pop'),
+  // Sound: no swish on every cut. Only the two story turns get one (soft swish peaks ~0.45 s in, on the cut).
+  sfx: [
+    {at: 0, kind: 'hit', volume: 0.22},
+    {at: 9.3, kind: 'swish'}, // statement -> market reaction
+    {at: 33.85, kind: 'swish'}, // -> Telegram
+  ],
 };

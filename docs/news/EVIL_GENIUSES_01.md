@@ -42,4 +42,5 @@ Composition `TrueDadNewsFootage-EvilGeniuses01` (`npm run render:news-eg01-foota
 Six long takes: chart hook 0–5.05, Telegram post 5.05–9.75, one continuous Steam take (price box, real scroll, month, week hover)
 9.75–17.85, sticker 17.85–24.35, order book sell to buy 24.35–34.3, Telegram channel 34.3–39.5.
 Effects: 1080×1300 sharp panel over the same footage blurred, slow camera moves, soft spotlights, focus-pull transitions, light grade.
+Sound (branch `claude/montazh-bez-izlishestv`): the five old whooshes are replaced by a soft `swish.wav` on only two story turns (9.75 s market reaction, 34.3 s Telegram).
 `review-30/` holds the 30 stills approved before rendering (taken before captions were added).

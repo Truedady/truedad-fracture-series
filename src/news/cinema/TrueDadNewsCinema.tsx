@@ -200,7 +200,7 @@ const Outro: React.FC<{from: number; text: string}> = ({from, text}) => {
   );
 };
 
-const SFX_VOL: Record<SfxKind, number> = {whoosh: 0.16, hit: 0.3, tick: 0.12, pop: 0.22, riser: 0.12};
+const SFX_VOL: Record<SfxKind, number> = {whoosh: 0.16, swish: 0.14, hit: 0.3, tick: 0.12, pop: 0.22, riser: 0.12};
 
 export const TrueDadNewsCinema: React.FC<{episode: CinemaEpisode}> = ({episode: ep}) => {
   const frame = useCurrentFrame();

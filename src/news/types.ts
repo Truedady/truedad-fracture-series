@@ -35,7 +35,7 @@ export type Shot = {
 
 export type Header = {from: number; tag: string; title: string; accent?: string; size?: number};
 
-export type SfxKind = 'whoosh' | 'hit' | 'tick' | 'pop' | 'riser';
+export type SfxKind = 'whoosh' | 'swish' | 'hit' | 'tick' | 'pop' | 'riser';
 export type Sfx = {at: number; kind: SfxKind; volume?: number};
 
 export type Word = {text: string; start: number; end: number};
