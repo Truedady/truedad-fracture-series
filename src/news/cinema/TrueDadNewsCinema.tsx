@@ -45,7 +45,11 @@ export type CinemaEpisode = {
   captions?: {y: number};
   /** Sharp footage panel; the rest of the frame is the same footage blurred. Default 1080x1080 at y=404. */
   panel?: {y: number; h: number};
+  /** Opening title over the bottom of the panel (the only graphic in a footage-first cut). */
+  intro?: Intro;
 };
+
+export type Intro = {until: number; kicker: string; big: string; bigSuffix?: string; line: string};
 
 const DEFAULT_PANEL = {y: 404, h: 1080};
 const PANEL_W = 1080;
@@ -189,6 +193,33 @@ const Captions: React.FC<{words: Word[]; until: number; y?: number}> = ({words, 
   );
 };
 
+// Opening title: sits on a soft scrim at the bottom of the footage panel, gone by `until`.
+const IntroTitle: React.FC<{intro: Intro; panel: {y: number; h: number}}> = ({intro, panel}) => {
+  const t = useT();
+  const out = interpolate(t, [intro.until - 0.45, intro.until], [1, 0], {...clamp, easing: EASE});
+  if (out <= 0) return null;
+  const k = enter(t, 0.05, 0.4);
+  const big = enter(t, 0.15, 0.55);
+  const line = enter(t, 0.45, 0.6);
+  const bottom = panel.y + panel.h;
+  return (
+    <div style={{position: 'absolute', left: 0, right: 0, top: bottom - 420, height: 420, opacity: out, filter: out < 1 ? `blur(${(1 - out) * 8}px)` : undefined}}>
+      <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(6,8,11,0) 0%, rgba(6,8,11,0.82) 45%, rgba(6,8,11,0.92) 100%)'}} />
+      <div style={{position: 'absolute', left: 64, right: 64, bottom: 70}}>
+        <div style={{opacity: k, transform: `translateY(${(1 - k) * 12}px)`, fontFamily: FONT.mono, fontWeight: 700, fontSize: 25, letterSpacing: 4, color: C.gold}}>{intro.kicker}</div>
+        <div style={{overflow: 'hidden', marginTop: 8}}>
+          <div style={{transform: `translateY(${(1 - big) * 105}%)`, display: 'flex', alignItems: 'baseline', gap: 18, fontFamily: FONT.sans, fontWeight: 900, letterSpacing: -3, lineHeight: 1, color: C.white}}>
+            <span style={{fontSize: 150}}>{intro.big}</span>
+            {intro.bigSuffix ? <span style={{fontSize: 64, color: C.muted, letterSpacing: -1}}>{intro.bigSuffix}</span> : null}
+          </div>
+        </div>
+        <div style={{height: 4, width: 420 * line, background: C.gold, borderRadius: 2, marginTop: 18}} />
+        <div style={{opacity: line, marginTop: 16, fontFamily: FONT.sans, fontWeight: 800, fontSize: 36, letterSpacing: 1, color: C.white}}>{intro.line}</div>
+      </div>
+    </div>
+  );
+};
+
 const Outro: React.FC<{from: number; text: string}> = ({from, text}) => {
   const t = useT();
   const a = enter(t, from, 0.6);
@@ -220,6 +251,7 @@ export const TrueDadNewsCinema: React.FC<{episode: CinemaEpisode}> = ({episode: 
           );
         })}
         <AbsoluteFill style={{background: 'linear-gradient(to bottom, rgba(11,14,19,0.55) 0%, transparent 22%, transparent 78%, rgba(11,14,19,0.6) 100%)'}} />
+        {ep.intro ? <IntroTitle intro={ep.intro} panel={ep.panel ?? DEFAULT_PANEL} /> : null}
         {ep.textless && ep.captions ? <Captions words={ep.words} until={Infinity} y={ep.captions.y} /> : null}
         {ep.textless ? null : (
           <>

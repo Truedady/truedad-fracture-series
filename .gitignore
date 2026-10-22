@@ -6,3 +6,6 @@ dist/
 !.env.example
 .DS_Store
 *.log
+
+# Day 2 footage is large; fetch with scripts/fetch-day02.sh
+public/news/fracture-day-02/footage-4k30.mp4
