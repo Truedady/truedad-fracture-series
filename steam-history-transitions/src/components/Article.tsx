@@ -77,21 +77,24 @@ export const ArticleShot: React.FC<{src: string; w: number; h: number; cams: Cam
             />
           ) : null;
         })}
-        {spot && (
-          <div
-            style={{
-              position: 'absolute',
-              left: spot.x - 18,
-              top: spot.y - 14,
-              width: spot.w + 36,
-              height: spot.h + 28,
-              borderRadius: 8,
-              boxShadow: `0 0 0 4000px rgba(5,6,8,${0.55 * spotO})`,
-              pointerEvents: 'none',
-            }}
-          />
-        )}
       </div>
+      {spot && (() => {
+        // прожектор в экранных координатах: четыре тёмные панели вокруг фокуса (дёшево для рендера)
+        const L = 960 + (spot.x - 18 - c.x) * c.z;
+        const T = 540 + (spot.y - 14 - c.y) * c.z;
+        const R = L + (spot.w + 36) * c.z;
+        const B = T + (spot.h + 28) * c.z;
+        const shade = `rgba(5,6,8,${0.55 * spotO})`;
+        const box = (st: React.CSSProperties) => <div style={{position: 'absolute', background: shade, ...st}} />;
+        return (
+          <>
+            {box({left: 0, top: 0, right: 0, height: Math.max(0, T)})}
+            {box({left: 0, top: B, right: 0, bottom: 0})}
+            {box({left: 0, top: T, width: Math.max(0, L), height: Math.max(0, B - T)})}
+            {box({left: R, top: T, right: 0, height: Math.max(0, B - T)})}
+          </>
+        );
+      })()}
       <div
         style={{
           position: 'absolute',
