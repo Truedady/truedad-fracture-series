@@ -1,7 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Img, staticFile, useCurrentFrame} from 'remotion';
 import {Dust, hexA} from '../components/Atmosphere';
-import {Key} from '../components/Icons';
 import {Extruded} from '../components/Items2';
 import {Skin, skinUrl} from '../components/Skins';
 import {At, Chip, Shell, Stage3D} from '../components/Shell';
@@ -61,7 +60,7 @@ export const Ch02CsgoSkins: React.FC = () => {
       <Stage3D camera={`translate3d(${d.x}px, ${-30 + d.y}px, 0px)`}>
         <At w={360} h={360} ry={keySpin} s={keyS} style={{opacity: keyO, filter: `drop-shadow(0 0 30px ${hexA(C.gold, 0.35)})`}} preserve>
           <Extruded layers={6} depth={3}>
-            <Key size={360} />
+            <Img src={staticFile('tf2/key.png')} style={{width: 360, height: 360, display: 'block'}} />
           </Extruded>
         </At>
       </Stage3D>

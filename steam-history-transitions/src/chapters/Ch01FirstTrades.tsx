@@ -1,7 +1,7 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Img, staticFile, useCurrentFrame} from 'remotion';
 import {Backdrop, Dust, Finish, hexA} from '../components/Atmosphere';
-import {Crate, Hat, Key, Metal} from '../components/Icons';
+import {Metal} from '../components/Icons';
 import {ChapterLabel, Chronology, Years} from '../components/Typography';
 import {C, FONT} from '../lib/theme';
 import {drift, E, k, lerp} from '../lib/anim';
@@ -11,7 +11,8 @@ import {drift, E, k, lerp} from '../lib/anim';
  * Настроение: зарождение рынка. Тёплый свет, медленная камера, «живые» предметы.
  *
  * 0–12    из темноты проступает инвентарь старого Steam (оливковый клиент эпохи)
- * 8–48    два обмена: шляпа ⇄ ключ, металл ⇄ ящик — золотая «нить сделки»
+ * 8–48    два обмена: шляпа ⇄ ключ Mann Co., билет Mann Up ⇄ кепка — золотая «нить сделки»
+ *         (реальные предметы TF2 из public/tf2/, «рефайнд» металл — векторный)
  * 40–62   камера ныряет сквозь интерфейс (push-through + расфокус)
  * 50–84   раскрытие главы: ГЛАВА 01 → ПЕРВЫЕ ОБМЕНЫ → 2010 — 2013 → шкала
  * 84–110  удержание для чтения
@@ -30,21 +31,41 @@ const BH = HEAD + PAD * 2 + ROWS * S + (ROWS - 1) * G;
 const sx = (c: number) => PAD + c * (S + G) + S / 2;
 const sy = (r: number) => HEAD + PAD + r * (S + G) + S / 2;
 
-type Kind = 'hat' | 'key' | 'metal' | 'crate';
-const ICON: Record<Kind, React.FC<{size?: number; style?: React.CSSProperties}>> = {hat: Hat, key: Key, metal: Metal, crate: Crate};
+// Реальные предметы TF2 (public/tf2/) + векторный «рефайнд» металл
+type IconFC = React.FC<{size?: number; style?: React.CSSProperties}>;
+const TF2 = (file: string): IconFC => {
+  const C2: IconFC = ({size = 100, style}) => (
+    <Img src={staticFile(`tf2/${file}.png`)} style={{width: size, height: size, display: 'block', ...style}} />
+  );
+  return C2;
+};
+type Kind = 'key' | 'skull' | 'witch' | 'duck' | 'ticket' | 'bag' | 'pistol' | 'fox' | 'beret' | 'boot' | 'metal';
+const ICON: Record<Kind, IconFC> = {
+  key: TF2('key'),
+  skull: TF2('skull'),
+  witch: TF2('witch-hat'),
+  duck: TF2('duck-cap'),
+  ticket: TF2('ticket'),
+  bag: TF2('bag'),
+  pistol: TF2('pistol'),
+  fox: TF2('fox'),
+  beret: TF2('beret'),
+  boot: TF2('boot'),
+  metal: Metal,
+};
 
 // Статичное содержимое инвентаря
 const STATIC: [number, number, Kind][] = [
-  [0, 0, 'metal'], [1, 0, 'metal'], [2, 0, 'key'], [5, 0, 'crate'], [6, 0, 'hat'],
-  [0, 1, 'crate'], [3, 1, 'metal'], [4, 1, 'hat'], [6, 1, 'key'],
-  [0, 2, 'hat'], [1, 2, 'key'], [3, 2, 'crate'], [6, 2, 'metal'],
-  [1, 3, 'metal'], [3, 3, 'key'], [4, 3, 'metal'], [5, 3, 'crate'], [6, 3, 'hat'],
+  [0, 0, 'metal'], [1, 0, 'metal'], [2, 0, 'key'], [5, 0, 'fox'], [6, 0, 'beret'],
+  [0, 1, 'bag'], [3, 1, 'metal'], [4, 1, 'skull'], [6, 1, 'key'],
+  [0, 2, 'duck'], [1, 2, 'key'], [3, 2, 'boot'], [6, 2, 'metal'],
+  [1, 3, 'metal'], [3, 3, 'key'], [4, 3, 'pistol'], [5, 3, 'witch'], [6, 3, 'beret'],
 ];
 
 // Обмены: предмет a из слота A уходит в B, предмет b — навстречу
 const TRADES = [
-  {a: [1, 1] as const, b: [5, 2] as const, ka: 'hat' as Kind, kb: 'key' as Kind, t0: 10, t1: 40, side: 1},
-  {a: [4, 0] as const, b: [2, 3] as const, ka: 'metal' as Kind, kb: 'crate' as Kind, t0: 18, t1: 47, side: -1},
+  {a: [1, 1] as const, b: [5, 2] as const, ka: 'witch' as Kind, kb: 'key' as Kind, t0: 10, t1: 40, side: 1},
+  {a: [4, 0] as const, b: [2, 3] as const, ka: 'ticket' as Kind, kb: 'duck' as Kind, t0: 18, t1: 47, side: -1},
 ];
 
 // Контрольная точка дуги: смещение перпендикулярно отрезку A–B
@@ -216,12 +237,12 @@ export const Ch01FirstTrades: React.FC = () => {
 
   // Предметы в «боке» вокруг заголовка — те же вещи, что были в инвентаре
   const BOKEH: {kind: Kind; x: number; y: number; s: number; blur: number; o: number; r: number}[] = [
-    {kind: 'key', x: 280, y: 250, s: 150, blur: 5, o: 0.5, r: -18},
-    {kind: 'hat', x: 1560, y: 190, s: 190, blur: 9, o: 0.4, r: 10},
-    {kind: 'metal', x: 1650, y: 690, s: 140, blur: 3.5, o: 0.55, r: -6},
-    {kind: 'crate', x: 210, y: 720, s: 170, blur: 10, o: 0.32, r: 8},
-    {kind: 'metal', x: 560, y: 120, s: 80, blur: 2, o: 0.35, r: 14},
-    {kind: 'key', x: 1380, y: 860, s: 90, blur: 2.5, o: 0.35, r: 30},
+    {kind: 'key', x: 280, y: 250, s: 170, blur: 5, o: 0.55, r: -18},
+    {kind: 'witch', x: 1560, y: 190, s: 220, blur: 9, o: 0.45, r: 10},
+    {kind: 'ticket', x: 1650, y: 690, s: 170, blur: 3.5, o: 0.55, r: -6},
+    {kind: 'duck', x: 210, y: 720, s: 190, blur: 10, o: 0.35, r: 8},
+    {kind: 'metal', x: 560, y: 120, s: 90, blur: 2, o: 0.35, r: 14},
+    {kind: 'skull', x: 1380, y: 860, s: 110, blur: 2.5, o: 0.4, r: 12},
   ];
   const bokehIn = k(f, [46, 70], [0, 1], E.out);
 
