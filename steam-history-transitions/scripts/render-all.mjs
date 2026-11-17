@@ -1,5 +1,6 @@
 // Рендер всех заставок: 4K-мастер и 1080p-превью (H.264), стоп-кадры и версии со звуком.
 // Использование: node scripts/render-all.mjs [ID композиции ...]
+// Разрешение мастера: RES=1440 (по умолчанию, 2560×1440) или RES=2160 (4K).
 import {execFileSync} from 'node:child_process';
 import {existsSync, mkdirSync, renameSync} from 'node:fs';
 
@@ -18,7 +19,9 @@ const JOBS = {
 };
 
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(JOBS);
-for (const d of ['renders/4k', 'renders/1080p', 'renders/stills', 'renders/4k_zvuk', 'renders/1080p_zvuk', 'renders/audio']) mkdirSync(d, {recursive: true});
+const RES = process.env.RES ?? '1440';
+const MASTER = RES === '2160' ? {dir: '4k', tag: '2160p30', scale: '2', conc: '2'} : {dir: '1440p', tag: '1440p30', scale: String(4 / 3), conc: '3'};
+for (const d of [`renders/${MASTER.dir}`, `renders/${MASTER.dir}_zvuk`, 'renders/1080p', 'renders/stills', 'renders/1080p_zvuk', 'renders/audio']) mkdirSync(d, {recursive: true});
 
 // В 4K тяжёлые кадры с размытием на программном GL могут подвисать при 4 вкладках,
 // поэтому мастер рендерится с concurrency=2 и SwiftShader.
@@ -42,10 +45,10 @@ for (const id of ids) {
   const job = JOBS[id];
   if (!job) throw new Error(`Неизвестная композиция ${id}`);
   console.log(`\n▶ ${id}`);
-  const v4 = `renders/4k/${job.file}_2160p30.mp4`;
+  const v4 = `renders/${MASTER.dir}/${job.file}_${MASTER.tag}.mp4`;
   const v1 = `renders/1080p/${job.file}_1080p30.mp4`;
   const wav = `renders/audio/${job.file}_sfx.wav`;
-  rem('render', 'src/index.ts', id, v4, '--scale=2', '--codec=h264', '--crf=14', '--pixel-format=yuv420p', '--jpeg-quality=95', '--concurrency=2', '--gl=swiftshader');
+  rem('render', 'src/index.ts', id, v4, `--scale=${MASTER.scale}`, '--codec=h264', '--crf=14', '--pixel-format=yuv420p', '--jpeg-quality=95', `--concurrency=${MASTER.conc}`, '--gl=swiftshader');
   normalize(v4, 14);
   rem('render', 'src/index.ts', id, v1, '--codec=h264', '--crf=18', '--pixel-format=yuv420p', '--jpeg-quality=95', '--concurrency=4');
   normalize(v1, 17);
@@ -54,7 +57,7 @@ for (const id of ids) {
     rem('still', 'src/index.ts', id, `renders/stills/${job.file}_${tag}_f${fr}.jpg`, `--frame=${fr}`, '--image-format=jpeg', '--jpeg-quality=92');
   });
   if (existsSync(wav)) {
-    mux(v4, wav, `renders/4k_zvuk/${job.file}_2160p30_zvuk.mp4`);
+    mux(v4, wav, `renders/${MASTER.dir}_zvuk/${job.file}_${MASTER.tag}_zvuk.mp4`);
     mux(v1, wav, `renders/1080p_zvuk/${job.file}_1080p30_zvuk.mp4`);
   }
 }

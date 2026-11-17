@@ -8,8 +8,9 @@ Remotion-проект с анимированными заставками гл�
 
 | Папка | Что внутри |
 |---|---|
-| `renders/4k_zvuk/` | **4K-мастера со звуком** — 3840×2160, 30 fps, H.264 + AAC 320 кбит/с |
-| `renders/4k/` | те же 4K-мастера без звука |
+| `renders/1440p_zvuk/` | **2K-мастера со звуком** — 2560×1440, 30 fps, H.264 + AAC 320 кбит/с |
+| `renders/1440p/` | те же 2K-мастера без звука |
+| `renders/4k/`, `renders/4k_zvuk/` | главы 01–02 дополнительно в 4K (остальные: `RES=2160 node scripts/render-all.mjs`) |
 | `renders/1080p_zvuk/`, `renders/1080p/` | превью 1920×1080 со звуком и без |
 | `renders/audio/` | отдельные звуковые дорожки WAV 48 кГц / 24 бит |
 | `renders/stills/` | стоп-кадры начала / середины / конца каждой главы |
@@ -22,14 +23,15 @@ Remotion-проект с анимированными заставками гл�
 ```bash
 npm install
 npm run dev                      # Remotion Studio: просмотр и правки в браузере
-node scripts/render-all.mjs      # все главы: звук, 4K, 1080p, стоп-кадры, версии со звуком
+node scripts/render-all.mjs      # все главы: звук, 2K, 1080p, стоп-кадры, версии со звуком
+RES=2160 node scripts/render-all.mjs   # то же, но мастер в 4K (в ~2 раза дольше)
 node scripts/render-all.mjs Ch07-WorstSpring   # одна глава
 ```
 
 ## Структура
 ```
 src/
-  Root.tsx                    регистрация композиций (1920×1080 @30, 4K = --scale=2)
+  Root.tsx                    регистрация композиций (1920×1080 @30; 2K = --scale=4/3, 4K = --scale=2)
   lib/theme.ts                палитра, шрифты, безопасные зоны
   lib/anim.ts                 easing, тряска камеры, дрейф
   lib/fonts.ts                загрузка шрифтов из public/fonts (корректная кириллица)
