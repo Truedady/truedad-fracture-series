@@ -20,10 +20,10 @@ const Shot: React.FC<{dur: number; children: (f: number) => React.ReactNode}> = 
   return <AbsoluteFill style={{opacity: k(f, [0, 12], [0, 1]) * k(f, [dur - 12, dur], [1, 0])}}>{children(f)}</AbsoluteFill>;
 };
 
-const ARMS = {src: 'news/arms-deal-2013.jpg', w: 2000, h: 1500, source: 'blog.counter-strike.net · Valve · 14.08.2013'};
-const CASES = {src: 'news/market-cases-today.jpg', w: 2000, h: 1300, source: 'steamcommunity.com/market · торговая площадка Steam · сегодня'};
-const KNIFE = {src: 'news/market-karambit-today.jpg', w: 2000, h: 1300, source: 'steamcommunity.com/market · торговая площадка Steam · сегодня'};
-const CH = {src: 'news/market-case-hardened-today.jpg', w: 2000, h: 1300, source: 'steamcommunity.com/market · торговая площадка Steam · сегодня'};
+const ARMS = {src: 'news/arms-deal-2013-hd.jpg', w: 1600, h: 1400, source: 'blog.counter-strike.net · Valve · 14.08.2013'};
+const CASES = {src: 'news/market-cases-today-hd.jpg', w: 1600, h: 1300, source: 'steamcommunity.com/market · торговая площадка Steam · сегодня'};
+const KNIFE = {src: 'news/market-karambit-today-hd.jpg', w: 1600, h: 1000, source: 'steamcommunity.com/market · торговая площадка Steam · сегодня'};
+const CH = {src: 'news/market-case-hardened-today-hd.jpg', w: 1600, h: 1000, source: 'steamcommunity.com/market · торговая площадка Steam · сегодня'};
 
 const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
   // 0–7.7 «14 августа 2013 года выходит Arms Deal… С точки зрения игрока — косметика»
@@ -36,16 +36,13 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
           <ArticleShot
             {...ARMS}
             cams={[
-              {t: 0, x: 1000, y: 560, z: 0.96},
-              {t: 1.6, x: 1000, y: 620, z: 1.15},
-              {t: 2.8, x: 700, y: 610, z: 2.3},
-              {t: 4.6, x: 840, y: 712, z: 2.0},
-              {t: 7.9, x: 840, y: 730, z: 2.1},
+              {t: 0, x: 800, y: 520, z: 0.95},
+              {t: 2.0, x: 645, y: 610, z: 1.45},
+              {t: 7.9, x: 645, y: 680, z: 1.5},
             ]}
             marks={[
-              {t: 2.4, x: 562, y: 590, w: 104, h: 20, spot: true},
-              {t: 4.2, x: 562, y: 680, w: 560, h: 20, spot: true},
-              {t: 5.8, x: 562, y: 722, w: 552, h: 42, spot: true},
+              {t: 2.0, x: 364, y: 588, w: 64, h: 17, spot: true},
+              {t: 4.5, x: 364, y: 692, w: 560, h: 40, spot: true},
             ]}
           />
         )}
@@ -62,8 +59,8 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
           <ArticleShot
             {...CASES}
             cams={[
-              {t: 0, x: 1180, y: 720, z: 0.98},
-              {t: 3.6, x: 1180, y: 660, z: 1.18},
+              {t: 0, x: 800, y: 620, z: 0.95},
+              {t: 3.6, x: 800, y: 600, z: 1.05},
             ]}
           />
         )}
@@ -80,13 +77,12 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
           <ArticleShot
             {...ARMS}
             cams={[
-              {t: 0, x: 840, y: 800, z: 1.9},
-              {t: 3.0, x: 840, y: 838, z: 2.1},
-              {t: 8.5, x: 760, y: 870, z: 2.3},
+              {t: 0, x: 645, y: 770, z: 1.45},
+              {t: 8.5, x: 645, y: 800, z: 1.5},
             ]}
             marks={[
-              {t: 0.8, x: 562, y: 808, w: 560, h: 62, spot: true},
-              {t: 4.2, x: 562, y: 872, w: 332, h: 20, spot: true},
+              {t: 0.8, x: 364, y: 778, w: 560, h: 62, spot: true},
+              {t: 4.2, x: 424, y: 843, w: 233, h: 18, spot: true},
             ]}
           />
         )}
@@ -103,14 +99,14 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
           <ArticleShot
             {...KNIFE}
             cams={[
-              {t: 0, x: 1000, y: 640, z: 1.0},
-              {t: 1.8, x: 920, y: 480, z: 1.6},
-              {t: 4.0, x: 760, y: 760, z: 1.7},
-              {t: 5.8, x: 760, y: 780, z: 1.75},
+              {t: 0, x: 800, y: 500, z: 1.0},
+              {t: 1.8, x: 850, y: 470, z: 1.3},
+              {t: 4.0, x: 650, y: 640, z: 1.3},
+              {t: 5.8, x: 650, y: 650, z: 1.33},
             ]}
             marks={[
-              {t: 1.6, x: 1060, y: 362, w: 292, h: 34, spot: true},
-              {t: 3.6, x: 548, y: 710, w: 124, h: 64, spot: true},
+              {t: 1.6, x: 880, y: 361, w: 265, h: 34, spot: true},
+              {t: 3.6, x: 355, y: 703, w: 135, h: 68, spot: true},
             ]}
           />
         )}
@@ -127,16 +123,16 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
           <ArticleShot
             {...CASES}
             cams={[
-              {t: 0, x: 1180, y: 700, z: 1.0},
-              {t: 3.0, x: 640, y: 540, z: 1.8},
-              {t: 6.6, x: 1240, y: 560, z: 1.8},
-              {t: 9.6, x: 900, y: 860, z: 1.7},
-              {t: 12.6, x: 900, y: 880, z: 1.72},
+              {t: 0, x: 800, y: 640, z: 1.0},
+              {t: 3.0, x: 560, y: 560, z: 1.3},
+              {t: 6.6, x: 1080, y: 560, z: 1.3},
+              {t: 9.6, x: 700, y: 860, z: 1.3},
+              {t: 12.6, x: 700, y: 870, z: 1.32},
             ]}
             marks={[
-              {t: 3.0, x: 376, y: 586, w: 170, h: 20, spot: true},
-              {t: 6.4, x: 1020, y: 586, w: 170, h: 20, spot: true},
-              {t: 9.4, x: 698, y: 880, w: 170, h: 20, spot: true},
+              {t: 3.0, x: 376, y: 586, w: 160, h: 20, spot: true},
+              {t: 6.4, x: 982, y: 586, w: 160, h: 20, spot: true},
+              {t: 9.4, x: 679, y: 901, w: 160, h: 20, spot: true},
             ]}
           />
         )}
@@ -153,16 +149,16 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
           <ArticleShot
             {...CH}
             cams={[
-              {t: 0, x: 1000, y: 620, z: 1.0},
-              {t: 2.0, x: 1240, y: 440, z: 1.7},
-              {t: 4.6, x: 1180, y: 540, z: 1.9},
-              {t: 7.0, x: 880, y: 740, z: 1.6},
-              {t: 9.8, x: 700, y: 480, z: 1.8},
+              {t: 0, x: 800, y: 500, z: 1.0},
+              {t: 2.0, x: 950, y: 440, z: 1.3},
+              {t: 4.6, x: 900, y: 520, z: 1.35},
+              {t: 7.0, x: 700, y: 700, z: 1.25},
+              {t: 9.8, x: 700, y: 690, z: 1.3},
             ]}
             marks={[
-              {t: 1.8, x: 1062, y: 366, w: 392, h: 34, spot: true},
-              {t: 4.0, x: 1060, y: 546, w: 140, h: 20, spot: true},
-              {t: 6.6, x: 480, y: 704, w: 790, h: 72, spot: true},
+              {t: 1.8, x: 860, y: 361, w: 378, h: 34, spot: true},
+              {t: 4.0, x: 860, y: 544, w: 134, h: 20, spot: true},
+              {t: 6.6, x: 288, y: 700, w: 790, h: 76, spot: true},
             ]}
           />
         )}
