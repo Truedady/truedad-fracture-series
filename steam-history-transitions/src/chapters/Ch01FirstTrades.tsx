@@ -1,7 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Img, staticFile, useCurrentFrame} from 'remotion';
 import {Backdrop, Dust, Finish, hexA} from '../components/Atmosphere';
-import {Metal} from '../components/Icons';
 import {ChapterLabel, Chronology, Years} from '../components/Typography';
 import {C, FONT} from '../lib/theme';
 import {drift, E, k, lerp} from '../lib/anim';
@@ -12,7 +11,7 @@ import {drift, E, k, lerp} from '../lib/anim';
  *
  * 0–12    из темноты проступает инвентарь старого Steam (оливковый клиент эпохи)
  * 8–48    два обмена: шляпа ⇄ ключ Mann Co., билет Mann Up ⇄ кепка — золотая «нить сделки»
- *         (реальные предметы TF2 из public/tf2/, «рефайнд» металл — векторный)
+ *         (реальные предметы TF2 из public/tf2/)
  * 40–62   камера ныряет сквозь интерфейс (push-through + расфокус)
  * 50–84   раскрытие главы: ГЛАВА 01 → ПЕРВЫЕ ОБМЕНЫ → 2010 — 2013 → шкала
  * 84–110  удержание для чтения
@@ -31,7 +30,7 @@ const BH = HEAD + PAD * 2 + ROWS * S + (ROWS - 1) * G;
 const sx = (c: number) => PAD + c * (S + G) + S / 2;
 const sy = (r: number) => HEAD + PAD + r * (S + G) + S / 2;
 
-// Реальные предметы TF2 (public/tf2/) + векторный «рефайнд» металл
+// Реальные предметы TF2 (public/tf2/), включая Refined Metal
 type IconFC = React.FC<{size?: number; style?: React.CSSProperties}>;
 const TF2 = (file: string): IconFC => {
   const C2: IconFC = ({size = 100, style}) => (
@@ -51,7 +50,7 @@ const ICON: Record<Kind, IconFC> = {
   fox: TF2('fox'),
   beret: TF2('beret'),
   boot: TF2('boot'),
-  metal: Metal,
+  metal: TF2('refined-metal'),
 };
 
 // Статичное содержимое инвентаря
