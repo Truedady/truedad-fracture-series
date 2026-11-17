@@ -1,8 +1,9 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {Dust, hexA} from '../components/Atmosphere';
-import {Key, RIFLE_D} from '../components/Icons';
-import {Extruded, SkinnedRifle} from '../components/Items2';
+import {Key} from '../components/Icons';
+import {Extruded} from '../components/Items2';
+import {Skin, skinUrl} from '../components/Skins';
 import {At, Chip, Shell, Stage3D} from '../components/Shell';
 import {Ev, TitleBlock} from '../components/TitleBlock';
 import {C, FONT} from '../lib/theme';
@@ -86,21 +87,19 @@ export const Ch02CsgoSkins: React.FC = () => {
           perspective={1300}
           camera={`translate3d(${d.x * 1.5}px, ${-30 - back * 150 + d.y}px, ${-back * 500 + ex * 600}px) rotateX(${tilt}deg) rotateY(${orbit}deg)`}
         >
-          <At w={1000} h={400} style={{clipPath: `inset(${50 - reveal * 50}% 0 ${50 - reveal * 50}% 0)`}} preserve>
-            <Extruded layers={9} depth={2.6} dark={0.22}>
-              <SkinnedRifle size={1000} skin="arms" lit={lit} id="ch02" />
+          <At w={1100} h={223} style={{clipPath: `inset(${50 - reveal * 50}% -5% ${50 - reveal * 50}% -5%)`, filter: `brightness(${0.55 + lit * 0.55}) saturate(${0.6 + lit * 0.5})`}} preserve>
+            <Extruded layers={7} depth={2.4} dark={0.18}>
+              <Skin k="awpLightning" w={1100} />
             </Extruded>
           </At>
           {/* блик по раскраске */}
-          <At w={1000} h={400} z={2} style={{opacity: reveal * 0.85, mixBlendMode: 'screen', pointerEvents: 'none'}}>
+          <At w={1100} h={223} z={2} style={{opacity: reveal * 0.9, mixBlendMode: 'screen', pointerEvents: 'none'}}>
             <div
               style={{
                 width: '100%',
                 height: '100%',
-                background: `linear-gradient(105deg, transparent ${sheen - 8}%, rgba(255,245,215,0.45) ${sheen}%, transparent ${sheen + 8}%)`,
-                WebkitMaskImage: `url("data:image/svg+xml;utf8,${encodeURIComponent(
-                  `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'><path d='${RIFLE_D}'/></svg>`,
-                )}")`,
+                background: `linear-gradient(105deg, transparent ${sheen - 8}%, rgba(255,245,215,0.55) ${sheen}%, transparent ${sheen + 8}%)`,
+                WebkitMaskImage: `url("${skinUrl('awpLightning')}")`,
                 WebkitMaskSize: '100% 100%',
               }}
             />
@@ -122,7 +121,7 @@ export const Ch02CsgoSkins: React.FC = () => {
       </div>
       <div style={{position: 'absolute', left: 230, top: 230, opacity: ui}}>
         <Chip color={hexA(C.gold, 0.8)}>
-          <span style={{color: C.gold}}>14.08.2013</span> ARMS DEAL
+          <span style={{color: C.gold}}>ARMS DEAL</span> AWP | LIGHTNING STRIKE
         </Chip>
       </div>
       <div style={{position: 'absolute', right: 230, top: 230, opacity: ui * k(f, [50, 56], [0, 1])}}>

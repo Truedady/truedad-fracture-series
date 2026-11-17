@@ -3,6 +3,7 @@ import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {Backdrop, Dust, Finish, hexA} from '../components/Atmosphere';
 import {Case, Knife, Lock, Pistol, Rifle} from '../components/Icons';
 import {ChapterLabel, Chronology, Years} from '../components/Typography';
+import {Skin, SkinKey} from '../components/Skins';
 import {C, FONT} from '../lib/theme';
 import {E, k, lerp, rnd, shake} from '../lib/anim';
 
@@ -56,7 +57,13 @@ const itemOf = (seed: string) => {
   return {kind, rarity};
 };
 
-const Item: React.FC<{kind: Kind; rarity: string; size: number}> = ({kind, rarity, size}) => {
+// Реальные рендеры скинов; seed выбирает, какой именно
+const REAL: SkinKey[] = ['m4Red', 'awpLightning', 'm4Cyan', 'deagleBlue', 'm4Blue'];
+const Item: React.FC<{kind: Kind; rarity: string; size: number; seed?: string}> = ({kind, rarity, size, seed}) => {
+  if (seed !== undefined) {
+    const key = REAL[Math.floor(rnd(seed + 'skin') * REAL.length)];
+    return <Skin k={key} w={size} h={key === 'deagleBlue' ? size * 0.42 : undefined} />;
+  }
   const dark = '#1A1F27';
   if (kind === 'rifle') return <Rifle size={size} accent={rarity} accent2={dark} />;
   if (kind === 'pistol') return <Pistol size={size * 0.8} accent={rarity} accent2={dark} />;
@@ -222,7 +229,7 @@ export const Ch07WorstSpring: React.FC = () => {
                         <>
                           <div style={{position: 'absolute', left: 0, right: 0, bottom: 0, height: 3, background: it.rarity, opacity: 0.85}} />
                           <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                            <Item kind={it.kind} rarity={it.rarity} size={82} />
+                            <Item kind={it.kind} rarity={it.rarity} size={84} seed={isDest && landedSet.has(key) ? `fl${landedSet.get(key)}` : `slot${key}`} />
                           </div>
                           {locked && (
                             <div style={{position: 'absolute', right: 4, top: 4, opacity: lk.o, transform: `scale(${lk.s})`}}>
@@ -262,7 +269,7 @@ export const Ch07WorstSpring: React.FC = () => {
                       filter: withLock ? `drop-shadow(0 0 ${8 * lk.o}px ${hexA(C.red, 0.7 * lk.o)})` : `drop-shadow(0 8px 18px rgba(0,0,0,0.6))`,
                     }}
                   >
-                    <Item kind={it.kind} rarity={it.rarity} size={140} />
+                    <Item kind={it.kind} rarity={it.rarity} size={150} seed={`fl${s.i}`} />
                     {withLock && (
                       <div style={{position: 'absolute', right: -6, top: -18, opacity: lk.o, transform: `scale(${lk.s})`}}>
                         <Lock size={30} />
