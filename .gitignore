@@ -6,3 +6,6 @@ dist/
 !.env.example
 .DS_Store
 *.log
+
+# большие локальные записи экрана
+steam-history-transitions/public/news/csgodatabase.mp4

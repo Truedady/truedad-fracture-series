@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Img, Sequence, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {Backdrop, Dust, Finish} from '../components/Atmosphere';
 import {ArticleShot} from '../components/Article';
 import {C} from '../lib/theme';
@@ -18,6 +18,11 @@ const Shot: React.FC<{dur: number; children: (f: number) => React.ReactNode}> = 
   const f = useCurrentFrame();
   return <AbsoluteFill style={{opacity: k(f, [0, 12], [0, 1]) * k(f, [dur - 12, dur], [1, 0])}}>{children(f)}</AbsoluteFill>;
 };
+
+// Запись прокрутки csgodatabase.com (содержимое первого кейса) — лежит только у автора:
+// public/news/csgodatabase.mp4. DB_START — с какой секунды записи начинать, DB_RATE — скорость.
+const DB_START = 1.5;
+const DB_RATE = 1.8;
 
 const PAGE = {src: 'news/armsdeal-page.jpg', w: 1600, h: 3600, source: ''};
 const GUIDE = {src: 'news/market-guide-2013.jpg', w: 1600, h: 2600, source: ''};
@@ -50,13 +55,19 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
       </Shot>
     ),
   },
-  // 4.4–7.9 «…первые раскраски, кейсы и ножи. Для игрока — косметика» — раздел Rare Weapon Cases
+  // 4.4–7.9 «…первые раскраски, кейсы и ножи» — запись csgodatabase: содержимое CS:GO Weapon Case
   {
     from: 4.4,
     to: 7.9,
     el: ({dur}) => (
       <Shot dur={dur}>
-        {() => <ArticleShot {...PAGE} cams={[{t: 0, x: 800, y: 2600, z: 1.0}, {t: 3.5, x: 800, y: 2700, z: 1.1}]} />}
+        {(f) => (
+          <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center'}}>
+            <div style={{width: 1560, transform: `scale(${1 + f * 0.0006})`, boxShadow: '0 30px 90px rgba(0,0,0,0.75)', border: `3px solid ${C.ivory}`, overflow: 'hidden', background: '#000'}}>
+              <OffthreadVideo src={staticFile('news/csgodatabase.mp4')} muted startFrom={Math.round(DB_START * 30)} playbackRate={DB_RATE} style={{width: 1560, display: 'block'}} />
+            </div>
+          </AbsoluteFill>
+        )}
       </Shot>
     ),
   },
