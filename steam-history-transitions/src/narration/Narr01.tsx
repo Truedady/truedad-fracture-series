@@ -346,36 +346,30 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
       </Shot>
     ),
   },
-  // 79.3–83.9 «…появилась игра, которая вывела торговлю на другой уровень» — скриншоты Counter-Strike (магазин Steam)
+  // 79.3–83.9 «…появилась игра, которая вывела торговлю на другой уровень» — скриншоты CS:GO карточками
   {
     from: 79.3,
     to: 83.9,
     el: ({dur}) => (
-      <Shot dur={dur} push={0}>
-        {(f) => {
-          const shots = [
-            {img: 'cs-ss-a', cap: 'COUNTER-STRIKE · STEAM'},
-            {img: 'cs-ss-b', cap: 'COUNTER-STRIKE · STEAM'},
-            {img: 'cs-ss-c', cap: 'COUNTER-STRIKE · STEAM'},
-            {img: 'cs-ss-d', cap: 'COUNTER-STRIKE · STEAM'},
-          ];
-          const seg = dur / shots.length;
-          return (
-            <>
-              {shots.map((sh, i) => {
-                const a0 = i * seg;
-                const o = k(f, [a0 - 6, a0 + 4], [0, 1]) * k(f, [a0 + seg - 2, a0 + seg + 6], [1, 0]);
-                const z = 1.02 + ((f - a0) / seg) * 0.05;
-                return o > 0 ? (
-                  <AbsoluteFill key={sh.img} style={{opacity: i === 0 ? Math.min(1, o + (f < 6 ? 1 : 0)) : o}}>
-                    <Img src={staticFile(`news/${sh.img}.jpg`)} style={{width: 1920, height: 1080, objectFit: 'cover', transform: `scale(${z})`}} />
-                    <div style={{position: 'absolute', left: 60, bottom: 44, padding: '8px 14px', background: 'rgba(5,6,8,0.75)', borderRadius: 4, fontFamily: FONT.mono, fontSize: 16, letterSpacing: '0.12em', color: C.ivory}}>{sh.cap}</div>
-                  </AbsoluteFill>
-                ) : null;
-              })}
-            </>
-          );
-        }}
+      <Shot dur={dur} push={0.04}>
+        {(f) => (
+          <>
+            {[
+              {n: 11, x: 120, y: 120, r: -5},
+              {n: 12, x: 1040, y: 100, r: 4},
+              {n: 13, x: 580, y: 300, r: -1},
+              {n: 14, x: 140, y: 560, r: 3},
+              {n: 15, x: 1060, y: 540, r: -4},
+            ].map((c, i) => {
+              const a = k(f, [i * 16, i * 16 + 14], [0, 1], E.out);
+              return (
+                <div key={c.n} style={{position: 'absolute', left: c.x, top: c.y + (1 - a) * 70, width: 720, opacity: a, transform: `rotate(${c.r}deg) scale(${0.96 + a * 0.04})`, boxShadow: '0 30px 80px rgba(0,0,0,0.75)', border: `3px solid ${C.ivory}`}}>
+                  <Img src={staticFile(`news/csgo-ingame-${c.n}.jpg`)} style={{width: 720, display: 'block'}} />
+                </div>
+              );
+            })}
+          </>
+        )}
       </Shot>
     ),
   },
