@@ -11,16 +11,18 @@ const JOBS = {
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(JOBS);
 for (const d of ['renders/4k', 'renders/1080p', 'renders/stills']) mkdirSync(d, {recursive: true});
 
+// В 4K тяжёлые кадры с размытием на программном GL могут подвисать при 4 параллельных вкладках,
+// поэтому мастер рендерится с concurrency=2 и SwiftShader.
 const rem = (...args) =>
-  execFileSync('npx', ['remotion', ...args, '--concurrency=4', '--timeout=120000', '--log=error'], {stdio: 'inherit'});
+  execFileSync('npx', ['remotion', ...args, '--timeout=240000', '--log=error'], {stdio: 'inherit'});
 
 for (const id of ids) {
   const job = JOBS[id];
   if (!job) throw new Error(`Неизвестная композиция ${id}`);
   console.log(`\n▶ ${id}`);
   // 3840×2160, 30 fps, H.264 High, yuv420p — подходит для любого монтажного ПО и YouTube
-  rem('render', 'src/index.ts', id, `renders/4k/${job.file}_2160p30.mp4`, '--scale=2', '--codec=h264', '--crf=14', '--pixel-format=yuv420p', '--jpeg-quality=95');
-  rem('render', 'src/index.ts', id, `renders/1080p/${job.file}_1080p30.mp4`, '--codec=h264', '--crf=18', '--pixel-format=yuv420p', '--jpeg-quality=95');
+  rem('render', 'src/index.ts', id, `renders/4k/${job.file}_2160p30.mp4`, '--scale=2', '--codec=h264', '--crf=14', '--pixel-format=yuv420p', '--jpeg-quality=95', '--concurrency=2', '--gl=swiftshader');
+  rem('render', 'src/index.ts', id, `renders/1080p/${job.file}_1080p30.mp4`, '--codec=h264', '--crf=18', '--pixel-format=yuv420p', '--jpeg-quality=95', '--concurrency=4');
   job.stills.forEach((fr, i) => {
     const tag = ['a-nachalo', 'b-seredina', 'c-konec'][i];
     rem('still', 'src/index.ts', id, `renders/stills/${job.file}_${tag}_f${fr}.jpg`, `--frame=${fr}`, '--image-format=jpeg', '--jpeg-quality=92');
