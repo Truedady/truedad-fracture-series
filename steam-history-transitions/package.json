@@ -1,0 +1,23 @@
+{
+  "name": "truedad-steam-history-transitions",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "render:01": "remotion render src/index.ts Ch01-FirstTrades out/01_pervye-obmeny_2010-2013.mp4",
+    "render:07": "remotion render src/index.ts Ch07-WorstSpring out/07_hudshaya-vesna_2018.mp4",
+    "render:all": "node scripts/render-all.mjs"
+  },
+  "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.1.1",
+    "@remotion/cli": "4.0.290",
+    "@remotion/fonts": "^4.0.290",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.290"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "typescript": "5.6.3"
+  }
+}
