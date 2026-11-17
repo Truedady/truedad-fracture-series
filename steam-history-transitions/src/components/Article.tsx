@@ -95,23 +95,7 @@ export const ArticleShot: React.FC<{src: string; w: number; h: number; cams: Cam
           </>
         );
       })()}
-      <div
-        style={{
-          position: 'absolute',
-          left: 60,
-          bottom: 44,
-          padding: '8px 14px',
-          background: 'rgba(5,6,8,0.75)',
-          borderRadius: 4,
-          fontFamily: FONT.mono,
-          fontSize: 16,
-          letterSpacing: '0.08em',
-          color: C.muted,
-          opacity: k(f, [10, 22], [0, 1]),
-        }}
-      >
-        ИСТОЧНИК: <span style={{color: C.ivory}}>{source}</span>
-      </div>
+      {/* подпись источника убрана по просьбе автора */}
     </div>
   );
 };
