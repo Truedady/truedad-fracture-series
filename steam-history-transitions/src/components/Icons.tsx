@@ -89,6 +89,9 @@ export const Crate: React.FC<P> = ({size = 100, style}) => (
   </svg>
 );
 
+export const RIFLE_D =
+  'M4 29 L12 27 L46 30 L50 26 L120 26 L124 28 L150 28 L152 27 L176 27 L178 25 L181 22 L183 22 L183 27 L196 27.5 L196 31 L178 31.5 L176 33 L152 33.5 L150 36 L124 36 L120 37 L112 37 Q114 50 122 62 L110 66 Q104 52 100 38 L82 38 L80 42 Q78 46 74 46 L72 43 L66 44 L62 60 L52 60 L56 40 L50 38 L44 38 L12 47 L4 46 Z';
+
 /** Силуэт автомата (обобщённый). accent — цвет «раскраски». */
 export const Rifle: React.FC<P & {accent?: string; accent2?: string}> = ({size = 200, style, accent = '#8D96A3', accent2 = '#454C57'}) => (
   <svg width={size} height={size * 0.4} viewBox="0 0 200 80" style={style}>
@@ -98,10 +101,7 @@ export const Rifle: React.FC<P & {accent?: string; accent2?: string}> = ({size =
         <stop offset="1" stopColor={accent2} />
       </linearGradient>
     </defs>
-    <path
-      d="M6 33 L38 28 L44 24 L118 24 L122 20 L148 20 L150 24 L194 25 L194 30 L150 31 L146 37 L128 37 L122 58 Q116 63 108 60 L112 37 L92 37 L86 60 L72 60 L77 37 L52 37 L42 52 L9 48 Z"
-      fill={`url(#rf-${accent})`}
-    />
+    <path d={RIFLE_D} fill={`url(#rf-${accent})`} />
     <path d="M44 24 L118 24 L118 27 L44 27Z" fill="#FFFFFF" opacity="0.28" />
     <path d="M58 28 L100 28 L96 35 L62 35Z" fill="#000" opacity="0.25" />
   </svg>

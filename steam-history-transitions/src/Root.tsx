@@ -2,8 +2,7 @@ import React from 'react';
 import {Composition} from 'remotion';
 import {ensureFonts} from './lib/fonts';
 import {FPS, H, W} from './lib/theme';
-import {CH01_DURATION, Ch01FirstTrades} from './chapters/Ch01FirstTrades';
-import {CH07_DURATION, Ch07WorstSpring} from './chapters/Ch07WorstSpring';
+import {CHAPTERS} from './chapters';
 
 ensureFonts();
 
@@ -13,7 +12,8 @@ ensureFonts();
  */
 export const RemotionRoot: React.FC = () => (
   <>
-    <Composition id="Ch01-FirstTrades" component={Ch01FirstTrades} durationInFrames={CH01_DURATION} fps={FPS} width={W} height={H} />
-    <Composition id="Ch07-WorstSpring" component={Ch07WorstSpring} durationInFrames={CH07_DURATION} fps={FPS} width={W} height={H} />
+    {CHAPTERS.map((c) => (
+      <Composition key={c.id} id={c.id} component={c.component} durationInFrames={c.duration} fps={FPS} width={W} height={H} />
+    ))}
   </>
 );
