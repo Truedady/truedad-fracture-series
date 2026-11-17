@@ -3,7 +3,7 @@ import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {Backdrop, Dust, Finish, hexA} from '../components/Atmosphere';
 import {Case, Knife, Lock, Pistol, Rifle} from '../components/Icons';
 import {ChapterLabel, Chronology, Years} from '../components/Typography';
-import {Skin, SkinKey} from '../components/Skins';
+import {Skin, SkinKey, WEAPONS} from '../components/Skins';
 import {C, FONT} from '../lib/theme';
 import {E, k, lerp, rnd, shake} from '../lib/anim';
 
@@ -58,11 +58,11 @@ const itemOf = (seed: string) => {
 };
 
 // Реальные рендеры скинов; seed выбирает, какой именно
-const REAL: SkinKey[] = ['m4Red', 'awpLightning', 'm4Cyan', 'deagleBlue', 'm4Blue'];
+const REAL: SkinKey[] = WEAPONS;
 const Item: React.FC<{kind: Kind; rarity: string; size: number; seed?: string}> = ({kind, rarity, size, seed}) => {
   if (seed !== undefined) {
     const key = REAL[Math.floor(rnd(seed + 'skin') * REAL.length)];
-    return <Skin k={key} w={size} h={key === 'deagleBlue' ? size * 0.42 : undefined} />;
+    return <Skin k={key} w={size} h={size * 0.42} />;
   }
   const dark = '#1A1F27';
   if (kind === 'rifle') return <Rifle size={size} accent={rarity} accent2={dark} />;

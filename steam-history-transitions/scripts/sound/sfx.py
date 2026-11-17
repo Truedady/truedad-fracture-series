@@ -315,10 +315,276 @@ def ch07():
     return finish(st, D, -1.0, 0.08)
 
 
+
+# ── Дополнительные звуки ────────────────────────────────────────────────
+
+def shing(dur=0.7):
+    """Металлический «вжик» клинка."""
+    w = whoosh(dur * 0.6, 2500, 9000, q=4.0, shape='rise')
+    out = np.zeros(secs(dur))
+    out[: len(w)] += w * 0.6
+    c = clink(2350, dur - 0.1, 1.2)
+    i = secs(dur * 0.45)
+    out[i: i + len(c)] += c[: len(out) - i]
+    return out / np.max(np.abs(out))
+
+
+def soft_thud(f0=90):
+    return boom(f0, f0 * 0.5, 0.35, punch=0.5, decay=0.07)
+
+
+def noise_bed(dur, lo=200, hi=1600):
+    n = secs(dur)
+    x = bp(rng.standard_normal(n), lo, hi)
+    x *= env_ar(n, 0.3, 0.3)
+    return x / np.max(np.abs(x))
+
+
+def hum_sweep(dur, f0=180, f1=900):
+    n = secs(dur)
+    t = np.arange(n) / SR
+    f = f0 * (f1 / f0) ** (t / dur)
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    s = np.sin(ph) + 0.3 * np.sin(2 * ph) + 0.4 * bp(rng.standard_normal(n), 1500, 6000)
+    s *= env_ar(n, 0.15, 0.25)
+    return s / np.max(np.abs(s))
+
+
+def render(tr, D, rev=(2.2, 0.22, 5000), fade=0.12):
+    st = reverb(tr.stereo(), *rev)
+    return finish(st, D, -1.0, fade)
+
+
+def exit_fly(tr, start, dur=0.75):
+    tr.add(start, whoosh(dur, 220, 4500, q=1.0, shape='rise'), 0.45)
+
+
+# ── ГЛАВА 02 ──
+def ch02():
+    D = 135 / FPS
+    tr = Track(D)
+    tr.add(0.05, pad([65.41, 130.81, 196.0, 261.63, 329.63], D - 0.1, attack=0.4, release=0.3, cutoff=1300), 0.16)
+    tr.add(fr(12), whoosh(fr(16), 300, 5000, q=1.6, shape='rise'), 0.35)
+    tr.add(fr(25), shing(0.9), 0.3, pan=0.1)
+    tr.add(fr(27), boom(80, 38, 2.0, punch=0.3, decay=0.6), 0.55)
+    tr.add(fr(30), whoosh(fr(34), 200, 900, q=0.9), 0.25, pan=np.linspace(-0.5, 0.5, secs(fr(34))))
+    for i in range(4):
+        tr.add(fr(44 + i * 3), blip(523.25 * (1.122 ** (i * 2)), 0.07), 0.08, pan=-0.45 + i * 0.3)
+    tr.add(fr(51), tick(2800, 0.05, 0.2), 0.12, pan=0.6)
+    tr.add(fr(64), whoosh(fr(14), 600, 6000, q=2.5, shape='rise'), 0.22, pan=np.linspace(-0.7, 0.7, secs(fr(14))))
+    tr.add(fr(69), whoosh(fr(14), 600, 6000, q=2.5, shape='rise'), 0.18, pan=np.linspace(-0.7, 0.7, secs(fr(14))))
+    tr.add(fr(64), boom(65, 34, 2.0, punch=0.2, decay=0.6), 0.4)
+    tr.add(fr(78), tick(2600, 0.05, 0.3), 0.1)
+    exit_fly(tr, fr(108))
+    return render(tr, D, (2.6, 0.26, 6000))
+
+
+# ── ГЛАВА 03 ──
+def ch03():
+    D = 135 / FPS
+    tr = Track(D)
+    tr.add(0.05, pad([55.0, 110.0, 164.81, 246.94, 329.63], D - 0.1, attack=0.35, release=0.3, cutoff=1100), 0.17)
+    tr.add(0.0, shimmer(1.0, 1760), 0.05)
+    for i, s_ in enumerate([12, 18, 24, 30, 36, 42]):
+        w = whoosh(fr(24), 500, 2600, q=2.2)
+        pan = -0.6 if i % 2 == 0 else -0.2
+        tr.add(fr(s_), w, 0.13, pan=np.linspace(0.6, pan, len(w)))
+        tr.add(fr(s_ + 24), clink(1568 if i % 2 else 1318.5, 0.6, 0.6), 0.07, pan=pan)
+    for t, fq in [(10, 880), (22, 1046.5), (28, 1174.7)]:
+        tr.add(fr(t), clink(fq, 0.9, 0.8), 0.1)
+    tr.add(fr(56), whoosh(fr(16), 1200, 300, q=1.2), 0.12)
+    tr.add(fr(62), boom(70, 35, 2.0, punch=0.15, decay=0.6), 0.45)
+    tr.add(fr(62), whoosh(fr(16), 200, 1500, q=1.0, shape='rise'), 0.2)
+    tr.add(fr(76), tick(2400, 0.05, 0.3), 0.1)
+    exit_fly(tr, fr(108))
+    return render(tr, D, (2.8, 0.28, 6000))
+
+
+# ── ГЛАВА 04 ──
+def ch04():
+    D = 150 / FPS
+    tr = Track(D)
+    tr.add(0.0, drone(D, 61.7) * env_ar(secs(D), 0.1, 0.2), 0.12)
+    for i, t in enumerate([2, 8, 14, 20, 26]):
+        tr.add(fr(t), tick(1800, 0.06, 0.6), 0.16, pan=[-0.6, 0.5, 0, -0.7, 0.6][i])
+        tr.add(fr(t), whoosh(0.18, 3000, 800, q=1.5, shape='fall'), 0.08)
+    for i in range(5):
+        hit = int(np.floor(np.random.default_rng(i).random() * 5))
+        tr.add(fr(t_ := 2 + i * 6 + 6 + hit * 4.5), blip(1318.5, 0.06), 0.09, pan=[-0.6, 0.5, 0, -0.7, 0.6][i])
+        tr.add(fr(t_) + 0.06, blip(1760, 0.07), 0.07, pan=[-0.6, 0.5, 0, -0.7, 0.6][i])
+    # рулетка: щелчок при каждом пересечении указателя
+    CARD = 210
+    endOff = 960 - (30 * CARD + CARD / 2)
+    startOff = endOff + 5200
+    last = None
+    for fi in np.arange(42, 88.01, 0.05):
+        t = (fi - 42) / 46
+        off = startOff + (endOff - startOff) * (1 - (1 - t) ** 3.2)
+        idx = int(np.floor((960 - off) / CARD))
+        if last is not None and idx != last:
+            tr.add(fr(fi), tick(2200, 0.03, 0.5), 0.09, pan=0.05)
+        last = idx
+    tr.add(fr(40), whoosh(0.6, 400, 3000, q=1.2, shape='rise'), 0.2)
+    tr.add(fr(88), clink(1568, 1.4, 1.0), 0.22)
+    tr.add(fr(88) + 0.08, clink(2349, 1.2, 0.8), 0.16)
+    tr.add(fr(88), boom(85, 42, 1.2, punch=0.3, decay=0.35), 0.4)
+    # печать титра
+    t = 94.0
+    for ch in 'СТОРОННИЕ МАРКЕТЫ,' + 'РУЛЕТКИИБОТЫ':
+        tr.add(fr(t), tick(3200 + rng.random() * 600, 0.03, 0.8), 0.07, pan=rng.random() * 0.4 - 0.2)
+        t += 1.4
+    exit_fly(tr, fr(124))
+    return render(tr, D, (1.8, 0.18, 5000))
+
+
+# ── ГЛАВА 05 ──
+def ch05():
+    D = 140 / FPS
+    tr = Track(D)
+    tr.add(0.0, drone(D - 0.2, 46.25) * env_ar(secs(D - 0.2), 0.15, 0.1), 0.2)
+    tr.add(fr(6), hum_sweep(fr(22), 220, 660), 0.08)
+    for i in range(12):
+        tr.add(fr(6 + i * 2), tick(3600, 0.025, 0.4), 0.05, pan=0.4)
+    tr.add(fr(30), blip(987.8, 0.12), 0.12)
+    tr.add(fr(30) + 0.1, blip(1318.5, 0.16), 0.1)
+    for i in range(15):
+        tr.add(fr(38 + i * 2), blip(330 if i < 14 else 247, 0.06), 0.08, pan=-0.6 + i * 0.085)
+    tr.add(fr(38), lp(rng.standard_normal(secs(1.2)), 300) * env_ar(secs(1.2), 0.2, 0.6), 0.1)
+    tr.add(fr(76), whoosh(fr(16), 300, 2500, q=1.4), 0.25, pan=np.linspace(-0.6, 0.6, secs(fr(16))))
+    tr.add(fr(78), boom(70, 34, 2.0, punch=0.4, decay=0.5), 0.5)
+    n = secs(0.5); tt = np.arange(n) / SR
+    tr.add(fr(128), np.sin(2 * np.pi * 1975.5 * tt) * env_ar(n, 0.05, 0.8), 0.05)
+    tr.add(fr(122), whoosh(fr(8), 3000, 800, q=1.6), 0.2)
+    tr.add(fr(135), boom(70, 30, 1.0, punch=0.6, decay=0.22), 0.5)
+    return render(tr, D, (2.0, 0.2, 4500), 0.08)
+
+
+# ── ГЛАВА 06 ──
+def ch06():
+    D = 135 / FPS
+    tr = Track(D)
+    tr.add(0.0, noise_bed(D, 150, 900), 0.08)
+    tr.add(0.05, pad([73.42, 110.0, 146.83, 220.0, 277.18], D - 0.1, attack=0.4, release=0.3, cutoff=900), 0.15)
+    # счётчик цены: учащающиеся тики
+    t = 18.0
+    while t < 58:
+        tr.add(fr(t), tick(2600, 0.03, 0.4), 0.07, pan=0.45)
+        t += max(0.7, 3.5 - (t - 18) * 0.08)
+    for t in range(10, 50, 3):
+        tr.add(fr(t), tick(3400, 0.02, 0.4), 0.035, pan=-0.55)
+    tr.add(fr(58), clink(1318.5, 1.4, 1.0), 0.16, pan=0.4)
+    tr.add(fr(58) + 0.05, clink(1975.5, 1.2, 0.8), 0.13, pan=0.4)
+    tr.add(fr(68), boom(95, 40, 0.9, punch=0.8, decay=0.18), 0.6)
+    tr.add(fr(73), boom(100, 42, 1.6, punch=0.9, decay=0.3), 0.7)
+    tr.add(fr(82), tick(2400, 0.05, 0.3), 0.1)
+    exit_fly(tr, fr(108))
+    return render(tr, D, (2.4, 0.24, 4500))
+
+
+# ── ГЛАВА 08 ──
+def ch08():
+    D = 135 / FPS
+    tr = Track(D)
+    p = pad([65.41, 130.81, 164.81, 196.0, 246.94, 329.63], D - 0.1, attack=0.5, release=0.25, cutoff=1500)
+    p *= np.linspace(0.5, 1.2, len(p)).clip(0, 1)
+    tr.add(0.05, p, 0.18)
+    for ci, n in enumerate([8, 6, 7]):
+        for i in range(n):
+            t0 = 6 + ci * 3 + i * 5 + 7
+            tr.add(fr(t0), soft_thud(110 - i * 2), 0.18, pan=[-0.5, 0, 0.5][ci])
+            tr.add(fr(t0), tick(1500, 0.04, 0.6), 0.05, pan=[-0.5, 0, 0.5][ci])
+    tr.add(fr(30), shimmer(1.0, 1318.5), 0.07)
+    tr.add(fr(30), whoosh(fr(26), 300, 2500, q=1.2, shape='rise'), 0.12)
+    tr.add(fr(66), boom(65, 33, 2.2, punch=0.2, decay=0.65), 0.5)
+    tr.add(fr(78), tick(2600, 0.05, 0.3), 0.1)
+    tr.add(fr(108), whoosh(0.8, 300, 6000, q=1.0, shape='rise'), 0.4)
+    return render(tr, D, (2.6, 0.26, 6000))
+
+
+# ── ГЛАВА 09 ──
+def ch09():
+    D = 135 / FPS
+    tr = Track(D)
+    tr.add(0.05, pad([77.78, 155.56, 233.08, 311.13, 392.0], D - 0.1, attack=0.35, release=0.3, cutoff=1400), 0.13)
+    for i in range(10):
+        tr.add(fr(4 + i * 1.1), tick(1200 + i * 60, 0.03, 0.8), 0.06, pan=0.1)
+    tr.add(fr(16), lock_clack(), 0.3)
+    tr.add(fr(16), boom(120, 60, 0.5, punch=0.4, decay=0.1), 0.25)
+    tr.add(fr(17), whoosh(0.9, 400, 4000, q=1.0, shape='fall'), 0.2)
+    r = np.random.default_rng(9)
+    for j in range(160):
+        t = 18 + (j / 160) ** 1.25 * 56
+        tr.add(fr(t) + r.random() * 0.03, tick(2500 + r.random() * 2500, 0.02, 0.9), 0.025 + 0.02 * r.random(), pan=r.random() * 1.6 - 0.8)
+    tr.add(fr(20), shimmer(2.0, 2093), 0.05)
+    tr.add(fr(72), whoosh(fr(10), 300, 2500, q=1.4), 0.22, pan=np.linspace(-0.6, 0.6, secs(fr(10))))
+    tr.add(fr(72), boom(70, 34, 2.0, punch=0.3, decay=0.55), 0.45)
+    exit_fly(tr, fr(108))
+    return render(tr, D, (2.2, 0.22, 5500))
+
+
+# ── ГЛАВА 10 ──
+def ch10():
+    D = 135 / FPS
+    tr = Track(D)
+    dull = drone(fr(60), 55.0) * env_ar(secs(fr(60)), 0.1, 0.4)
+    tr.add(0.0, lp(dull, 400), 0.16)
+    tr.add(fr(16), hum_sweep(fr(44), 160, 1200), 0.12, pan=np.linspace(-0.8, 0.8, secs(fr(44))))
+    p = pad([82.41, 123.47, 164.81, 246.94, 369.99, 493.88], D - fr(20), attack=0.35, release=0.25, cutoff=2200)
+    tr.add(fr(20), p, 0.17)
+    tr.add(fr(40), shimmer(1.4, 2637), 0.06)
+    tr.add(fr(26), tick(2600, 0.05, 0.3), 0.1, pan=-0.2)
+    tr.add(fr(42), tick(2800, 0.05, 0.3), 0.1, pan=0.2)
+    tr.add(fr(70), whoosh(fr(20), 800, 5000, q=2.5), 0.15, pan=np.linspace(-0.7, 0.7, secs(fr(20))))
+    tr.add(fr(70), boom(68, 34, 2.0, punch=0.25, decay=0.6), 0.45)
+    exit_fly(tr, fr(108))
+    return render(tr, D, (2.6, 0.26, 6500))
+
+
+# ── ГЛАВА 11 ──
+def ch11():
+    D = 165 / FPS
+    tr = Track(D)
+    tr.add(0.0, drone(fr(62), 49.0) * env_ar(secs(fr(62)), 0.15, 0.1), 0.14)
+    for i in range(5):
+        t0 = 4 + i * 4.8 + 7
+        tr.add(fr(t0), lock_clack(), 0.2, pan=-0.6 + i * 0.3)
+        tr.add(fr(t0) + 0.04, blip(440 * (1.189 ** i), 0.07), 0.07, pan=-0.6 + i * 0.3)
+    tr.add(fr(31), tick(1600, 0.06, 0.5), 0.2)
+    tr.add(fr(31), blip(1318.5, 0.12), 0.1)
+    tr.add(fr(36), whoosh(fr(28), 200, 6000, q=1.4, shape='rise'), 0.4, pan=np.sin(np.linspace(0, 8, secs(fr(28)))) * 0.7)
+    tr.add(fr(36), hum_sweep(fr(26), 110, 880), 0.1)
+    tr.add(fr(62), boom(120, 30, 3.0, punch=0.8, decay=0.9), 0.9)
+    tr.add(fr(62), shimmer(2.2, 1760), 0.09)
+    tr.add(fr(66), pad([61.74, 123.47, 185.0, 246.94, 311.13, 415.3], D - fr(70), attack=0.3, release=0.3, cutoff=1800), 0.16)
+    tr.add(fr(70), shing(1.0), 0.3, pan=0.15)
+    tr.add(fr(88), shing(0.8), 0.18, pan=-0.2)
+    for i, t in enumerate([80, 82, 84]):
+        tr.add(fr(t), tick(2700, 0.04, 0.3), 0.08, pan=-0.4 + i * 0.4)
+    tr.add(fr(104), whoosh(fr(24), 400, 3000, q=2.0, shape='rise'), 0.15)
+    tr.add(fr(104), boom(62, 31, 2.2, punch=0.2, decay=0.6), 0.45)
+    tr.add(fr(132), whoosh(fr(24), 150, 5000, q=0.9, shape='rise'), 0.6, pan=np.linspace(0.2, -0.8, secs(fr(24))))
+    tr.add(fr(150), boom(90, 30, 1.4, punch=0.7, decay=0.35), 0.55)
+    return render(tr, D, (2.8, 0.26, 6000), 0.1)
+
+
+JOBS = [
+    ('01_pervye-obmeny_2010-2013', ch01),
+    ('02_poyavlenie-csgo_2013', ch02),
+    ('03_regionalnye-igry_2011-2017', ch03),
+    ('04_markety-ruletki-boty_2013-2017', ch04),
+    ('05_steam-guard_2016', ch05),
+    ('06_era-pubg_2017-2018', ch06),
+    ('07_hudshaya-vesna_2018', ch07),
+    ('08_investicionnyj-bum_2019-2023', ch08),
+    ('09_nakleyki-rmr-stockholm_2021-2022', ch09),
+    ('10_vyhod-cs2_2023-2024', ch10),
+    ('11_novaya-ekonomika-cs2_2025-2026', ch11),
+]
+
 if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else 'renders/audio'
     os.makedirs(out, exist_ok=True)
-    for name, fn in [('01_pervye-obmeny_2010-2013', ch01), ('07_hudshaya-vesna_2018', ch07)]:
+    for name, fn in JOBS:
         st = fn()
         pcm = (np.clip(st, -1, 1) * (2 ** 31 - 1)).astype(np.int32)
         path = os.path.join(out, f'{name}_sfx.wav')

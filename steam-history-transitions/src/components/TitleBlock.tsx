@@ -83,7 +83,7 @@ export const TitleBlock: React.FC<Props> = ({
   };
 
   const renderLine = (text: string, li: number) => {
-    const ls = start + li * 5;
+    const ls = variant === 'type' ? start + lines.slice(0, li).join('').length * 1.4 + li * 3 : start + li * 5;
     const y = top + li * lh;
     const wrap = (child: React.ReactNode, extra: React.CSSProperties = {}) => (
       <div key={li} style={{position: 'absolute', left: 0, right: 0, top: y, height: lh, ...baseText, ...extra}}>
@@ -112,7 +112,7 @@ export const TitleBlock: React.FC<Props> = ({
         );
       case 'riseMask': {
         const p = k(f, [ls, ls + 16], [0, 1], E.out);
-        return wrap(<div style={{transform: `translateY(${(1 - p) * lh * 1.05}px)`}}>{text}</div>, {overflow: 'hidden'});
+        return wrap(<div style={{transform: `translateY(${(1 - p) * lh * 1.3}px)`}}>{text}</div>, {overflow: 'hidden'});
       }
       case 'wipe': {
         const p = k(f, [ls, ls + 16], [0, 1], E.inOut);
@@ -138,7 +138,7 @@ export const TitleBlock: React.FC<Props> = ({
       case 'type': {
         const shown = Math.floor(k(f, [ls, ls + text.length * 1.4], [0, text.length]));
         const done = shown >= text.length;
-        const active = f >= ls && (!done || (li === n - 1 && Math.floor(f / 7) % 2 === 0));
+        const active = f >= ls && (!done ? true : li === n - 1 && Math.floor(f / 7) % 2 === 0);
         const cw = size * 0.07;
         return wrap(
           <>
