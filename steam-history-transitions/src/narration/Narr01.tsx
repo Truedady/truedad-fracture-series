@@ -61,7 +61,8 @@ const _NewsPlaceholder: React.FC<{f: number; title: string; date: string; url: s
 const Item: React.FC<{n: string; size: number; style?: React.CSSProperties}> = ({n, size, style}) => <Img src={tf2(n)} style={{width: size, height: size, display: 'block', ...style}} />;
 
 const TRADE = {src: 'news/steam-trading-2011.jpg', w: 2000, h: 1258, source: 'store.steampowered.com · Valve · 07.09.2011'};
-const TF2NEWS = {src: 'news/tf2-update-2010.jpg', w: 2000, h: 1450, source: 'store.steampowered.com · Valve · 30.09.2010'};
+const TF2NEWS = {src: 'news/tf2-update-2010-hd.jpg', w: 1600, h: 1450, source: 'store.steampowered.com · Valve · 30.09.2010'};
+const MANNCO = {src: 'news/tf2-mannconomy-2010.jpg', w: 1600, h: 4255, source: 'teamfortress.com · Mann-Conomy Update · 30.09.2010'};
 const MARKET = {src: 'news/community-market-2012.jpg', w: 2000, h: 1307, source: 'store.steampowered.com · Valve · 12.12.2012'};
 
 // ── Планы ──────────────────────────────────────────────────────────────
@@ -95,36 +96,77 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
       </Shot>
     ),
   },
-  // 8.4–14.3 «Зато уже есть Team Fortress 2 — шапки, оружие, обмен» — обновление TF2 от 30.09.2010
+  // 8.4–11.9 «Зато уже есть Team Fortress 2…» — новость Steam об обновлении TF2 (30.09.2010), мягкий наезд
   {
     from: 8.4,
-    to: 14.6,
+    to: 11.9,
     el: ({dur}) => (
       <Shot dur={dur} push={0}>
         {() => (
           <ArticleShot
             {...TF2NEWS}
             cams={[
-              {t: 0, x: 960, y: 560, z: 1.02},
-              {t: 1.2, x: 700, y: 260, z: 1.55},
-              {t: 3.0, x: 660, y: 440, z: 2.0},
-              {t: 4.8, x: 600, y: 490, z: 2.15},
-              {t: 6.2, x: 600, y: 495, z: 2.2},
+              {t: 0, x: 540, y: 460, z: 1.25},
+              {t: 3.5, x: 520, y: 440, z: 1.45},
             ]}
             marks={[
-              {t: 1.0, x: 400, y: 195, w: 545, h: 42, spot: true},
-              {t: 1.9, x: 988, y: 306, w: 84, h: 16, spot: true},
-              {t: 2.9, x: 418, y: 416, w: 470, h: 48, spot: true},
-              {t: 4.6, x: 436, y: 497, w: 100, h: 20, spot: true},
+              {t: 1.0, x: 218, y: 414, w: 470, h: 48, spot: true},
+              {t: 2.2, x: 236, y: 497, w: 98, h: 18, spot: true},
             ]}
           />
         )}
       </Shot>
     ),
   },
-  // 14.3–21.9 «В сентябре 2011 года Steam Trading выходит из беты…»
+  // 11.7–14.1 скриншоты из игры TF2 (официальные, из магазина Steam)
   {
-    from: 14.3,
+    from: 11.7,
+    to: 14.2,
+    el: ({dur}) => (
+      <Shot dur={dur} push={0.04}>
+        {(f) => (
+          <>
+            {[
+              {img: 'tf2-ingame-07', x: 150, y: 250, r: -4},
+              {img: 'tf2-ingame-09', x: 660, y: 330, r: 2},
+              {img: 'tf2-ingame-10', x: 1170, y: 230, r: -2},
+            ].map((c, i) => {
+              const a = k(f, [i * 6, i * 6 + 14], [0, 1], E.out);
+              return (
+                <div key={c.img} style={{position: 'absolute', left: c.x, top: c.y + (1 - a) * 80, width: 600, opacity: a, transform: `rotate(${c.r}deg)`, boxShadow: '0 30px 80px rgba(0,0,0,0.7)', border: `3px solid ${C.ivory}`}}>
+                  <Img src={staticFile(`news/${c.img}.jpg`)} style={{width: 600, display: 'block'}} />
+                </div>
+              );
+            })}
+            <div style={{position: 'absolute', left: 0, right: 0, bottom: 120, textAlign: 'center', fontFamily: FONT.mono, fontSize: 18, letterSpacing: '0.2em', color: C.muted}}>
+              TEAM FORTRESS 2 · СКРИНШОТЫ ИЗ ИГРЫ · STORE.STEAMPOWERED.COM
+            </div>
+          </>
+        )}
+      </Shot>
+    ),
+  },
+  // 13.9–16.8 каталог Mann Co. из обновления Mann-Conomy: шапки, раскрашиваемые предметы
+  {
+    from: 13.9,
+    to: 16.8,
+    el: ({dur}) => (
+      <Shot dur={dur} push={0}>
+        {() => (
+          <ArticleShot
+            {...MANNCO}
+            cams={[
+              {t: 0, x: 800, y: 3080, z: 1.0},
+              {t: 2.9, x: 800, y: 3240, z: 1.15},
+            ]}
+          />
+        )}
+      </Shot>
+    ),
+  },
+  // 16.6–22.1 «В сентябре 2011 года Steam Trading выходит из беты» — заголовок по центру, без сильного наезда
+  {
+    from: 16.6,
     to: 22.1,
     el: ({dur}) => (
       <Shot dur={dur} push={0}>
@@ -132,17 +174,10 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
           <ArticleShot
             {...TRADE}
             cams={[
-              {t: 0, x: 1000, y: 560, z: 0.96},
-              {t: 1.4, x: 640, y: 170, z: 1.55},
-              {t: 3.6, x: 760, y: 280, z: 1.75},
-              {t: 5.4, x: 600, y: 340, z: 1.85},
-              {t: 7.8, x: 600, y: 360, z: 1.95},
+              {t: 0, x: 640, y: 480, z: 1.0},
+              {t: 5.5, x: 640, y: 460, z: 1.12},
             ]}
-            marks={[
-              {t: 1.5, x: 183, y: 128, w: 907, h: 56, spot: true},
-              {t: 3.5, x: 955, y: 277, w: 137, h: 22, spot: true},
-              {t: 5.2, x: 183, y: 312, w: 823, h: 50, spot: true},
-            ]}
+            marks={[{t: 0.9, x: 183, y: 128, w: 907, h: 56, spot: true}]}
           />
         )}
       </Shot>
@@ -202,9 +237,8 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
             <ArticleShot
               {...TRADE}
               cams={[
-                {t: 0, x: 640, y: 830, z: 1.4},
-                {t: 3.0, x: 600, y: 930, z: 1.9},
-                {t: 9.3, x: 620, y: 935, z: 2.05},
+                {t: 0, x: 640, y: 800, z: 1.05},
+                {t: 9.3, x: 640, y: 860, z: 1.15},
               ]}
               marks={[
                 {t: 0.8, x: 183, y: 780, w: 907, h: 100, spot: true},
@@ -293,13 +327,12 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
           <ArticleShot
             {...MARKET}
             cams={[
-              {t: 0, x: 1000, y: 600, z: 0.95},
-              {t: 1.3, x: 960, y: 170, z: 1.05},
-              {t: 3.0, x: 1000, y: 290, z: 1.6},
-              {t: 5.0, x: 620, y: 420, z: 1.75},
-              {t: 8.8, x: 620, y: 510, z: 1.75},
-              {t: 11.5, x: 620, y: 830, z: 1.7},
-              {t: 14.2, x: 620, y: 830, z: 1.8},
+              {t: 0, x: 967, y: 560, z: 0.97},
+              {t: 1.5, x: 967, y: 380, z: 1.0},
+              {t: 5.0, x: 967, y: 460, z: 1.0},
+              {t: 7.0, x: 967, y: 540, z: 1.0},
+              {t: 11.0, x: 967, y: 720, z: 1.0},
+              {t: 14.2, x: 967, y: 740, z: 1.02},
             ]}
             marks={[
               {t: 1.2, x: 160, y: 132, w: 1615, h: 56, spot: true},
