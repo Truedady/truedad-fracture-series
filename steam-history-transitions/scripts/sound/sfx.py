@@ -364,7 +364,9 @@ def ch02():
     D = 135 / FPS
     tr = Track(D)
     tr.add(0.05, pad([65.41, 130.81, 196.0, 261.63, 329.63], D - 0.1, attack=0.4, release=0.3, cutoff=1300), 0.16)
-    tr.add(fr(12), whoosh(fr(16), 300, 5000, q=1.6, shape='rise'), 0.35)
+    # два скина 2013 года пролетают мимо камеры
+    tr.add(0.0, whoosh(fr(13), 250, 3500, q=1.3, shape='rise'), 0.32, pan=np.linspace(-0.2, -0.9, secs(fr(13))))
+    tr.add(fr(6), whoosh(fr(17), 250, 3500, q=1.3, shape='rise'), 0.32, pan=np.linspace(0.2, 0.9, secs(fr(17))))
     tr.add(fr(25), shing(0.9), 0.3, pan=0.1)
     tr.add(fr(27), boom(80, 38, 2.0, punch=0.3, decay=0.6), 0.55)
     tr.add(fr(30), whoosh(fr(34), 200, 900, q=0.9), 0.25, pan=np.linspace(-0.5, 0.5, secs(fr(34))))

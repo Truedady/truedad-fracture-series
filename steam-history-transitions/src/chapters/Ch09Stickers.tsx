@@ -1,7 +1,7 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Img, staticFile, useCurrentFrame} from 'remotion';
 import {Dust, hexA} from '../components/Atmosphere';
-import {Capsule, Sticker} from '../components/Items2';
+import {Capsule} from '../components/Items2';
 import {Chip, Shell} from '../components/Shell';
 import {Ev, TitleBlock} from '../components/TitleBlock';
 import {C} from '../lib/theme';
@@ -11,8 +11,8 @@ import {E, k, lerp, rnd} from '../lib/anim';
  * ГЛАВА 09 · НАКЛЕЙКИ RMR И STOCKHOLM · 2021–2022
  * Капсула раскрывается, и из неё вылетают наклейки — сначала по одной,
  * потом всё быстрее, пока они не заполняют весь кадр плотной стеной.
- * Визуальная отсылка к огромному предложению обычных наклеек.
- * Эмблемы — абстрактные, не логотипы реальных команд.
+ * Визуальная отсылка к огромному предложению наклеек.
+ * Наклейки — реальные (public/stickers/): сначала RMR 2020, затем Stockholm 2021.
  *
  * 0–24    капсула, лёгкая вибрация, крышка открывается
  * 18–74   наклейки разлетаются и заполняют кадр (обычные / голо / золотые)
@@ -23,7 +23,7 @@ export const CH09_DURATION = 135;
 
 const GX = 17;
 const GY = 10;
-const SP = 118;
+const SP = 124;
 const CX = 960;
 const CY = 520;
 const SLOTS = (() => {
@@ -53,13 +53,15 @@ export const Ch09Stickers: React.FC = () => {
           const t0 = 18 + Math.pow(n / SLOTS.length, 0.8) * 52;
           const p = k(f, [t0, t0 + 10], [0, 1], E.out);
           if (p <= 0) return null;
-          const r = rnd(`k${s.i}`);
-          const kind = r < 0.07 ? 'gold' : r < 0.16 ? 'holo' : 'paper';
-          const hue = Math.floor(rnd(`h${s.i}`) * 360);
-          const rot = (rnd(`r${s.i}`) - 0.5) * 40;
-          const size = 104 + rnd(`s${s.i}`) * 10;
+          const isRmr = n / SLOTS.length < 0.38;
+          const file = isRmr
+            ? `rmr2020-${String(Math.floor(rnd(`k${s.i}`) * 10)).padStart(2, '0')}`
+            : `stockholm2021-${String(Math.floor(rnd(`k${s.i}`) * 8)).padStart(2, '0')}`;
+          const rot = (rnd(`r${s.i}`) - 0.5) * 30;
+          const size = 128 + rnd(`s${s.i}`) * 12;
           const x = lerp(CX, s.x, p) + (s.x - CX) * ex * 1.6;
           const y = lerp(CY, s.y, p) + (s.y - CY) * ex * 1.6;
+          const shine = 1 + 0.25 * Math.max(0, Math.sin(f * 0.09 + s.x * 0.004 - s.y * 0.003));
           return (
             <div
               key={s.i}
@@ -68,11 +70,10 @@ export const Ch09Stickers: React.FC = () => {
                 left: x - size / 2,
                 top: y - size / 2,
                 transform: `rotate(${rot * p + (1 - p) * 180}deg) scale(${lerp(0.25, 1, p) * (1 + ex * 1.2)})`,
-                opacity: kind === 'paper' ? 0.82 : 1,
-                filter: kind !== 'paper' ? `drop-shadow(0 0 10px ${hexA(kind === 'gold' ? C.gold : '#B57CFF', 0.35)})` : undefined,
+                filter: `brightness(${shine}) drop-shadow(0 6px 10px rgba(0,0,0,0.55))`,
               }}
             >
-              <Sticker size={size} kind={kind} seed={s.i % 5} hue={hue} shift={Math.sin(f * 0.08 + s.i) * 0.5 + 0.5} />
+              <Img src={staticFile(`stickers/${file}.png`)} style={{width: size, height: size, display: 'block'}} />
             </div>
           );
         })}
