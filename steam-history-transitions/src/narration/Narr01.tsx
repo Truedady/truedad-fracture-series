@@ -61,6 +61,7 @@ const _NewsPlaceholder: React.FC<{f: number; title: string; date: string; url: s
 const Item: React.FC<{n: string; size: number; style?: React.CSSProperties}> = ({n, size, style}) => <Img src={tf2(n)} style={{width: size, height: size, display: 'block', ...style}} />;
 
 const TRADE = {src: 'news/steam-trading-2011.jpg', w: 2000, h: 1258, source: 'store.steampowered.com · Valve · 07.09.2011'};
+const TF2NEWS = {src: 'news/tf2-update-2010.jpg', w: 2000, h: 1450, source: 'store.steampowered.com · Valve · 30.09.2010'};
 const MARKET = {src: 'news/community-market-2012.jpg', w: 2000, h: 1307, source: 'store.steampowered.com · Valve · 12.12.2012'};
 
 // ── Планы ──────────────────────────────────────────────────────────────
@@ -94,36 +95,29 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
       </Shot>
     ),
   },
-  // 8.4–14.3 «Зато уже есть Team Fortress 2…» — реальные предметы TF2
+  // 8.4–14.3 «Зато уже есть Team Fortress 2 — шапки, оружие, обмен» — обновление TF2 от 30.09.2010
   {
     from: 8.4,
     to: 14.6,
     el: ({dur}) => (
-      <Shot dur={dur} push={0.08}>
-        {(f) => (
-          <>
-            {[
-              {n: 'witch-hat', x: 380, y: 300, sz: 300, r: -8},
-              {n: 'duck-cap', x: 1240, y: 250, sz: 280, r: 6},
-              {n: 'pistol', x: 760, y: 470, sz: 380, r: 0},
-              {n: 'beret', x: 260, y: 640, sz: 240, r: 10},
-              {n: 'skull', x: 1380, y: 600, sz: 260, r: -6},
-              {n: 'fox', x: 1000, y: 160, sz: 200, r: 4},
-            ].map((it, i) => {
-              const a = k(f, [i * 5, i * 5 + 14], [0, 1], E.out);
-              return (
-                <div key={it.n} style={{position: 'absolute', left: it.x, top: it.y + (1 - a) * 60 + Math.sin(f * 0.04 + i) * 8, opacity: a, transform: `rotate(${it.r}deg)`, filter: 'drop-shadow(0 30px 40px rgba(0,0,0,0.6))'}}>
-                  <Item n={it.n} size={it.sz} />
-                </div>
-              );
-            })}
-            <div style={{position: 'absolute', left: 0, right: 0, bottom: 150, textAlign: 'center', fontFamily: FONT.display, fontWeight: 700, fontSize: 72, color: C.ivory, opacity: k(f, [20, 32], [0, 1])}}>
-              TEAM FORTRESS 2
-            </div>
-            <div style={{position: 'absolute', left: 0, right: 0, bottom: 110, textAlign: 'center', fontFamily: FONT.mono, fontSize: 18, letterSpacing: '0.3em', color: C.muted, opacity: k(f, [28, 40], [0, 1])}}>
-              ШАПКИ · ОРУЖИЕ · ОБМЕН ПРЕДМЕТАМИ
-            </div>
-          </>
+      <Shot dur={dur} push={0}>
+        {() => (
+          <ArticleShot
+            {...TF2NEWS}
+            cams={[
+              {t: 0, x: 960, y: 560, z: 1.02},
+              {t: 1.2, x: 700, y: 260, z: 1.55},
+              {t: 3.0, x: 660, y: 440, z: 2.0},
+              {t: 4.8, x: 600, y: 490, z: 2.15},
+              {t: 6.2, x: 600, y: 495, z: 2.2},
+            ]}
+            marks={[
+              {t: 1.0, x: 400, y: 195, w: 545, h: 42, spot: true},
+              {t: 1.9, x: 988, y: 306, w: 84, h: 16, spot: true},
+              {t: 2.9, x: 418, y: 416, w: 470, h: 48, spot: true},
+              {t: 4.6, x: 436, y: 497, w: 100, h: 20, spot: true},
+            ]}
+          />
         )}
       </Shot>
     ),
