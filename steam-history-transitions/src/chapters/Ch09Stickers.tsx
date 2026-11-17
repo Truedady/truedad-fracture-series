@@ -1,7 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Img, staticFile, useCurrentFrame} from 'remotion';
 import {Dust, hexA} from '../components/Atmosphere';
-import {Capsule} from '../components/Items2';
 import {Chip, Shell} from '../components/Shell';
 import {Ev, TitleBlock} from '../components/TitleBlock';
 import {C} from '../lib/theme';
@@ -14,7 +13,7 @@ import {E, k, lerp, rnd} from '../lib/anim';
  * Визуальная отсылка к огромному предложению наклеек.
  * Наклейки — реальные (public/stickers/): сначала RMR 2020, затем Stockholm 2021.
  *
- * 0–24    капсула, лёгкая вибрация, крышка открывается
+ * 0–24    реальная капсула RMR 2020 Challengers, вибрация, вспышка
  * 18–74   наклейки разлетаются и заполняют кадр (обычные / голо / золотые)
  * 66–82   стена уходит в тень, титр на тёмной плашке
  * 114+    наклейки разлетаются мимо камеры, затемнение
@@ -26,6 +25,7 @@ const GY = 10;
 const SP = 124;
 const CX = 960;
 const CY = 520;
+const OY = 440; // точка вылета — купол капсулы
 const SLOTS = (() => {
   const arr: {x: number; y: number; d: number; i: number}[] = [];
   for (let r = 0; r < GY; r++)
@@ -49,6 +49,32 @@ export const Ch09Stickers: React.FC = () => {
   return (
     <Shell glowOpacity={0.08} glowY={48}>
       <AbsoluteFill style={{filter: `blur(${blur + ex * 6}px) brightness(${dim})`}}>
+        {/* реальная капсула RMR 2020 Challengers */}
+        <div
+          style={{
+            position: 'absolute',
+            left: CX - 300 + shakeX,
+            top: CY - 250,
+            width: 600,
+            transform: `scale(${k(f, [0, 14], [0.92, 1]) + open * 0.08 + capOut * 0.25})`,
+            opacity: k(f, [0, 6], [0, 1]) * (1 - capOut),
+            filter: `blur(${capOut * 8}px) drop-shadow(0 30px 40px rgba(0,0,0,0.7)) drop-shadow(0 0 ${open * 50}px ${hexA('#FF4FA0', 0.45)})`,
+          }}
+        >
+          <Img src={staticFile('stickers/capsule-rmr2020-challengers.png')} style={{width: 600, display: 'block'}} />
+        </div>
+        {/* вспышка при открытии */}
+        <div
+          style={{
+            position: 'absolute',
+            left: CX - 260,
+            top: CY - 320,
+            width: 520,
+            height: 520,
+            borderRadius: '50%',
+            background: `radial-gradient(circle, rgba(255,250,240,${k(f, [15, 18, 30], [0, 0.85, 0])}) 0%, ${hexA(C.goldHi, k(f, [15, 18, 30], [0, 0.4, 0]))} 25%, transparent 65%)`,
+          }}
+        />
         {SLOTS.map((s, n) => {
           const t0 = 18 + Math.pow(n / SLOTS.length, 0.8) * 52;
           const p = k(f, [t0, t0 + 10], [0, 1], E.out);
@@ -60,7 +86,7 @@ export const Ch09Stickers: React.FC = () => {
           const rot = (rnd(`r${s.i}`) - 0.5) * 30;
           const size = 128 + rnd(`s${s.i}`) * 12;
           const x = lerp(CX, s.x, p) + (s.x - CX) * ex * 1.6;
-          const y = lerp(CY, s.y, p) + (s.y - CY) * ex * 1.6;
+          const y = lerp(OY, s.y, p) + (s.y - CY) * ex * 1.6;
           const shine = 1 + 0.25 * Math.max(0, Math.sin(f * 0.09 + s.x * 0.004 - s.y * 0.003));
           return (
             <div
@@ -77,19 +103,6 @@ export const Ch09Stickers: React.FC = () => {
             </div>
           );
         })}
-        {/* капсула */}
-        <div
-          style={{
-            position: 'absolute',
-            left: CX - 110 + shakeX,
-            top: CY - 150,
-            transform: `scale(${1 - capOut * 0.4})`,
-            opacity: 1 - capOut,
-            filter: `drop-shadow(0 30px 40px rgba(0,0,0,0.7)) drop-shadow(0 0 ${open * 40}px ${hexA(C.gold, 0.4)})`,
-          }}
-        >
-          <Capsule size={220} open={open} />
-        </div>
       </AbsoluteFill>
 
       <div style={{position: 'absolute', left: 200, top: 110, opacity: k(f, [26, 32], [0, 1]) * k(f, [64, 72], [1, 0])}}>
