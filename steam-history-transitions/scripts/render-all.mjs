@@ -4,6 +4,10 @@
 import {execFileSync} from 'node:child_process';
 import {existsSync, mkdirSync, renameSync} from 'node:fs';
 
+// Windows: Python вызывается как «python», а npx — через оболочку
+const WIN = process.platform === 'win32';
+const PY = process.env.PYTHON ?? (WIN ? 'python' : 'python3');
+
 const JOBS = {
   'Ch01-FirstTrades': {file: '01_pervye-obmeny_2010-2013', stills: [26, 60, 100]},
   'Ch02-CsgoSkins': {file: '02_poyavlenie-csgo_2013', stills: [34, 52, 96]},
@@ -25,7 +29,7 @@ for (const d of [`renders/${MASTER.dir}`, `renders/${MASTER.dir}_zvuk`, 'renders
 
 // В 4K тяжёлые кадры с размытием на программном GL могут подвисать при 4 вкладках,
 // поэтому мастер рендерится с concurrency=2 и SwiftShader.
-const rem = (...args) => execFileSync('npx', ['remotion', ...args, '--timeout=240000', '--log=error'], {stdio: 'inherit'});
+const rem = (...args) => execFileSync('npx', ['remotion', ...args, '--timeout=240000', '--log=error'], {stdio: 'inherit', shell: WIN});
 const ff = (...args) => execFileSync('ffmpeg', ['-y', '-loglevel', 'error', ...args], {stdio: 'inherit'});
 
 // Remotion отдаёт full-range (yuvj420p). Перекодируем в стандартный диапазон BT.709,
@@ -39,7 +43,7 @@ const normalize = (file, crf) => {
 const mux = (video, audio, out) => ff('-i', video, '-i', audio, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '320k', '-ar', '48000', '-shortest', '-movflags', '+faststart', out);
 
 // звук для всех глав (быстро, синтез)
-execFileSync('python3', ['scripts/sound/sfx.py', 'renders/audio'], {stdio: 'inherit'});
+execFileSync(PY, ['scripts/sound/sfx.py', 'renders/audio'], {stdio: 'inherit'});
 
 for (const id of ids) {
   const job = JOBS[id];
