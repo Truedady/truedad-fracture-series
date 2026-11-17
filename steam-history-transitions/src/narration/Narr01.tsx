@@ -346,18 +346,36 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
       </Shot>
     ),
   },
-  // 79.3–83.9 «…появилась игра, которая вывела торговлю на другой уровень»
+  // 79.3–83.9 «…появилась игра, которая вывела торговлю на другой уровень» — скриншоты Counter-Strike (магазин Steam)
   {
     from: 79.3,
     to: 83.9,
     el: ({dur}) => (
-      <Shot dur={dur} push={0.12}>
-        {(f) => (
-          <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center'}}>
-            <div style={{fontFamily: FONT.mono, fontSize: 26, letterSpacing: '0.5em', color: C.muted, opacity: k(f, [0, 20], [0, 1])}}>ДАЛЕЕ</div>
-            <div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 120, color: C.ivory, opacity: k(f, [20, 40], [0, 1]), filter: `blur(${k(f, [20, 50], [12, 0])}px)`}}>2013</div>
-          </AbsoluteFill>
-        )}
+      <Shot dur={dur} push={0}>
+        {(f) => {
+          const shots = [
+            {img: 'cs-ss-a', cap: 'COUNTER-STRIKE · STEAM'},
+            {img: 'cs-ss-b', cap: 'COUNTER-STRIKE · STEAM'},
+            {img: 'cs-ss-c', cap: 'COUNTER-STRIKE · STEAM'},
+            {img: 'cs-ss-d', cap: 'COUNTER-STRIKE · STEAM'},
+          ];
+          const seg = dur / shots.length;
+          return (
+            <>
+              {shots.map((sh, i) => {
+                const a0 = i * seg;
+                const o = k(f, [a0 - 6, a0 + 4], [0, 1]) * k(f, [a0 + seg - 2, a0 + seg + 6], [1, 0]);
+                const z = 1.02 + ((f - a0) / seg) * 0.05;
+                return o > 0 ? (
+                  <AbsoluteFill key={sh.img} style={{opacity: i === 0 ? Math.min(1, o + (f < 6 ? 1 : 0)) : o}}>
+                    <Img src={staticFile(`news/${sh.img}.jpg`)} style={{width: 1920, height: 1080, objectFit: 'cover', transform: `scale(${z})`}} />
+                    <div style={{position: 'absolute', left: 60, bottom: 44, padding: '8px 14px', background: 'rgba(5,6,8,0.75)', borderRadius: 4, fontFamily: FONT.mono, fontSize: 16, letterSpacing: '0.12em', color: C.ivory}}>{sh.cap}</div>
+                  </AbsoluteFill>
+                ) : null;
+              })}
+            </>
+          );
+        }}
       </Shot>
     ),
   },
