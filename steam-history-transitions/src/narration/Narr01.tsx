@@ -2,6 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Audio, Img, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {Backdrop, Dust, Finish, hexA} from '../components/Atmosphere';
 import {Chip} from '../components/Shell';
+import {ArticleShot} from '../components/Article';
 import {C, FONT} from '../lib/theme';
 import {E, k, lerp, rnd} from '../lib/anim';
 
@@ -30,7 +31,8 @@ const Label: React.FC<{f: number; at?: number; children: React.ReactNode}> = ({f
 );
 
 /** Заглушка под скрин новостной страницы (пока сайт недоступен из среды). */
-const NewsPlaceholder: React.FC<{f: number; title: string; date: string; url: string; marks: string[]}> = ({f, title, date, url, marks}) => (
+// (заглушка больше не используется)
+const _NewsPlaceholder: React.FC<{f: number; title: string; date: string; url: string; marks: string[]}> = ({f, title, date, url, marks}) => (
   <div style={{position: 'absolute', left: 360, top: 170, width: 1200, height: 740, background: '#171A21', border: `1px solid ${C.line}`, borderRadius: 10, overflow: 'hidden', boxShadow: '0 40px 120px rgba(0,0,0,0.6)'}}>
     <div style={{height: 46, background: '#0F1217', display: 'flex', alignItems: 'center', gap: 8, padding: '0 16px'}}>
       {[0, 1, 2].map((i) => (
@@ -57,6 +59,9 @@ const NewsPlaceholder: React.FC<{f: number; title: string; date: string; url: st
 );
 
 const Item: React.FC<{n: string; size: number; style?: React.CSSProperties}> = ({n, size, style}) => <Img src={tf2(n)} style={{width: size, height: size, display: 'block', ...style}} />;
+
+const TRADE = {src: 'news/steam-trading-2011.jpg', w: 2000, h: 1258, source: 'store.steampowered.com · Valve · 07.09.2011'};
+const MARKET = {src: 'news/community-market-2012.jpg', w: 2000, h: 1307, source: 'store.steampowered.com · Valve · 12.12.2012'};
 
 // ── Планы ──────────────────────────────────────────────────────────────
 const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
@@ -89,48 +94,46 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
       </Shot>
     ),
   },
-  // 8.4–14.3 «Зато уже есть Team Fortress 2…»
+  // 8.4–14.3 «Зато уже есть Team Fortress 2…» — арт Valve из новости о Steam Trading
   {
     from: 8.4,
     to: 14.6,
     el: ({dur}) => (
-      <Shot dur={dur} push={0.08}>
-        {(f) => (
-          <>
-            {[
-              {n: 'witch-hat', x: 380, y: 300, sz: 300, r: -8},
-              {n: 'duck-cap', x: 1240, y: 250, sz: 280, r: 6},
-              {n: 'pistol', x: 760, y: 470, sz: 380, r: 0},
-              {n: 'beret', x: 260, y: 640, sz: 240, r: 10},
-              {n: 'skull', x: 1380, y: 600, sz: 260, r: -6},
-              {n: 'fox', x: 1000, y: 160, sz: 200, r: 4},
-            ].map((it, i) => {
-              const a = k(f, [i * 5, i * 5 + 14], [0, 1], E.out);
-              return (
-                <div key={it.n} style={{position: 'absolute', left: it.x, top: it.y + (1 - a) * 60 + Math.sin(f * 0.04 + i) * 8, opacity: a, transform: `rotate(${it.r}deg)`, filter: 'drop-shadow(0 30px 40px rgba(0,0,0,0.6))'}}>
-                  <Item n={it.n} size={it.sz} />
-                </div>
-              );
-            })}
-            <div style={{position: 'absolute', left: 0, right: 0, bottom: 150, textAlign: 'center', fontFamily: FONT.display, fontWeight: 700, fontSize: 72, color: C.ivory, opacity: k(f, [20, 32], [0, 1])}}>
-              TEAM FORTRESS 2
-            </div>
-            <div style={{position: 'absolute', left: 0, right: 0, bottom: 110, textAlign: 'center', fontFamily: FONT.mono, fontSize: 18, letterSpacing: '0.3em', color: C.muted, opacity: k(f, [28, 40], [0, 1])}}>
-              ШАПКИ · ОРУЖИЕ · ОБМЕН ПРЕДМЕТАМИ
-            </div>
-          </>
+      <Shot dur={dur} push={0}>
+        {() => (
+          <ArticleShot
+            {...TRADE}
+            cams={[
+              {t: 0, x: 900, y: 600, z: 2.0},
+              {t: 6.2, x: 640, y: 590, z: 2.25},
+            ]}
+          />
         )}
       </Shot>
     ),
   },
-  // 14.3–21.9 «В сентябре 2011 Steam Trading выходит из беты…»
+  // 14.3–21.9 «В сентябре 2011 года Steam Trading выходит из беты…»
   {
     from: 14.3,
     to: 22.1,
     el: ({dur}) => (
-      <Shot dur={dur} push={0.1}>
-        {(f) => (
-          <NewsPlaceholder f={f} title="Steam Trading Is Live" date="SEP 6, 2011" url="store.steampowered.com/news/…" marks={['Steam Trading', 'out of beta']} />
+      <Shot dur={dur} push={0}>
+        {() => (
+          <ArticleShot
+            {...TRADE}
+            cams={[
+              {t: 0, x: 1000, y: 560, z: 0.96},
+              {t: 1.4, x: 640, y: 170, z: 1.55},
+              {t: 3.6, x: 760, y: 280, z: 1.75},
+              {t: 5.4, x: 600, y: 340, z: 1.85},
+              {t: 7.8, x: 600, y: 360, z: 1.95},
+            ]}
+            marks={[
+              {t: 1.5, x: 183, y: 128, w: 907, h: 56, spot: true},
+              {t: 3.5, x: 955, y: 277, w: 137, h: 22, spot: true},
+              {t: 5.2, x: 183, y: 312, w: 823, h: 50, spot: true},
+            ]}
+          />
         )}
       </Shot>
     ),
@@ -178,25 +181,32 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
       </Shot>
     ),
   },
-  // 35.8–44.9 «перепродаёт… не было агрегаторов; форумы, обмены, опыт»
+  // 35.8–44.9 «…не было агрегаторов цен; форумы, обмены, опыт» — инвентари публичных профилей
   {
     from: 35.8,
     to: 45.1,
     el: ({dur}) => (
-      <Shot dur={dur}>
+      <Shot dur={dur} push={0}>
         {(f) => (
-          <AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', gap: 40}}>
-            <div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 60, color: C.ivory, opacity: k(f, [0, 12], [0, 1])}}>
-              Агрегаторов цен <span style={{color: C.red}}>не было</span>
+          <>
+            <ArticleShot
+              {...TRADE}
+              cams={[
+                {t: 0, x: 640, y: 830, z: 1.4},
+                {t: 3.0, x: 600, y: 930, z: 1.9},
+                {t: 9.3, x: 620, y: 935, z: 2.05},
+              ]}
+              marks={[
+                {t: 0.8, x: 183, y: 780, w: 907, h: 100, spot: true},
+                {t: 3.2, x: 183, y: 908, w: 820, h: 50, spot: true},
+              ]}
+            />
+            <div style={{position: 'absolute', left: 0, right: 0, top: 120, display: 'flex', justifyContent: 'center', opacity: k(f, [s(3.4), s(4.2)], [0, 1])}}>
+              <div style={{padding: '14px 26px', background: 'rgba(5,6,8,0.82)', borderLeft: `3px solid ${C.gold}`, fontFamily: FONT.display, fontWeight: 600, fontSize: 38, color: C.ivory}}>
+                Агрегаторов цен не было — только форумы, обмены и опыт
+              </div>
             </div>
-            <div style={{display: 'flex', gap: 30}}>
-              {['ФОРУМЫ', 'ПРЕДЛОЖЕНИЯ ОБМЕНА', 'СОБСТВЕННЫЙ ОПЫТ'].map((t, i) => (
-                <div key={t} style={{padding: '22px 34px', border: `1px solid ${hexA(C.gold, 0.6)}`, borderRadius: 6, fontFamily: FONT.mono, fontSize: 24, letterSpacing: '0.16em', color: C.ivory, opacity: k(f, [s(5.6) + i * 18, s(5.6) + i * 18 + 10], [0, 1])}}>
-                  {t}
-                </div>
-              ))}
-            </div>
-          </AbsoluteFill>
+          </>
         )}
       </Shot>
     ),
@@ -263,13 +273,33 @@ const SHOTS: {from: number; to: number; el: React.FC<{dur: number}>}[] = [
       </Shot>
     ),
   },
-  // 65.3–79.3 «В декабре 2012 Valve запускает Community Market…»
+  // 65.3–79.3 «В декабре 2012 года Valve запускает Community Market…»
   {
     from: 65.3,
     to: 79.5,
     el: ({dur}) => (
-      <Shot dur={dur} push={0.1}>
-        {(f) => <NewsPlaceholder f={f} title="Community Market Now In Beta" date="DEC 12, 2012" url="store.steampowered.com/oldnews/9594" marks={['Community Market', 'Steam Wallet']} />}
+      <Shot dur={dur} push={0}>
+        {() => (
+          <ArticleShot
+            {...MARKET}
+            cams={[
+              {t: 0, x: 1000, y: 600, z: 0.95},
+              {t: 1.3, x: 960, y: 170, z: 1.05},
+              {t: 3.0, x: 1000, y: 290, z: 1.6},
+              {t: 5.0, x: 620, y: 420, z: 1.75},
+              {t: 8.8, x: 620, y: 510, z: 1.75},
+              {t: 11.5, x: 620, y: 830, z: 1.7},
+              {t: 14.2, x: 620, y: 830, z: 1.8},
+            ]}
+            marks={[
+              {t: 1.2, x: 160, y: 132, w: 1615, h: 56, spot: true},
+              {t: 2.8, x: 958, y: 286, w: 144, h: 22, spot: true},
+              {t: 4.6, x: 160, y: 375, w: 920, h: 80, spot: true},
+              {t: 6.6, x: 160, y: 482, w: 918, h: 53, spot: true},
+              {t: 10.6, x: 160, y: 802, w: 900, h: 53, spot: true},
+            ]}
+          />
+        )}
       </Shot>
     ),
   },
