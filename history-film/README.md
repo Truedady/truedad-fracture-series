@@ -21,7 +21,8 @@ npm.cmd run render:scenes
 |---|---|
 | `npm.cmd run doctor` | проверяет Node, FFmpeg, пакеты, все картинки/звуки и их размеры |
 | `npm.cmd run preview` | Remotion Studio в браузере — можно листать кадры |
-| `npm.cmd run render:scenes` | все главы → `output/<глава>_1440p.mp4` |
+| `npm.cmd run render:scenes` | все главы → `output/<глава>_1440p.mp4`. Готовые главы пропускаются; упавшая глава сама перезапускается (4 → 2 → 1 поток); журнал — `output/logs/<глава>.log` |
+| `npm.cmd run render:scenes -- --force` | перерендерить и уже готовые главы |
 | `npm.cmd run render:scenes -- Ch06-Pubg` | одна глава: `Ch02-Tail` (14–15), `Ch03-Regional` (16–22), `Ch04-Markets` (23–28), `Ch05-SteamGuard` (29–32), `Ch06-Pubg` (33–37), `Ch07-WorstSpring` (38–42), `Ch08-InvestBoom` (43–51), `Ch09-Stickers` (52–58), `Ch10-CS2` (59–63), `Ch11-NewEconomy` (64–74), `Final` (75–78) |
 | `npm.cmd run render:final -- --approved` | 2560×1440 @ 60 fps, после утверждения монтажа и озвучки |
 | `npm.cmd run audit:links` | проверка ссылок из `SOURCES.json` → `link_audit.csv` |
@@ -34,6 +35,7 @@ src/film.tsx         раскладка планов по времени, авт
 src/engine.tsx       камера по странице (push/pull/scroll/panR/panL/tilt/drift), фото, переходы, звуки
 src/graphics.tsx     анимированные экраны статистики со звуками
 src/quote.tsx        цитата патчноута с появлением слов
+src/fontdata.ts      шрифты, встроенные в код (рендер не зависит от загрузки файлов)
 public/sources/      настоящие страницы (Playwright, 2×) и официальные изображения
 public/local/        архивы курса (в кадре не подписываются)
 public/sfx/          звуки анимаций и переходов (scripts/make-sfx.py)

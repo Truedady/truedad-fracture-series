@@ -1,55 +1,29 @@
-import {continueRender, delayRender, staticFile} from 'remotion';
+import {continueRender, delayRender} from 'remotion';
+import {FONT_CSS} from './fontdata';
 
-// Шрифты грузятся с таймаутом и повтором; если шрифт не загрузился — рендер НЕ останавливается.
-const CYR = 'U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116';
-const LIST: {family: string; file: string; weight: string; range?: string}[] = [
-  {family: 'Inter Display', file: 'InterDisplay-Bold.otf', weight: '700'},
-  {family: 'Inter', file: 'Inter-Regular.otf', weight: '400'},
-  {family: 'Inter', file: 'Inter-Medium.otf', weight: '500'},
-  {family: 'JetBrains Mono', file: 'jetbrains-mono-cyrillic-500-normal.woff2', weight: '500', range: CYR},
-  {family: 'JetBrains Mono', file: 'jetbrains-mono-latin-500-normal.woff2', weight: '500'},
-];
+// Шрифты встроены в код (src/fontdata.ts) — сеть не нужна, загрузка занимает миллисекунды.
+// Ожидание короткое и с повтором кадра: если вкладка браузера подвисла, Remotion просто
+// перерисует кадр, а не остановит весь рендер.
+const CHECK = ['700 40px "Inter Display"', '400 40px "Inter"', '500 40px "Inter"', '500 40px "JetBrains Mono"'];
 
 let started = false;
 export const ensureFonts = () => {
-  if (started) return;
+  if (started || typeof document === 'undefined') return;
   started = true;
-  const handle = delayRender('fonts', {timeoutInMilliseconds: 110000});
+  const style = document.createElement('style');
+  style.textContent = FONT_CSS;
+  document.head.appendChild(style);
+
+  const handle = delayRender('fonts', {timeoutInMilliseconds: 40000, retries: 3});
   let done = false;
   const finish = () => {
     if (done) return;
     done = true;
     continueRender(handle);
   };
-  // Жёсткий предохранитель: даже если загрузка зависла, кадр рендерится дальше.
-  setTimeout(finish, 15000);
-  const one = (f: (typeof LIST)[number]): Promise<void> => {
-    const go = () =>
-      new Promise<void>((resolve, reject) => {
-        try {
-          const desc: FontFaceDescriptors = {weight: f.weight};
-          if (f.range) desc.unicodeRange = f.range;
-          const ff = new FontFace(f.family, `url('${staticFile(`fonts/${f.file}`)}')`, desc);
-          const timer = setTimeout(() => reject(new Error('timeout')), 8000);
-          ff.load().then(
-            (x) => {
-              clearTimeout(timer);
-              document.fonts.add(x);
-              resolve();
-            },
-            (e) => {
-              clearTimeout(timer);
-              reject(e);
-            },
-          );
-        } catch (e) {
-          reject(e);
-        }
-      });
-    return go().catch(go).catch(() => undefined);
-  };
+  setTimeout(finish, 5000);
   try {
-    Promise.all(LIST.map(one)).then(finish, finish);
+    Promise.all(CHECK.map((f) => document.fonts.load(f, 'Шрифт 0123'))).then(finish, finish);
   } catch {
     finish();
   }
