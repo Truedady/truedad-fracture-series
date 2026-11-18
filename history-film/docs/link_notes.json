@@ -1,0 +1,15 @@
+{
+  "A02": {"status": "OK", "note": "Playwright 18.11.2026: «Steam Trading Feature Is Live», дата 6/7 сен. 2011, арт TF2/Spiral Knights; снято 2× → public/sources/A02_steam_trading_2011.jpg"},
+  "A11": {"status": "OK", "note": "Оригинальный JPG Valve 888×555 (Arms Deal Collection) → public/sources/A11_armsdeal_collection_2013.jpg; маленькое разрешение — показывается карточкой"},
+  "A24": {"status": "blocked", "note": "wiki.cs.money отдаёт 403 (Cloudflare «Just a moment...»). Dragon Lore в черновике не показан; замена — A25 Howl 2014"},
+  "A25": {"status": "OK", "note": "PC Gamer «How a stolen skin became CS:GO's most legendary gun» (M4A4 Howl); снято 2× → public/sources/A25_pcgamer_howl_2014.jpg"},
+  "A26": {"status": "OK", "note": "Dexerto, янв. 2024: AK-47 Case Hardened #661 — самый дорогой скин CS2; на странице рекламные плашки ниже 860px — используется только верх"},
+  "A27": {"status": "OK", "note": "Skinory: AK-47 Case Hardened seed 661 — 76.1% blue; снят верх страницы"},
+  "A28": {"status": "OK", "note": "Портфолио дизайнера Steam Holiday Sale 2013 (Sean O'Brien); в черновике не использован — есть архив курса 04"},
+  "A29": {"status": "OK", "note": "Valve «The Steam Holiday Sale Starts Now!» (oldnews/12138)"},
+  "A30": {"status": "OK", "note": "Valve «The Steam Holiday Sale Day 3!», 21.12.2013: Counter-Strike: Global Offensive 75% off; снято 2× → public/sources/A30_steam_holiday_day3_2013.jpg"},
+  "A36": {"status": "OK", "note": "PC Gamer «Valve restricts Steam gifting and trading between regions» (2014); снято 2× → public/sources/A36_pcgamer_regions_2014.jpg"},
+  "A37": {"status": "OK", "note": "Лента Steam Blog (enddate 03.05.2017) — нужна прокрутка до «Steam Gifting Changes»; в черновике 14–18 не используется"},
+  "A38": {"status": "OK", "note": "Steam Support «Region Restrictions on Steam» — текущая страница, не исторический UI"},
+  "A75": {"status": "OK", "note": "Изображение 1600×951 с UI Holiday Sale 2013 (squarespace-cdn)"}
+}

@@ -1,0 +1,20 @@
+{
+  "version": "stage14-local-render-github-v1",
+  "generated": "2026-11-18",
+  "first_frame": 14,
+  "last_frame": 78,
+  "scene_count": 65,
+  "source_count": 60,
+  "local_asset_count": 14,
+  "first_draft_frames": [
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "audio": "No voiceover for scenes 14–78 included; all timings provisional until supplied.",
+  "objective": "Claude Code builds a reproducible GitHub project; user renders on own Windows PC; no cloud video render.",
+  "approval_gate": "STOP after first draft of scenes 14–18, obtain user approval before processing 19–78.",
+  "source_status_note": "Status values inherited from earlier verification, recheck using real browser before use."
+}

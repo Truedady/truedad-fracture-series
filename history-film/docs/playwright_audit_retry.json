@@ -1,0 +1,38 @@
+[
+ {
+  "id": "A24",
+  "url": "https://wiki.cs.money/weapons/awp/dragon-lore",
+  "http": 403,
+  "final": "https://wiki.cs.money/weapons/awp/dragon-lore",
+  "title": "Just a moment...",
+  "h": 1000,
+  "err": ""
+ },
+ {
+  "id": "A25",
+  "url": "https://www.pcgamer.com/csgo-howl-skin/",
+  "http": 200,
+  "final": "https://www.pcgamer.com/csgo-howl-skin/",
+  "title": "How a stolen skin became CS:GO's most legendary gun | PC Gamer",
+  "h": 21486,
+  "err": ""
+ },
+ {
+  "id": "A26",
+  "url": "https://www.dexerto.com/counter-strike-2/counter-strike-2s-most-expensive-skin-sells-for-jaw-dropping-1-million-2762918/",
+  "http": 200,
+  "final": "https://www.dexerto.com/counter-strike-2/counter-strike-2s-most-expensive-skin-sells-for-jaw-dropping-1-million-2762918/",
+  "title": "Counter-Strike 2’s most expensive skin sells for jaw-dropping $1 million - Dexerto",
+  "h": 11292,
+  "err": ""
+ },
+ {
+  "id": "A36",
+  "url": "https://www.pcgamer.com/valve-restricts-steam-gifting-and-trading-between-regions/",
+  "http": 200,
+  "final": "https://www.pcgamer.com/valve-restricts-steam-gifting-and-trading-between-regions/",
+  "title": "Valve restricts Steam gifting and trading between regions | PC Gamer",
+  "h": 19948,
+  "err": ""
+ }
+]

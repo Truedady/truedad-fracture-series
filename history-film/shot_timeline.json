@@ -1,0 +1,70 @@
+{
+ "composition": "Draft14to18",
+ "draft": "1280x720@30",
+ "final": "2560x1440@60",
+ "shots": [
+  {
+   "scene": 14,
+   "from_s": 0,
+   "dur_s": 5.5,
+   "note": "Arms Deal Collection 2013 (официальный арт Valve, A11) — AK-47 Case Hardened в коллекции",
+   "voice": "VOICE_PENDING"
+  },
+  {
+   "scene": 14,
+   "from_s": 5,
+   "dur_s": 6.5,
+   "note": "Skinory: AK-47 Case Hardened seed 661 — паттерн 76.1% blue (A27)",
+   "voice": "VOICE_PENDING"
+  },
+  {
+   "scene": 14,
+   "from_s": 11,
+   "dur_s": 6.5,
+   "note": "Dexerto 2024: самый дорогой скин CS2 — AK #661 (A26)",
+   "voice": "VOICE_PENDING"
+  },
+  {
+   "scene": 14,
+   "from_s": 17,
+   "dur_s": 5.5,
+   "note": "PC Gamer: история M4A4 Howl (A25), скин 2014 года",
+   "voice": "VOICE_PENDING"
+  },
+  {
+   "scene": 15,
+   "from_s": 22,
+   "dur_s": 7,
+   "note": "Архив курса: Steam Holiday Sale 2013, CS:GO −75% (локальный PNG 04)",
+   "voice": "VOICE_PENDING"
+  },
+  {
+   "scene": 15,
+   "from_s": 28.5,
+   "dur_s": 6.5,
+   "note": "Valve, 21.12.2013: Holiday Sale Day 3 — Counter-Strike: Global Offensive 75% off (A30). Единственное выделение.",
+   "voice": "VOICE_PENDING"
+  },
+  {
+   "scene": 16,
+   "from_s": 34.5,
+   "dur_s": 6.5,
+   "note": "Valve: Steam Trading Feature Is Live — обмен предметами и подарками (A02)",
+   "voice": "VOICE_PENDING"
+  },
+  {
+   "scene": 17,
+   "from_s": 40.5,
+   "dur_s": 6.5,
+   "note": "PC Gamer, 2014: Valve ограничивает подарки между регионами (A36)",
+   "voice": "VOICE_PENDING"
+  },
+  {
+   "scene": 18,
+   "from_s": 46.5,
+   "dur_s": 6.5,
+   "note": "Готовая графика курса: условный пример 500 → 1 500 ₽ (локальный PNG 06)",
+   "voice": "VOICE_PENDING"
+  }
+ ]
+}

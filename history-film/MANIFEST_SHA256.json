@@ -1,0 +1,137 @@
+[
+  {
+    "path": "CLAUDE_CODE_START_HERE.md",
+    "bytes": 14508,
+    "sha256": "e3f3a201eeeaa1785dac9090c5103dbfec543cb13991aa64169d12e742d26bad"
+  },
+  {
+    "path": "FEEDBACK_TEMPLATE.md",
+    "bytes": 946,
+    "sha256": "15ff3415ea26367438aeb55f12771db21b78c04ce58169aef31413290d9e4e9b"
+  },
+  {
+    "path": "FIRST_DRAFT_14-18.md",
+    "bytes": 2952,
+    "sha256": "5e8402971fc2ff3226d89c215cfdc118c711619b0b54ca7e4a65b6f47c3d8670"
+  },
+  {
+    "path": "README_ДЛЯ_ВЛАДЕЛЬЦА.txt",
+    "bytes": 1377,
+    "sha256": "9a1fb55ba86b2bc88f940acdcedc8ee2820ac3aacc1c13bcb6bb86d8e57f33a9"
+  },
+  {
+    "path": "SCENES.csv",
+    "bytes": 33979,
+    "sha256": "9c3ec2cb7306722d4771614d5a19bb538a6796447d11af4195a004d57acb17b1"
+  },
+  {
+    "path": "SCENES.json",
+    "bytes": 104949,
+    "sha256": "1c4e69c02186e79e4c41669e9abf2959074048f61d786b258087f7bc39d9565f"
+  },
+  {
+    "path": "SOURCES.csv",
+    "bytes": 15239,
+    "sha256": "dd47dad7c6d372f958a6d4eaadec7301393c1b9e75224755980b2aa07cd1e04e"
+  },
+  {
+    "path": "SOURCES.json",
+    "bytes": 22800,
+    "sha256": "6342ffd487407d0946c34f4363db27733a02ef0de7214e9eb37d8199b0f8b479"
+  },
+  {
+    "path": "SUMMARY.json",
+    "bytes": 707,
+    "sha256": "05c8e44919d24c6bc2f78fef00aee90e961093489bd645ebf58ab90c2de0d319"
+  },
+  {
+    "path": "TrueDad_Монтажная_карта_кадры_14-78_плавный_монтаж.docx",
+    "bytes": 54944,
+    "sha256": "1b8ecb784e3fed1c8de7a26fdc190792add530a0f2be1d36ee5d901d25a1f47c"
+  },
+  {
+    "path": "WINDOWS_LOCAL_RENDER.md",
+    "bytes": 4131,
+    "sha256": "0b3bc5afbffab58c154eef01538f72a4b879b7e5a380df579d214c5af86be92c"
+  },
+  {
+    "path": "assets/local/Архив_курса/04_Steam_Winter_Sale_75pct_архив_курса.png",
+    "bytes": 1819731,
+    "sha256": "386e2189b0b774bbeaa0aab53c3c0ff4739f0eb008306b78ef17b2e4195805e5"
+  },
+  {
+    "path": "assets/local/Архив_курса/05_CSGODouble_архив_курса.png",
+    "bytes": 493159,
+    "sha256": "8d7be9443393da0ec98ccb8f23aa118a624be5b0672e28ca1491c157853176af"
+  },
+  {
+    "path": "assets/local/Архив_курса/06_PUBG_Trenchcoat_цена_архив_курса.png",
+    "bytes": 104941,
+    "sha256": "f30ceed7e25839869593661498844e061a73e043dd821f26eb64b4d9f0486f4a"
+  },
+  {
+    "path": "assets/local/Архив_курса/08_Старые_командные_наклейки_архив_курса.png",
+    "bytes": 609716,
+    "sha256": "c0bf6fb2805fedb4c3e70280106828f9b16ab16cffa9c403751fd0c23b03c38d"
+  },
+  {
+    "path": "assets/local/Архив_курса/09_RMR_капсула_архив_курса.png",
+    "bytes": 617473,
+    "sha256": "47472676c6a015b58517cfda3e8549a204562751044d9718c187bec01ac7060e"
+  },
+  {
+    "path": "assets/local/Архив_курса/10_RMR_график_после_продаж_архив_курса.png",
+    "bytes": 54866,
+    "sha256": "3254639bce9f6f612cb7d9bf1760afbfd2e6e913aa3ec7353b7a4af67b63bb54"
+  },
+  {
+    "path": "assets/local/Архив_курса/11_Stockholm_2021_архив_курса.png",
+    "bytes": 984833,
+    "sha256": "6388296cbfe729b12eedd7879e0c798499c4a1058892c0407dd149bcf3ce750c"
+  },
+  {
+    "path": "assets/local/Готовая_графика/01_Glove_Case_архивные_точки.png",
+    "bytes": 51957,
+    "sha256": "bade4256e371d964da591a9746ac78ba8dc27540a7617a56f2ee81c7e983d152"
+  },
+  {
+    "path": "assets/local/Готовая_графика/02_Breakout_Case_архивные_точки.png",
+    "bytes": 56784,
+    "sha256": "d517c00346277a16a9621531ec97ac9f1b4a396fdd8c1eb243a7ab7cf7008713"
+  },
+  {
+    "path": "assets/local/Готовая_графика/03_Gamma_2_архивные_точки.png",
+    "bytes": 51940,
+    "sha256": "e55da3f398bc543d7326480d88a90b838531ad5150f865185b8b1ae5fa0feb7b"
+  },
+  {
+    "path": "assets/local/Готовая_графика/04_PUBG_Trenchcoat_рост.png",
+    "bytes": 49092,
+    "sha256": "cb1110884da98011d7ffc4dde54e9ee9d1de81bc65aacb5e5b52bf23f86967ca"
+  },
+  {
+    "path": "assets/local/Готовая_графика/05_Трейдлок_и_оборот_капитала.png",
+    "bytes": 42511,
+    "sha256": "b5e3080f030eb5f66bf791d5a2912f5738c22e5255a6af70150c2b94e6d7036d"
+  },
+  {
+    "path": "assets/local/Готовая_графика/06_Региональная_цена_пример.png",
+    "bytes": 42295,
+    "sha256": "41d80ce45b6f90456791c419437a1ec589b6173b06267f5c7efede11ebf1a3e0"
+  },
+  {
+    "path": "assets/local/Готовая_графика/07_Пять_Covert_контракт.png",
+    "bytes": 49496,
+    "sha256": "cbd870186c17debd06bb6e83cce4fb4fa806b56d291920ae3b0ce95286112b21"
+  },
+  {
+    "path": "ПРОВЕРКА_ССЫЛОК.md",
+    "bytes": 1109,
+    "sha256": "405a1dcc55702af0f975e4b203c28a8016b2ac12caaf2037c4eb10f26a390970"
+  },
+  {
+    "path": "СЦЕНАРИЙ_полный_для_контекста.docx",
+    "bytes": 53238,
+    "sha256": "234e029d1529f365f5905df2d15e2f566724e6fc9a8f32096f3e0cfd860f684d"
+  }
+]

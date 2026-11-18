@@ -1,0 +1,29 @@
+// npm run doctor — проверка, что компьютер готов к рендеру. Понятные сообщения на русском.
+import {execSync} from 'node:child_process';
+import {existsSync, readFileSync} from 'node:fs';
+
+let bad = 0;
+const ok = (m) => console.log('  ✔ ' + m);
+const fail = (m, fix) => { bad++; console.log('  ✘ ' + m + (fix ? '\n      → ' + fix : '')); };
+const ver = (cmd) => { try { return execSync(cmd, {stdio: ['ignore', 'pipe', 'ignore']}).toString().split('\n')[0].trim(); } catch { return null; } };
+
+console.log('\nTrueDad · проверка окружения\n');
+const nodeMajor = Number(process.versions.node.split('.')[0]);
+nodeMajor >= 18 ? ok('Node.js ' + process.versions.node) : fail('Node.js ' + process.versions.node + ' — нужна 18 или новее', 'Установите LTS с https://nodejs.org');
+
+const ff = ver('ffmpeg -version');
+ff ? ok(ff.slice(0, 60)) : fail('FFmpeg не найден', 'winget install Gyan.FFmpeg, затем закройте и снова откройте терминал');
+const fp = ver('ffprobe -version');
+fp ? ok('ffprobe найден') : fail('ffprobe не найден', 'ставится вместе с FFmpeg (winget install Gyan.FFmpeg)');
+
+existsSync('node_modules/remotion') ? ok('Пакеты проекта установлены') : fail('Пакеты не установлены', 'выполните: npm ci   (в PowerShell, если ругается на скрипты: npm.cmd ci)');
+
+// все файлы, на которые ссылается черновик
+const src = readFileSync('src/Draft14to18.tsx', 'utf8');
+const files = [...src.matchAll(/src="([^"]+)"/g)].map((m) => 'public/' + m[1]);
+const missing = files.filter((f) => !existsSync(f));
+missing.length ? missing.forEach((f) => fail('Нет файла ' + f, 'выполните git pull; архивы курса лежат в public/local')) : ok(`Все ${files.length} материалов черновика на месте`);
+['SCENES.json', 'SOURCES.json'].forEach((f) => (existsSync(f) ? ok(f) : fail('Нет ' + f)));
+
+console.log(bad ? `\nНайдено проблем: ${bad}. Исправьте их и запустите npm run doctor ещё раз.\n` : '\nВсё готово. Дальше: npm run render:draft\n');
+process.exit(bad ? 1 : 0);

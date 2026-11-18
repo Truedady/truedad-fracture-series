@@ -1,0 +1,602 @@
+[
+  {
+    "id": "A01",
+    "title": "Valve — Mann-Conomy, первое TF2 Trading",
+    "url": "https://www.teamfortress.com/post.php?id=4411",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2010",
+    "status": "OK",
+    "use": "Дата 30.09.2010; строки Added Trading",
+    "note": ""
+  },
+  {
+    "id": "A02",
+    "title": "Valve — Steam Trading Feature Is Live",
+    "url": "https://store.steampowered.com/oldnews/6201",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2011",
+    "status": "OK",
+    "use": "Дата 06.09.2011 и официальный скриншот",
+    "note": ""
+  },
+  {
+    "id": "A09",
+    "title": "Valve — 14 августа 2013 Arms Deal (рус)",
+    "url": "https://blog.counter-strike.net/ru/2013/08/7695/",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2013",
+    "status": "OK",
+    "use": "Крупно дата, более 100 раскрасок, продажи в Steam",
+    "note": ""
+  },
+  {
+    "id": "A10",
+    "title": "Valve — Arms Deal interactive landing",
+    "url": "https://www.counter-strike.net/armsdeal",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2013",
+    "status": "OK",
+    "use": "2013, ссылки на 10 исходных изображений коллекций",
+    "note": ""
+  },
+  {
+    "id": "A11",
+    "title": "Valve original 2013 — Arms Deal Collection JPG",
+    "url": "https://media.steampowered.com/apps/csgo/blog/images/armsdeal/slide_arms.jpg",
+    "kind": "ПРЯМОЕ ИЗОБРАЖЕНИЕ",
+    "period": "2013",
+    "status": "OK",
+    "use": "Оригинальный арт Valve, пригоден для анимации панорамы 2.5D",
+    "note": ""
+  },
+  {
+    "id": "A21",
+    "title": "Valve — 14.08.2013 patch notes",
+    "url": "https://store.steampowered.com/oldnews/11265?l=english",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2013",
+    "status": "OK",
+    "use": "Кейсы, ножи, StatTrak, торговля и покупка",
+    "note": ""
+  },
+  {
+    "id": "A22",
+    "title": "CSGO Database — самый первый CS:GO Weapon Case",
+    "url": "https://www.csgodatabase.com/cases/csgo-weapon-case/",
+    "kind": "КАТАЛОГ/ИЗОБРАЖЕНИЯ",
+    "period": "2013/современный вид",
+    "status": "OK",
+    "use": "Список скинов первого кейса, не исторический скрин",
+    "note": ""
+  },
+  {
+    "id": "A23",
+    "title": "Рынок CS:GO 2016 — скрин лотов Steam",
+    "url": "https://images.steamusercontent.com/ugc/437239154027300443/0C6DF5D0C07E38CF5C38CDB66F3EC598B874DB5F/",
+    "kind": "ПРЯМОЕ ИЗОБРАЖЕНИЕ",
+    "period": "2016",
+    "status": "OK",
+    "use": "Из гайда 2016; не подписывать 2013",
+    "note": ""
+  },
+  {
+    "id": "A24",
+    "title": "AWP Dragon Lore — описание и рендер",
+    "url": "https://wiki.cs.money/weapons/awp/dragon-lore",
+    "kind": "СКИН/РЕНДЕР",
+    "period": "2014",
+    "status": "CHECK",
+    "use": "Впервые 2014, не 2013",
+    "note": ""
+  },
+  {
+    "id": "A25",
+    "title": "M4A4 Howl — история и изображения PC Gamer",
+    "url": "https://www.pcgamer.com/csgo-howl-skin/",
+    "kind": "СТАТЬЯ/КАДРЫ",
+    "period": "2014/ретроспектива",
+    "status": "OK",
+    "use": "Контрабанда с 2014, не путать с Arms Deal 2013",
+    "note": ""
+  },
+  {
+    "id": "A26",
+    "title": "Редкий AK Case Hardened #661 — сделка в 2024",
+    "url": "https://www.dexerto.com/counter-strike-2/counter-strike-2s-most-expensive-skin-sells-for-jaw-dropping-1-million-2762918/",
+    "kind": "НОВОСТЬ/ФОТО",
+    "period": "2024",
+    "status": "OK",
+    "use": "Называть сообщённой сделкой >$1 млн, без точного чека",
+    "note": ""
+  },
+  {
+    "id": "A27",
+    "title": "Демонстрация паттерна #661",
+    "url": "https://skinory.io/en/items/ak-47-case-hardened/seed/661",
+    "kind": "3D/РЕНДЕР",
+    "period": "современный",
+    "status": "CHECK",
+    "use": "Не исторический скрин 2013",
+    "note": ""
+  },
+  {
+    "id": "A28",
+    "title": "Оригинальный арт и интерфейс 2013 — Steam Holiday Sale",
+    "url": "https://www.seanyob.com/steam-winter-sale",
+    "kind": "АРХИВ/ДИЗАЙН",
+    "period": "2013",
+    "status": "OK",
+    "use": "Работы дизайнера Valve, некоторые изображения — макеты",
+    "note": ""
+  },
+  {
+    "id": "A29",
+    "title": "Valve — Steam Holiday Sale 2013 старт",
+    "url": "https://store.steampowered.com/news/12138/",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2013",
+    "status": "OK",
+    "use": "19.12.2013, оформление распродажи",
+    "note": ""
+  },
+  {
+    "id": "A30",
+    "title": "Valve — CS:GO 75% Steam Holiday Sale 21.12.13",
+    "url": "https://store.steampowered.com/oldnews/12148",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2013",
+    "status": "OK",
+    "use": "Строка Counter-Strike: Global Offensive 75% off",
+    "note": ""
+  },
+  {
+    "id": "A31",
+    "title": "Steam Holiday Sale 2014 — настоящий снимок страницы",
+    "url": "https://images.steamusercontent.com/ugc/255966457921735467/140AA08B4D14C831753760FF3991D457BE4CB1F4/",
+    "kind": "ПРЯМОЕ ИЗОБРАЖЕНИЕ",
+    "period": "2014",
+    "status": "OK",
+    "use": "Снимок старой главной Steam со скидками",
+    "note": ""
+  },
+  {
+    "id": "A32",
+    "title": "TechSpot — Steam Holiday Sale 2014, скрин",
+    "url": "https://www.techspot.com/images2/news/bigimage/2014/12/2014-12-18_20-10-09.jpg",
+    "kind": "ПРЯМОЕ ИЗОБРАЖЕНИЕ",
+    "period": "2014",
+    "status": "OK",
+    "use": "Большой снеговой баннер, видны карточки игр",
+    "note": ""
+  },
+  {
+    "id": "A33",
+    "title": "TechSpot — Steam Winter Sale 2015",
+    "url": "https://www.techspot.com/news/63233-steam-winter-sale.html",
+    "kind": "АРХИВ/СКРИН",
+    "period": "2015",
+    "status": "OK",
+    "use": "22.12.2015, декабрьский магазин, фото в статье",
+    "note": ""
+  },
+  {
+    "id": "A36",
+    "title": "PC Gamer — региональные ограничения подарков 2014",
+    "url": "https://www.pcgamer.com/valve-restricts-steam-gifting-and-trading-between-regions/",
+    "kind": "НОВОСТЬ",
+    "period": "2014",
+    "status": "OK",
+    "use": "Региональные ограничения, не путать с отменой подарков 2017",
+    "note": ""
+  },
+  {
+    "id": "A37",
+    "title": "Valve — Steam Gifting Changes 03.05.2017",
+    "url": "https://store.steampowered.com/news/posts/?enddate=1494268923&feed=steam_blog",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2017",
+    "status": "OK",
+    "use": "Убрали покупку подарков в инвентарь; старые подарки сохранились",
+    "note": ""
+  },
+  {
+    "id": "A38",
+    "title": "Steam Support — Region Restrictions on Steam",
+    "url": "https://help.steampowered.com/en/faqs/view/58D3-B80D-2943-3CC6",
+    "kind": "СПРАВКА/ИЗОБРАЖЕНИЕ",
+    "period": "современный",
+    "status": "CHECK",
+    "use": "FAQ отдаёт только изображение при автоматическом просмотре; подтвердить контент браузером",
+    "note": ""
+  },
+  {
+    "id": "A39",
+    "title": "Valve — Security and Trading 2015",
+    "url": "https://store.steampowered.com/oldnews/19618",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2015",
+    "status": "OK",
+    "use": "Мотивы защиты от краж, вступление к ограничениям",
+    "note": ""
+  },
+  {
+    "id": "A40",
+    "title": "Valve — 15-дневные hold с 09.03.2016",
+    "url": "https://blog.counter-strike.net/2016/03/13724/",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2016",
+    "status": "OK",
+    "use": "Steam Guard Mobile, trade hold до 15 дней",
+    "note": ""
+  },
+  {
+    "id": "A41",
+    "title": "Steam Support — Steam Trade and Market Holds",
+    "url": "https://help.steampowered.com/en/faqs/view/34A1-EA3F-83ED-54AB",
+    "kind": "СПРАВКА",
+    "period": "актуальная",
+    "status": "OK",
+    "use": "Пример 15-дневных удержаний, не исторический экран",
+    "note": ""
+  },
+  {
+    "id": "A42",
+    "title": "Ars Technica — Valve против скин-гемблинга",
+    "url": "https://arstechnica.com/gaming/2016/07/valve-lawyers-send-cease-and-desist-letters-to-counter-strike-gambling-sites/",
+    "kind": "НОВОСТЬ",
+    "period": "2016",
+    "status": "OK",
+    "use": "20.07.2016, Valve предъявила требования сайтам",
+    "note": ""
+  },
+  {
+    "id": "A43",
+    "title": "CSGOLounge архивная картинка",
+    "url": "https://cdn.mos.cms.futurecdn.net/5BizW2iD5GjdZZxsNyKQZN.png",
+    "kind": "ПРЯМОЕ ИЗОБРАЖЕНИЕ",
+    "period": "2016",
+    "status": "OK",
+    "use": "Исторический интерфейс ставок, не демонстрировать как действующий сервис",
+    "note": ""
+  },
+  {
+    "id": "A45",
+    "title": "PUBG — оригинальный трейлер выхода в Early Access 2017",
+    "url": "https://www.youtube.com/watch?v=fDLAFIhfFy4",
+    "kind": "ОФИЦИАЛЬНОЕ ВИДЕО",
+    "period": "2017",
+    "status": "OK",
+    "use": "Официальный PUBG, опубликован 23.03.2017; проверять лицензию",
+    "note": ""
+  },
+  {
+    "id": "A46",
+    "title": "Valve — PUBG Early Access 23.03.2017",
+    "url": "https://store.steampowered.com/oldnews/?appgroupname=PLAYERUNKNOWN%27S+BATTLEGROUNDS&appids=578080&feed=steam_release",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2017",
+    "status": "OK",
+    "use": "Страница анонсов о релизе раннего доступа",
+    "note": ""
+  },
+  {
+    "id": "A47",
+    "title": "SteamDB — PUBG all-time peak",
+    "url": "https://steamdb.info/app/578080/charts/",
+    "kind": "СТАТИСТИКА/ГРАФИК",
+    "period": "2017–2026",
+    "status": "OK",
+    "use": "Нужен скрин графика за декабрь 2017; динамические числа не переносить вручную",
+    "note": ""
+  },
+  {
+    "id": "A48",
+    "title": "PC Gamer — дорогие предметы PUBG и Trenchcoat",
+    "url": "https://www.pcgamer.com/most-expensive-pubg-items/",
+    "kind": "НОВОСТЬ/ИЗОБРАЖЕНИЕ",
+    "period": "2017",
+    "status": "OK",
+    "use": "Исторический взгляд на дорогие костюмы",
+    "note": ""
+  },
+  {
+    "id": "A49",
+    "title": "PUBG Trenchcoat — оригинальный снимок Steam Market",
+    "url": "https://cdn.mos.cms.futurecdn.net/VcQa6S5oJc9zFSAKud9dbD.jpg",
+    "kind": "ПРЯМОЕ ИЗОБРАЖЕНИЕ",
+    "period": "2017",
+    "status": "OK",
+    "use": "Виден предмет и интерфейс Steam Market",
+    "note": ""
+  },
+  {
+    "id": "A50",
+    "title": "jeuxvideo — PUBG предметы, рыночный скрин",
+    "url": "https://image.jeuxvideo.com/medias-md/149155/1491552493-7048-card.png",
+    "kind": "ПРЯМОЕ ИЗОБРАЖЕНИЕ",
+    "period": "2017",
+    "status": "OK",
+    "use": "Исторический список плащей, бандан, цены в €",
+    "note": ""
+  },
+  {
+    "id": "A51",
+    "title": "Valve — CS:GO Revisiting Trade, 7 дней",
+    "url": "https://blog.counter-strike.net/2018/03/20308/",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2018",
+    "status": "OK",
+    "use": "29.03.2018, строка seven-day cooldown",
+    "note": ""
+  },
+  {
+    "id": "A52",
+    "title": "PUBG Corp — отключение личных трейдов",
+    "url": "https://store.steampowered.com/news/posts/?appids=578080&enddate=1526004293&feed=steam_community_announcements",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2018",
+    "status": "OK",
+    "use": "03.05.2018, Market trade всё ещё работает",
+    "note": ""
+  },
+  {
+    "id": "A53",
+    "title": "Valve — RMR 2020 capsules 27.01.2021",
+    "url": "https://blog.counter-strike.net/2021/01/32375/",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2021",
+    "status": "OK",
+    "use": "Первые RMR 2020, наклейки 2021",
+    "note": ""
+  },
+  {
+    "id": "A54",
+    "title": "Valve — оригинальное промо RMR",
+    "url": "https://steamcommunity.com/games/CSGO/announcements/detail/3056224118599010427",
+    "kind": "ПЕРВОИСТОЧНИК/АРТ",
+    "period": "2021",
+    "status": "OK",
+    "use": "Прямое изображение трёх капсул",
+    "note": ""
+  },
+  {
+    "id": "A55",
+    "title": "Valve — официальная скидка капсул RMR",
+    "url": "https://blog.counter-strike.net/2021/04/33688/",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2021",
+    "status": "OK",
+    "use": "06.04.21, RMR now on sale",
+    "note": ""
+  },
+  {
+    "id": "A56",
+    "title": "Valve — The Major is Back, Stockholm",
+    "url": "https://blog.counter-strike.net/2021/10/35800/",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2021",
+    "status": "OK",
+    "use": "21.10.2021 капсулы и Viewer Pass",
+    "note": ""
+  },
+  {
+    "id": "A57",
+    "title": "Valve — анонс Counter-Strike 2, официальный сайт",
+    "url": "https://www.counter-strike.net/cs2",
+    "kind": "ПЕРВОИСТОЧНИК/ВИДЕО",
+    "period": "2023",
+    "status": "OK",
+    "use": "Может требовать JS; для кадра использовать встроенные ролики",
+    "note": ""
+  },
+  {
+    "id": "A58",
+    "title": "Valve — Moving Beyond Tick Rate, 22.03.23",
+    "url": "https://www.youtube.com/watch?v=GqhhFl5zgA0",
+    "kind": "ОФИЦИАЛЬНОЕ ВИДЕО",
+    "period": "2023",
+    "status": "OK",
+    "use": "Официальный ролик Valve",
+    "note": ""
+  },
+  {
+    "id": "A59",
+    "title": "Valve — CS2 launch trailer 27.09.23",
+    "url": "https://www.youtube.com/watch?v=nSE38xjMLqE",
+    "kind": "ОФИЦИАЛЬНОЕ ВИДЕО",
+    "period": "2023",
+    "status": "CHECK",
+    "use": "Подтвердить доступность непосредственно в браузере Claude",
+    "note": ""
+  },
+  {
+    "id": "A60",
+    "title": "Valve — The Armory / семь дней market CS2",
+    "url": "https://store.steampowered.com/news/posts/?appids=730&enddate=1727913040&feed=steam_community_announcements",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2024",
+    "status": "OK",
+    "use": "02.10.2024, найти строку про ограничение",
+    "note": ""
+  },
+  {
+    "id": "A61",
+    "title": "Steam Support — Trade Protected Items",
+    "url": "https://help.steampowered.com/en/faqs/view/365F-4BEE-2AE2-7BDD",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2025+",
+    "status": "OK",
+    "use": "7 дней защита, reverse trade и последствия",
+    "note": ""
+  },
+  {
+    "id": "A62",
+    "title": "ixbt.games — интерфейс Trade Protection",
+    "url": "https://ixbt.games/news/2025/07/16/valve-izmenila-pravila-torgovli-steam-zashhita-ot-treida-i-ban-na-30-dnei-dlya-bezopasnosti.html",
+    "kind": "НОВОСТЬ/КАДРЫ",
+    "period": "2025",
+    "status": "CHECK",
+    "use": "Не первоисточник; использовать скрин, если доступен",
+    "note": ""
+  },
+  {
+    "id": "A63",
+    "title": "Valve — Genesis Collection 16.09.2025",
+    "url": "https://store.steampowered.com/news/posts/?appids=730&enddate=1758150954&feed=steam_community_announcements",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2025",
+    "status": "OK",
+    "use": "17 finishes and Genesis Uplink Terminal",
+    "note": ""
+  },
+  {
+    "id": "A64",
+    "title": "Genesis Terminal — интерфейс предложений",
+    "url": "https://bo3.gg/articles/sealed-genesis-terminal-in-cs2-how-it-works-best-offers-and-is-it-worth-opening",
+    "kind": "РЕАЛЬНЫЙ СКРИН",
+    "period": "2025",
+    "status": "OK",
+    "use": "На картинке интерфейс на польском; не выдавать за русскую версию",
+    "note": ""
+  },
+  {
+    "id": "A65",
+    "title": "Genesis Terminal — ещё один интерфейс с ценой",
+    "url": "https://escorenews.com/en/csgo/article/72055-how-genesis-terminal-skin-prices-work-in-cs2-why-red-items-are-so-expensive-in-genesis-collection",
+    "kind": "РЕАЛЬНЫЙ СКРИН",
+    "period": "2025",
+    "status": "OK",
+    "use": "Хороший экран с оружием и запрашиваемой ценой",
+    "note": ""
+  },
+  {
+    "id": "A66",
+    "title": "Valve — пять Covert → нож/перчатки",
+    "url": "https://www.counter-strike.net/newsentry/516350567072662004?l=english",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2025",
+    "status": "CHECK",
+    "use": "JS-публикация выдаёт ноль строк в веб-просмотре; использовать Steam News A67",
+    "note": ""
+  },
+  {
+    "id": "A67",
+    "title": "Valve — октябрьские изменения 2025 в Steam",
+    "url": "https://store.steampowered.com/news/posts/?appids=730&enddate=1762988336&feed=steam_community_announcements",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2025",
+    "status": "OK",
+    "use": "Кадр со строкой CONTRACTS, 22.10.2025",
+    "note": ""
+  },
+  {
+    "id": "A68",
+    "title": "SteamDB — 04.03.2026 предметы остались в инвентаре",
+    "url": "https://steamdb.info/patchnotes/22202104/",
+    "kind": "ПЕРВОИСТОЧНИК-КОПИЯ",
+    "period": "2026",
+    "status": "OK",
+    "use": "Дата 04.03.2026; можно использовать выставленные предметы",
+    "note": ""
+  },
+  {
+    "id": "A69",
+    "title": "Valve — Cologne 2026 Major Shop и сувениры",
+    "url": "https://www.counter-strike.net/newsentry/672869045073084948",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2026",
+    "status": "CHECK",
+    "use": "JS-публикация даёт пустой текст в автоматическом просмотре; использовать Steam News A70",
+    "note": ""
+  },
+  {
+    "id": "A70",
+    "title": "Valve — Cologne 2026 через Steam News (без JS)",
+    "url": "https://store.steampowered.com/news/posts/?appids=730&enddate=1782874676",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2026",
+    "status": "OK",
+    "use": "В ленте 21 мая патчноут и публикация IEM Cologne",
+    "note": ""
+  },
+  {
+    "id": "A71",
+    "title": "Souvenir-O-Matic — интерфейс конвертации",
+    "url": "https://swap.gg/blog/how-to-craft-souvenir-skins-in-cs2",
+    "kind": "РЕАЛЬНЫЙ СКРИН",
+    "period": "2026",
+    "status": "OK",
+    "use": "Подлинный экран Convert to Souvenir, источник не Valve",
+    "note": ""
+  },
+  {
+    "id": "A74",
+    "title": "CS GO 2016 — старый Market с историей продаж",
+    "url": "https://images.steamusercontent.com/ugc/30726300429361324/A87161D5F1D4AE16187881984C57F558D034F746/",
+    "kind": "ПРЯМОЕ ИЗОБРАЖЕНИЕ",
+    "period": "2014–2016",
+    "status": "OK",
+    "use": "Конкретная дата скрина не подтверждена; старый дизайн",
+    "note": ""
+  },
+  {
+    "id": "A75",
+    "title": "Steam Holiday Sale 2013 — UI screenshot designer",
+    "url": "https://images.squarespace-cdn.com/content/v1/57ec44c98419c2ac2beb53d9/1496724466052-Q3T1UP2THK1PJO2WW29H/image-asset.jpeg",
+    "kind": "ПРЯМОЕ ИЗОБРАЖЕНИЕ",
+    "period": "2013",
+    "status": "OK",
+    "use": "Дизайнерское изображение UI; использовать с подписью «архивный дизайн»",
+    "note": ""
+  },
+  {
+    "id": "A76",
+    "title": "Valve — Steam Holiday Sale 2014, 18 декабря",
+    "url": "https://store.steampowered.com/oldnews/15308",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2014",
+    "status": "OK",
+    "use": "Проверена дата 18.12.2014, скидки до 85% и перечень игр",
+    "note": ""
+  },
+  {
+    "id": "A78",
+    "title": "Рынок игровых предметов: Steam Market сегодня",
+    "url": "https://steamcommunity.com/market/search?appid=730",
+    "kind": "ЖИВАЯ СТРАНИЦА",
+    "period": "2026",
+    "status": "OK",
+    "use": "Демонстрация современного Steam Market; не исторический скрин",
+    "note": ""
+  },
+  {
+    "id": "A80",
+    "title": "2015 CS:GO Lounge — старый интерфейс ставок",
+    "url": "https://www.pcgamer.com/csgo-lounge-aims-to-dodge-valve-sanctions-by-becoming-a-real-online-gambling-site/",
+    "kind": "НОВОСТЬ/СКРИН",
+    "period": "2016",
+    "status": "OK",
+    "use": "Содержит историческое изображение интерфейса ставок",
+    "note": ""
+  },
+  {
+    "id": "A85",
+    "title": "PUBG — официальный Early Access дата Steam новости",
+    "url": "https://store.steampowered.com/news/posts/?appids=578080&enddate=1490267955",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2017",
+    "status": "OK",
+    "use": "10.03.2017 Steam Early Access Launch Date",
+    "note": ""
+  },
+  {
+    "id": "A86",
+    "title": "CS2 2026 — июньская заметка о новых ценах стикеров",
+    "url": "https://store.steampowered.com/news/posts/?appids=730&enddate=1781738539&feed=steam_community_announcements",
+    "kind": "ПЕРВОИСТОЧНИК",
+    "period": "2026",
+    "status": "OK",
+    "use": "10 июня Valve добавила 7-дневный диапазон цен наклеек",
+    "note": ""
+  }
+]
