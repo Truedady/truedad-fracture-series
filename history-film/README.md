@@ -27,6 +27,7 @@ npm run render:draft
 | `npm run doctor` | проверяет Node, FFmpeg, пакеты и все файлы черновика, пишет, что исправить |
 | `npm run preview` | открывает Remotion Studio в браузере — можно листать кадры |
 | `npm run render:draft` | черновик кадров 14–18 → `output/draft_14-18.mp4`. Кусок: `npm run render:draft -- --frames=0-150` |
+| `npm run render:hq` | тот же черновик в 2560×1440 — проверить качество картинки → `output/draft_14-18_1440p.mp4` |
 | `npm run render:final` | 2560×1440 @ 60 fps. Запускается только после одобрения: `npm run render:final -- --approved` |
 | `npm run audit:links` | проверяет все ссылки из `SOURCES.json` → `link_audit.csv` (медиа не скачивает) |
 

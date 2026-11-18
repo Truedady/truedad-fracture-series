@@ -1,4 +1,5 @@
 // npm run render:draft — кадры 14–18, 1280×720 @30 → output/draft_14-18.mp4
+// npm run render:hq — тот же черновик в 2560×1440 @30 (проверка качества картинки)
 // npm run render:final — 2560×1440 @60, только после одобрения: npm run render:final -- --approved
 // Дополнительно можно передать --frames=0-90 (кусок для проверки).
 import {execFileSync} from 'node:child_process';
@@ -12,6 +13,9 @@ mkdirSync('output', {recursive: true});
 let args;
 if (mode === 'draft') {
   args = ['output/draft_14-18.mp4', '--scale=0.6666666666666666', '--props={"fps":30}', '--crf=20'];
+} else if (mode === 'hq') {
+  // черновик в полном качестве для проверки картинки: 2560×1440 @30
+  args = ['output/draft_14-18_1440p.mp4', '--scale=1.3333333333333333', '--props={"fps":30}', '--crf=16'];
 } else if (mode === 'final') {
   if (!extra.includes('--approved')) {
     console.log('\nФинальный рендер 2560×1440 @60 запускается только после одобрения монтажа и при готовой озвучке.');

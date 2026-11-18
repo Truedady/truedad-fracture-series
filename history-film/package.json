@@ -8,6 +8,7 @@
     "doctor": "node scripts/doctor.mjs",
     "preview": "remotion studio src/index.ts",
     "render:draft": "node scripts/render.mjs draft",
+    "render:hq": "node scripts/render.mjs hq",
     "render:final": "node scripts/render.mjs final",
     "audit:links": "node scripts/audit-links.mjs"
   },
