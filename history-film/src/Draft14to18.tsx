@@ -118,7 +118,7 @@ export const SHOTS: Shot[] = [
 
 export const DRAFT_SECONDS = Math.max(...SHOTS.map((s) => s.from + s.dur));
 
-export const Draft14to18: React.FC<{voicePending?: boolean}> = ({voicePending = true}) => {
+export const Draft14to18: React.FC<{voicePending?: boolean}> = ({voicePending = false}) => {
   const {fps} = useVideoConfig();
   return (
     <AbsoluteFill style={{background: C.black}}>
