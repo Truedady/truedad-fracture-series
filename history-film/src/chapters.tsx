@@ -1,6 +1,6 @@
 import React from 'react';
 import {G, I, L, P, Scene} from './film';
-import {BREAKOUT, BotScan, CaseChart, CaseFlow, Chronicle, CovertMerge, DayCells, DemandShift, Frozen, GAMMA2, GLOVE, ListedUse, Liquidity, Online, Prepay, PriceJump, Protection, RegionalPrice, Spread, ThreeCases, Trust, Turnover} from './graphics';
+import {BREAKOUT, BotScan, CaseChart, CaseFlow, Chronicle, CovertMerge, DayCells, DemandShift, Frozen, GAMMA2, GLOVE, ListedUse, Liquidity, Online, PlayerInvestor, Prepay, PriceJump, Protection, RegionalPrice, Spread, StickerFlood, ThreeCases, Trust, Turnover} from './graphics';
 import {Quote} from './quote';
 
 /*
@@ -99,9 +99,9 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
       {n: 53, plans: [P('A54', 'tilt', {fx: 720, fy: 520})]},
       {n: 54, plans: [L(K('08_Старые_командные_наклейки_архив_курса'), 'K08', {mode: 'full', dir: 'left'}), G(() => <PriceJump label="СТАРЫЙ ФОРМАТ · КОМАНДНЫЕ НАКЛЕЙКИ" title="Фиксированная цена" from={64} to={16} unit=" ₽" fromLabel="Обычная цена" toLabel="На распродаже" badge="−75%" />)]},
       {n: 55, plans: [L(K('09_RMR_капсула_архив_курса'), 'K09', {mode: 'card', dir: 'in'}), G(() => <PriceJump label="RMR 2020 · КАПСУЛЫ" title="Случайная наклейка из капсулы" from={76} to={19} unit=" ₽" fromLabel="Капсула" toLabel="Во время скидки" badge="−75%" />)]},
-      {n: 56, plans: [L(K('09_RMR_капсула_архив_курса'), 'K09', {mode: 'full', dir: 'out'}), P('A53', 'scroll', {fx: 560, fy: 800})]},
+      {n: 56, plans: [G(StickerFlood, {w: 1.4}), P('A53', 'scroll', {fx: 560, fy: 800})]},
       {n: 57, plans: [L(K('10_RMR_график_после_продаж_архив_курса'), 'K10', {mode: 'card', dir: 'right'}), P('A55', 'pull', {fx: 560, fy: 700, w: 0.8})]},
-      {n: 58, plans: [P('A56', 'push', {fx: 560, fy: 640}), L(K('11_Stockholm_2021_архив_курса'), 'K11', {mode: 'full', dir: 'left', w: 1.2}), P('A56', 'scroll', {fx: 560, fy: 900}), P('A54', 'pull', {fx: 720, fy: 520}), L(K('09_RMR_капсула_архив_курса'), 'K09', {mode: 'card', dir: 'out'})]},
+      {n: 58, plans: [P('A56', 'push', {fx: 560, fy: 640}), L(K('11_Stockholm_2021_архив_курса'), 'K11', {mode: 'full', dir: 'left'}), P('A56', 'scroll', {fx: 560, fy: 900, w: 0.8}), G(PlayerInvestor, {w: 2.2}), P('A54', 'pull', {fx: 720, fy: 520})]},
     ],
   },
   {
@@ -139,7 +139,7 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
       {n: 75, plans: [L(W04, 'K04', {mode: 'full', dir: 'out', gray: true, tr: 'dip', w: 0.8}), P('A37', 'push', {fx: 640, fy: 420, gray: true})]},
       {n: 76, plans: [P('A51', 'push', {fx: 560, fy: 520, gray: true})]},
       {n: 77, plans: [G(() => <Chronicle items={[{y: '2017', txt: 'подарочные игры', img: 'sources/A37.jpg'}, {y: '2018', txt: 'скорость обменов', img: 'sources/A51.jpg'}, {y: '2021', txt: 'наклейки RMR', img: 'sources/A54.jpg'}, {y: '2025', txt: 'ножи и контракты', img: 'sources/A66.jpg'}, {y: '2026', txt: 'сувениры и стикеры', img: 'sources/A69.jpg'}]} />)]},
-      {n: 78, plans: [P('A78_market_listing_today', 'panR', {fx: 800, fy: 600}), G(ThreeCases), P('A10', 'drift', {fx: 800, fy: 500}), P('A01', 'pull', {fx: 800, fy: 700, gray: true}), L(W04, 'K04', {mode: 'full', dir: 'up', gray: true}), P('A57', 'push', {fx: 800, fy: 450})]},
+      {n: 78, plans: [P('A78_market_listing_today', 'panR', {fx: 800, fy: 600}), P('A66', 'drift', {fx: 800, fy: 700}), P('A10', 'drift', {fx: 800, fy: 500}), P('A01', 'pull', {fx: 800, fy: 700, gray: true}), L(W04, 'K04', {mode: 'full', dir: 'up', gray: true}), P('A57', 'push', {fx: 800, fy: 450})]},
     ],
   },
 ];

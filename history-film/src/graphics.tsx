@@ -31,7 +31,7 @@ const fmt = (v: number, dec = 0) => v.toLocaleString('ru-RU', {minimumFractionDi
 const Counter: React.FC<{to: number; from?: number; at: number; len?: number; dec?: number; suffix?: string; prefix?: string; size?: number; color?: string}> = ({to, from = 0, at, len = 1.2, dec = 0, suffix = '', prefix = '', size = 130, color = C.gold}) => {
   const {t} = useSec();
   const v = from + (to - from) * k(t, [at, at + len], [0, 1], easeOut);
-  return <span style={{fontFamily: FONT.display, fontWeight: 700, fontSize: size, color, fontVariantNumeric: 'tabular-nums'}}>{prefix}{fmt(v, dec)}{suffix}</span>;
+  return <span style={{fontFamily: FONT.display, fontWeight: 700, fontSize: size, color, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap'}}>{prefix}{fmt(v, dec)}{suffix}</span>;
 };
 const Pop: React.FC<{at: number; children: React.ReactNode; style?: React.CSSProperties}> = ({at, children, style}) => {
   const {t} = useSec();
@@ -394,11 +394,11 @@ export const CovertMerge: React.FC = () => {
     <Frame label="22 ОКТЯБРЯ 2025 · КОНТРАКТ ОБМЕНА" title="5 × Covert → нож или перчатки">
       <div style={{position: 'relative', height: 640}}>
         {five.map((s, i) => {
-          const x0 = 40 + i * 320, y0 = 120;
+          const x0 = -20 + i * 340, y0 = 150;
           const a = k(t, [0.6 + i * 0.25, 1 + i * 0.25], [0, 1], easeOut);
           return (
-            <div key={s} style={{position: 'absolute', left: x0 + (700 - x0) * merge, top: y0 + 60 * merge, width: 280, opacity: a * (1 - merge), transform: `scale(${1 - 0.5 * merge}) translateY(${(1 - a) * 40}px)`}}>
-              <Card style={{padding: 20}}><Img src={staticFile(`skins/${s}.png`)} style={{width: 240, height: 110, objectFit: 'contain'}} /><div style={{height: 6, background: RED, borderRadius: 3, marginTop: 10}} /></Card>
+            <div key={s} style={{position: 'absolute', left: x0 + (660 - x0) * merge, top: y0 + 60 * merge, width: 320, opacity: a * (1 - merge), transform: `scale(${1 - 0.5 * merge}) translateY(${(1 - a) * 40}px)`}}>
+              <Card style={{padding: 22}}><Img src={staticFile(`skins/${s}.png`)} style={{width: 276, height: 200, objectFit: 'contain'}} /><div style={{height: 6, background: RED, borderRadius: 3, marginTop: 10}} /></Card>
             </div>
           );
         })}
@@ -472,7 +472,7 @@ export const Prepay: React.FC = () => {
   const pay = k(t, [dur * 0.2, dur * 0.42], [0, 1], easeOut);
   const ship = k(t, [dur * 0.55, dur * 0.77], [0, 1], easeOut);
   const party = (who: string, sub: string, at: number) => (
-    <Pop at={at} style={{width: 420}}><Card style={{textAlign: 'center'}}><div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 60}}>{who}</div><div style={{fontSize: 32, color: C.muted, marginTop: 8}}>{sub}</div></Card></Pop>
+    <Pop at={at} style={{width: 440}}><Card style={{textAlign: 'center'}}><div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 68}}>{who}</div><div style={{fontSize: 36, color: C.muted, marginTop: 10}}>{sub}</div></Card></Pop>
   );
   return (
     <Frame label="КАК РАБОТАЛИ СДЕЛКИ" title="Сначала оплата — потом заказ">
@@ -481,9 +481,9 @@ export const Prepay: React.FC = () => {
         <div style={{position: 'absolute', right: 0, top: 150}}>{party('Продавец', 'репутация на форуме', 0.9)}</div>
         <div style={{position: 'absolute', left: 470, right: 470, top: 120, height: 3, background: '#2A3340'}} />
         <div style={{position: 'absolute', left: 470, right: 470, top: 400, height: 3, background: '#2A3340'}} />
-        <div style={{position: 'absolute', top: 70, left: `calc(470px + ${pay} * (100% - 1040px))`, opacity: pay > 0 && pay < 1 ? 1 : pay >= 1 ? 0.35 : 0, fontFamily: FONT.display, fontWeight: 700, fontSize: 64, color: GREEN}}>$</div>
-        <div style={{position: 'absolute', top: 340, right: `calc(470px + ${ship} * (100% - 1060px))`, opacity: ship > 0 && ship < 1 ? 1 : ship >= 1 ? 0.35 : 0, width: 100, height: 100}}>
-          <Img src={staticFile('skins/awp-fade.png')} style={{width: 140, height: 100, objectFit: 'contain'}} />
+        <div style={{position: 'absolute', left: `calc(470px + ${pay} * (100% - 1060px))`, top: 40, opacity: pay > 0 && pay < 1 ? 1 : pay >= 1 ? 0.35 : 0, fontFamily: FONT.display, fontWeight: 700, fontSize: 110, color: GREEN}}>$</div>
+        <div style={{position: 'absolute', right: `calc(470px + ${ship} * (100% - 1200px))`, top: 300, opacity: ship > 0 && ship < 1 ? 1 : ship >= 1 ? 0.35 : 0, width: 260, height: 150}}>
+          <Img src={staticFile('skins/awp-fade.png')} style={{width: 260, height: 150, objectFit: 'contain', filter: 'drop-shadow(0 16px 24px rgba(0,0,0,0.6))'}} />
         </div>
         <Pop at={dur * 0.82} style={{position: 'absolute', left: 0, right: 0, top: 470, textAlign: 'center', fontSize: 44, color: C.gold}}>Всё держалось на доверии</Pop>
       </div>
@@ -585,6 +585,62 @@ export const ListedUse: React.FC = () => {
         </div>
       </div>
       <Sfx name="pop" at={0.5} vol={0.35} /><Sfx name="blip" at={dur * 0.45} vol={0.5} /><Sfx name="pop" at={dur * 0.65} vol={0.35} />
+    </Frame>
+  );
+};
+
+/* ── 20. Наклеек стало очень много: цена падает до рубля ── */
+export const StickerFlood: React.FC = () => {
+  const {t, dur} = useSec();
+  const N = 220;
+  const shown = Math.floor(k(t, [0.6, dur * 0.6], [0, N], (x) => x * x));
+  const price = k(t, [dur * 0.35, dur * 0.7], [19, 1], easeOut);
+  const cols = ['#5E98D9', '#4B69FF', '#8847FF', '#D32CE6', '#EB4B4B', '#E4AE39'];
+  return (
+    <Frame label="RMR 2020 · ПОСЛЕ РАСПРОДАЖИ" title="Обычных наклеек оказалось очень много">
+      <div style={{display: 'flex', gap: 70, alignItems: 'center'}}>
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(20, 1fr)', gap: 8, width: 1000}}>
+          {Array.from({length: N}, (_, i) => {
+            const on = i < shown;
+            const c = i % 37 === 0 ? cols[5] : i % 11 === 0 ? cols[2] : cols[i % 2];
+            return <div key={i} style={{width: 42, height: 42, borderRadius: 21, background: on ? c : '#1A2029', opacity: on ? 0.9 : 0.5, transform: `scale(${on ? 1 : 0.6})`}} />;
+          })}
+        </div>
+        <div style={{flex: 1}}>
+          <Pop at={dur * 0.3}><Card style={{textAlign: 'center'}}><div style={{fontSize: 38, color: C.muted, marginBottom: 10}}>Обычная наклейка</div><span style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 150, color: price < 3 ? RED : C.ivory, whiteSpace: 'nowrap'}}>≈{Math.round(price)} ₽</span></Card></Pop>
+          <Pop at={dur * 0.72} style={{marginTop: 40, fontSize: 40, lineHeight: 1.4}}>Конец продаж ≠ быстрый дефицит</Pop>
+        </div>
+      </div>
+      <Sfx name="counter" at={0.6} vol={0.3} /><Sfx name="pop" at={dur * 0.3} vol={0.35} /><Sfx name="drop" at={dur * 0.35} vol={0.45} /><Sfx name="thud" at={dur * 0.72} vol={0.5} />
+    </Frame>
+  );
+};
+
+/* ── 21. Один предмет — два взгляда: игрок и инвестор ── */
+export const PlayerInvestor: React.FC = () => {
+  const {dur} = useSec();
+  const q = (at: number, txt: string) => <Pop at={at} style={{fontSize: 38, lineHeight: 1.35, marginTop: 26, paddingLeft: 26, borderLeft: `4px solid #2A3340`}}>{txt}</Pop>;
+  return (
+    <Frame label="ОДИН ТОВАР — РАЗНЫЕ ВОПРОСЫ" title="Игрок и инвестор">
+      <div style={{display: 'flex', gap: 60}}>
+        <Pop at={0.5} style={{flex: 1}}>
+          <Card style={{height: 520}}>
+            <div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 64, color: GREEN}}>Игрок</div>
+            {q(dur * 0.18, 'Нравится ли наклейка?')}
+            {q(dur * 0.26, 'Сколько стоит нанести её на оружие?')}
+          </Card>
+        </Pop>
+        <Pop at={dur * 0.34} style={{flex: 1}}>
+          <Card style={{height: 520, borderColor: C.gold}}>
+            <div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 64, color: C.gold}}>Инвестор</div>
+            {q(dur * 0.42, 'Сколько таких уже накопили другие?')}
+            {q(dur * 0.52, 'Когда начнут фиксировать прибыль?')}
+            {q(dur * 0.62, 'Поглотит ли спрос предложение?')}
+          </Card>
+        </Pop>
+      </div>
+      <Sfx name="pop" at={0.5} vol={0.35} /><Sfx name="blip" at={dur * 0.18} vol={0.3} /><Sfx name="blip" at={dur * 0.26} vol={0.3} />
+      <Sfx name="pop" at={dur * 0.34} vol={0.35} /><Sfx name="blip" at={dur * 0.42} vol={0.3} /><Sfx name="blip" at={dur * 0.52} vol={0.3} /><Sfx name="blip" at={dur * 0.62} vol={0.3} />
     </Frame>
   );
 };
