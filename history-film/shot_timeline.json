@@ -1,70 +1,522 @@
 {
- "composition": "Draft14to18",
- "draft": "1280x720@30",
- "final": "2560x1440@60",
- "shots": [
+ "composition_draft": "Draft14to18",
+ "render": "2560x1440@30 (final @60)",
+ "voice": "VOICE_PENDING — тайминги условные",
+ "chapters": [
   {
-   "scene": 14,
-   "from_s": 0,
-   "dur_s": 5.5,
-   "note": "Arms Deal Collection 2013 (официальный арт Valve, A11) — AK-47 Case Hardened в коллекции",
-   "voice": "VOICE_PENDING"
+   "id": "Ch03-Regional",
+   "title": "Региональная торговля играми",
+   "scenes": [
+    {
+     "n": 19,
+     "cue": "«…распродажи, скидка 75%»",
+     "materials": [
+      "A31_holiday_sale_2014"
+     ],
+     "plans": 2
+    },
+    {
+     "n": 20,
+     "cue": "«…форумы, репутация, авансы»",
+     "materials": [
+      "A02_steam_trading_2011"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 21,
+     "cue": "«С конца 2014 ограничения…»",
+     "materials": [
+      "A36",
+      "A38"
+     ],
+     "plans": 2
+    },
+    {
+     "n": 22,
+     "cue": "«3 мая 2017… прекратила продажу новых подарков»",
+     "materials": [
+      "A37"
+     ],
+     "plans": 1
+    }
+   ]
   },
   {
-   "scene": 14,
-   "from_s": 5,
-   "dur_s": 6.5,
-   "note": "Skinory: AK-47 Case Hardened seed 661 — паттерн 76.1% blue (A27)",
-   "voice": "VOICE_PENDING"
+   "id": "Ch04-Markets",
+   "title": "Сторонние маркеты, рулетки и боты",
+   "scenes": [
+    {
+     "n": 23,
+     "cue": "«…сторонние торговые площадки»",
+     "materials": [
+      "A23_market_2016"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 24,
+     "cue": "«…купить дешевле — продать дороже»",
+     "materials": [
+      "A74_market_2016"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 25,
+     "cue": "«…появляются боты и парсеры»",
+     "materials": [
+      "A51"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 26,
+     "cue": "«…рулетки CSGODouble»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 27,
+     "cue": "«…скандалы и Valve ограничивает»",
+     "materials": [
+      "A42"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 28,
+     "cue": "«…автоматизация никуда не исчезла»",
+     "materials": [
+      "A78_market_cases_today"
+     ],
+     "plans": 1
+    }
+   ]
   },
   {
-   "scene": 14,
-   "from_s": 11,
-   "dur_s": 6.5,
-   "note": "Dexerto 2024: самый дорогой скин CS2 — AK #661 (A26)",
-   "voice": "VOICE_PENDING"
+   "id": "Ch05-SteamGuard",
+   "title": "Steam Guard и 15-дневные задержки",
+   "scenes": [
+    {
+     "n": 29,
+     "cue": "«9 марта 2016 заработали ограничения»",
+     "materials": [
+      "A40"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 30,
+     "cue": "«…выставление предметов задерживалось»",
+     "materials": [
+      "A41"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 31,
+     "cue": "«…три рубля против тридцати»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 32,
+     "cue": "«…обновление безопасности влияло на экономику»",
+     "materials": [
+      "A39"
+     ],
+     "plans": 1
+    }
+   ]
   },
   {
-   "scene": 14,
-   "from_s": 17,
-   "dur_s": 5.5,
-   "note": "PC Gamer: история M4A4 Howl (A25), скин 2014 года",
-   "voice": "VOICE_PENDING"
+   "id": "Ch06-Pubg",
+   "title": "Эра PUBG",
+   "scenes": [
+    {
+     "n": 33,
+     "cue": "«В марте 2017 PUBG…»",
+     "materials": [
+      "A85_pubg_keyart_2017"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 34,
+     "cue": "«…три миллиона игроков одновременно»",
+     "materials": [
+      "A45_pubg_trailer_2017"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 35,
+     "cue": "«…редкие вещи в PUBG»",
+     "materials": [
+      "A48",
+      "A49_pubg_trenchcoat_market"
+     ],
+     "plans": 2
+    },
+    {
+     "n": 36,
+     "cue": "«Trench Coat: 3000→53000 ₽»",
+     "materials": [],
+     "plans": 2
+    },
+    {
+     "n": 37,
+     "cue": "«…два обновления подряд»",
+     "materials": [
+      "A51",
+      "A52"
+     ],
+     "plans": 2
+    }
+   ]
   },
   {
-   "scene": 15,
-   "from_s": 22,
-   "dur_s": 7,
-   "note": "Архив курса: Steam Holiday Sale 2013, CS:GO −75% (локальный PNG 04)",
-   "voice": "VOICE_PENDING"
+   "id": "Ch07-WorstSpring",
+   "title": "Худшая весна для трейдеров",
+   "scenes": [
+    {
+     "n": 38,
+     "cue": "«29 марта 2018 Valve ввела…»",
+     "materials": [
+      "A51"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 39,
+     "cue": "«…семь дней заморозки»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 40,
+     "cue": "«…капитал замораживался»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 41,
+     "cue": "«3 мая 2018 PUBG отключили персональные обмены»",
+     "materials": [
+      "A52"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 42,
+     "cue": "«…говорили о смерти трейдинга»",
+     "materials": [
+      "A51",
+      "A52"
+     ],
+     "plans": 2
+    }
+   ]
   },
   {
-   "scene": 15,
-   "from_s": 28.5,
-   "dur_s": 6.5,
-   "note": "Valve, 21.12.2013: Holiday Sale Day 3 — Counter-Strike: Global Offensive 75% off (A30). Единственное выделение.",
-   "voice": "VOICE_PENDING"
+   "id": "Ch08-InvestBoom",
+   "title": "Инвестиционный бум",
+   "scenes": [
+    {
+     "n": 43,
+     "cue": "«…кейсы стоили копейки»",
+     "materials": [
+      "A78_market_cases_today"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 44,
+     "cue": "«Glove Case: 0,25 → 200 ₽»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 45,
+     "cue": "«…до 575 ₽ в апреле 2023»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 46,
+     "cue": "«Breakout: 1,5 → 220 → 820 ₽»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 47,
+     "cue": "«Gamma 2: 0,25 → 47 → 280 ₽»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 48,
+     "cue": "«…при продаже крупной позиции»",
+     "materials": [
+      "A78_market_listing_today"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 49,
+     "cue": "«…кейс исчезает после открытия»",
+     "materials": [
+      "A10"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 50,
+     "cue": "«…редкий дроп и накопление инвесторов»",
+     "materials": [
+      "steps: ПОЧЕМУ СТАРЫЕ КЕЙСЫ ДОРОЖАЮТ"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 51,
+     "cue": "«…рост не гарантирован»",
+     "materials": [],
+     "plans": 3
+    }
+   ]
   },
   {
-   "scene": 16,
-   "from_s": 34.5,
-   "dur_s": 6.5,
-   "note": "Valve: Steam Trading Feature Is Live — обмен предметами и подарками (A02)",
-   "voice": "VOICE_PENDING"
+   "id": "Ch09-Stickers",
+   "title": "Наклейки RMR и Stockholm",
+   "scenes": [
+    {
+     "n": 52,
+     "cue": "«…купить капсулы на скидке»",
+     "materials": [
+      "A55"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 53,
+     "cue": "«27 января 2021 RMR»",
+     "materials": [
+      "A54"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 54,
+     "cue": "«Раньше наклейки были фиксированной цены»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 55,
+     "cue": "«…теперь капсула 76 ₽ / 19 ₽»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 56,
+     "cue": "«…предложение и дешёвые базовые наклейки»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 57,
+     "cue": "«…после снятия RMR некоторые выросли 2–3 раза»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 58,
+     "cue": "«Осенью вышли Stockholm 2021»",
+     "materials": [
+      "A56"
+     ],
+     "plans": 2
+    }
+   ]
   },
   {
-   "scene": 17,
-   "from_s": 40.5,
-   "dur_s": 6.5,
-   "note": "PC Gamer, 2014: Valve ограничивает подарки между регионами (A36)",
-   "voice": "VOICE_PENDING"
+   "id": "Ch10-CS2",
+   "title": "Выход Counter-Strike 2",
+   "scenes": [
+    {
+     "n": 59,
+     "cue": "«22 марта 2023 анонс CS2»",
+     "materials": [
+      "A58_cs2_tickrate_2023"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 60,
+     "cue": "«…новый свет и дым»",
+     "materials": [
+      "A57"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 61,
+     "cue": "«…ажиотаж ожиданий»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 62,
+     "cue": "«27 сентября 2023 CS2 вышла»",
+     "materials": [
+      "A57"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 63,
+     "cue": "«2 октября 2024 семь дней и на Steam Market»",
+     "materials": [
+      "quote: [ INVENTORY & ITEMS ]"
+     ],
+     "plans": 1
+    }
+   ]
   },
   {
-   "scene": 18,
-   "from_s": 46.5,
-   "dur_s": 6.5,
-   "note": "Готовая графика курса: условный пример 500 → 1 500 ₽ (локальный PNG 06)",
-   "voice": "VOICE_PENDING"
+   "id": "Ch11-NewEconomy",
+   "title": "Новая экономика CS2",
+   "scenes": [
+    {
+     "n": 64,
+     "cue": "«15 июля 2025 Trade Protection»",
+     "materials": [
+      "A61"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 65,
+     "cue": "«…обмен можно отменить»",
+     "materials": [
+      "A61"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 66,
+     "cue": "«…риски для сторонних площадок»",
+     "materials": [
+      "steps: TRADE PROTECTION"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 67,
+     "cue": "«В сентябре Genesis Terminal»",
+     "materials": [
+      "A63_genesis_collection"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 68,
+     "cue": "«…покупатель принимает ценовое предложение»",
+     "materials": [
+      "A63_genesis_terminal"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 69,
+     "cue": "«22 октября 2025 — 5 красных»",
+     "materials": [
+      "A66"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 70,
+     "cue": "«…ножи или перчатки»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 71,
+     "cue": "«…изменились цены Covert»",
+     "materials": [],
+     "plans": 1
+    },
+    {
+     "n": 72,
+     "cue": "«В марте 2026… использовать выставленный скин»",
+     "materials": [
+      "A78_market_listing_today"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 73,
+     "cue": "«Cologne 2026 и новая модель наклеек»",
+     "materials": [
+      "A69",
+      "A70_major_shop_2026"
+     ],
+     "plans": 2
+    },
+    {
+     "n": 74,
+     "cue": "«Souvenir-O-Matic»",
+     "materials": [
+      "A70_souvenir_2026",
+      "A71"
+     ],
+     "plans": 2
+    }
+   ]
+  },
+  {
+   "id": "Final",
+   "title": "Финал",
+   "scenes": [
+    {
+     "n": 75,
+     "cue": "«…в 2017 подарочные игры»",
+     "materials": [
+      "A37"
+     ],
+     "plans": 1
+    },
+    {
+     "n": 76,
+     "cue": "«…в 2018 ограничения обменов»",
+     "materials": [
+      "A51",
+      "A52"
+     ],
+     "plans": 2
+    },
+    {
+     "n": 77,
+     "cue": "«…в 2021 наклейки, в 2025 контракты»",
+     "materials": [
+      "A54",
+      "A66"
+     ],
+     "plans": 2
+    },
+    {
+     "n": 78,
+     "cue": "«…моя личная история в следующем видео»",
+     "materials": [
+      "A01",
+      "A57"
+     ],
+     "plans": 3
+    }
+   ]
   }
  ]
 }

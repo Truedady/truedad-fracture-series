@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "description": "TrueDad — документальный монтаж кадров 14–78 (Remotion), локальный рендер на Windows",
-  "engines": {"node": ">=18"},
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "doctor": "node scripts/doctor.mjs",
     "preview": "remotion studio src/index.ts",
     "render:draft": "node scripts/render.mjs draft",
-    "render:hq": "node scripts/render.mjs hq",
+    "render:scenes": "node scripts/render.mjs scenes",
     "render:final": "node scripts/render.mjs final",
     "audit:links": "node scripts/audit-links.mjs"
   },

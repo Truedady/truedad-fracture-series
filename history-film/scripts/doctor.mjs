@@ -20,9 +20,15 @@ existsSync('node_modules/remotion') ? ok('Пакеты проекта устан
 
 // все файлы, на которые ссылается черновик
 const src = readFileSync('src/Draft14to18.tsx', 'utf8');
-const files = [...src.matchAll(/src="([^"]+)"/g)].map((m) => 'public/' + m[1]);
+const sc = readFileSync('src/scenes.ts', 'utf8');
+const files = [
+  ...[...src.matchAll(/src="([^"]+)"/g)].map((m) => 'public/' + m[1]),
+  ...Object.keys(JSON.parse(readFileSync('src/dims.json', 'utf8'))).filter((k) => /^A\d/.test(k)).map((k) => `public/sources/${k}.jpg`),
+  ...[...sc.matchAll(/(Архив_курса|Готовая_графика)\/([^'`$]+?)\.png/g)].map((m) => `public/local/${m[1]}/${m[2]}.png`),
+  ...[...sc.matchAll(/[GK]\('([^']+)'\)/g)].map((m) => [`public/local/Готовая_графика/${m[1]}.png`, `public/local/Архив_курса/${m[1]}.png`].find((f) => existsSync(f)) ?? `public/local/?/${m[1]}.png`),
+];
 const missing = files.filter((f) => !existsSync(f));
-missing.length ? missing.forEach((f) => fail('Нет файла ' + f, 'выполните git pull; архивы курса лежат в public/local')) : ok(`Все ${files.length} материалов черновика на месте`);
+missing.length ? missing.forEach((f) => fail('Нет файла ' + f, 'выполните git pull; архивы курса лежат в public/local')) : ok(`Все ${new Set(files).size} материалов на месте`);
 ['SCENES.json', 'SOURCES.json'].forEach((f) => (existsSync(f) ? ok(f) : fail('Нет ' + f)));
 
 console.log(bad ? `\nНайдено проблем: ${bad}. Исправьте их и запустите npm run doctor ещё раз.\n` : '\nВсё готово. Дальше: npm run render:draft\n');
