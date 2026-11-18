@@ -18,18 +18,17 @@ fp ? ok('ffprobe найден') : fail('ffprobe не найден', 'стави�
 
 existsSync('node_modules/remotion') ? ok('Пакеты проекта установлены') : fail('Пакеты не установлены', 'выполните: npm ci   (в PowerShell, если ругается на скрипты: npm.cmd ci)');
 
-// все файлы, на которые ссылается черновик
-const src = readFileSync('src/Draft14to18.tsx', 'utf8');
-const sc = readFileSync('src/scenes.ts', 'utf8');
+// все файлы, на которые ссылаются главы
+const sc = readFileSync('src/chapters.tsx', 'utf8') + readFileSync('src/graphics.tsx', 'utf8');
 const files = [
-  ...[...src.matchAll(/src="([^"]+)"/g)].map((m) => 'public/' + m[1]),
-  ...Object.keys(JSON.parse(readFileSync('src/dims.json', 'utf8'))).filter((k) => /^A\d/.test(k)).map((k) => `public/sources/${k}.jpg`),
-  ...[...sc.matchAll(/(Архив_курса|Готовая_графика)\/([^'`$]+?)\.png/g)].map((m) => `public/local/${m[1]}/${m[2]}.png`),
-  ...[...sc.matchAll(/[GK]\('([^']+)'\)/g)].map((m) => [`public/local/Готовая_графика/${m[1]}.png`, `public/local/Архив_курса/${m[1]}.png`].find((f) => existsSync(f)) ?? `public/local/?/${m[1]}.png`),
+  ...[...sc.matchAll(/[PI]\('(A[^']+)'/g)].map((m) => `public/sources/${m[1]}.jpg`),
+  ...[...sc.matchAll(/K\('([^']+)'\)/g)].map((m) => `public/local/Архив_курса/${m[1]}.png`),
+  ...[...sc.matchAll(/skins\/([a-z0-9-]+)\.png/g)].map((m) => `public/skins/${m[1]}.png`),
+  ...[...sc.matchAll(/name="([a-z_]+)"/g)].map((m) => `public/sfx/${m[1]}.wav`),
 ];
 const missing = files.filter((f) => !existsSync(f));
 missing.length ? missing.forEach((f) => fail('Нет файла ' + f, 'выполните git pull; архивы курса лежат в public/local')) : ok(`Все ${new Set(files).size} материалов на месте`);
 ['SCENES.json', 'SOURCES.json'].forEach((f) => (existsSync(f) ? ok(f) : fail('Нет ' + f)));
 
-console.log(bad ? `\nНайдено проблем: ${bad}. Исправьте их и запустите npm run doctor ещё раз.\n` : '\nВсё готово. Дальше: npm run render:draft\n');
+console.log(bad ? `\nНайдено проблем: ${bad}. Исправьте их и запустите npm run doctor ещё раз.\n` : '\nВсё готово. Дальше: npm run render:scenes\n');
 process.exit(bad ? 1 : 0);
