@@ -26,6 +26,9 @@ const files = [
   ...[...sc.matchAll(/skins\/([a-z0-9-]+)\.png/g)].map((m) => `public/skins/${m[1]}.png`),
   ...[...sc.matchAll(/name="([a-z_]+)"/g)].map((m) => `public/sfx/${m[1]}.wav`),
 ];
+const dimsJ = JSON.parse(readFileSync('src/dims.json', 'utf8'));
+const noDims = [...sc.matchAll(/[PI]\('([^']+)'/g)].map((m) => m[1]).filter((id) => !dimsJ[id]);
+noDims.forEach((id) => fail('Нет размеров для ' + id + ' в src/dims.json'));
 const missing = files.filter((f) => !existsSync(f));
 missing.length ? missing.forEach((f) => fail('Нет файла ' + f, 'выполните git pull; архивы курса лежат в public/local')) : ok(`Все ${new Set(files).size} материалов на месте`);
 ['SCENES.json', 'SOURCES.json'].forEach((f) => (existsSync(f) ? ok(f) : fail('Нет ' + f)));

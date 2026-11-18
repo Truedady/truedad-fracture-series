@@ -11,22 +11,27 @@ const GREEN = '#3FB37F';
 const PANEL = '#161C25';
 
 const Frame: React.FC<{label?: string; title?: string; children: React.ReactNode; note?: string}> = ({label, title, children, note}) => {
-  const {t} = useSec();
+  const {t, dur} = useSec();
   return (
-    <AbsoluteFill style={{background: `radial-gradient(ellipse 80% 70% at 50% 40%, #141B25 0%, ${C.black} 90%)`, padding: '90px 140px', fontFamily: FONT.text, color: C.ivory}}>
+    <AbsoluteFill style={{background: C.black}}>
+    <AbsoluteFill style={{background: `radial-gradient(ellipse 80% 70% at 50% 40%, #141B25 0%, ${C.black} 90%)`}} />
+    <AbsoluteFill style={{opacity: 0.8, backgroundImage: 'linear-gradient(#202935 2px, transparent 2px), linear-gradient(90deg, #202935 2px, transparent 1px)', backgroundSize: '80px 80px', backgroundPosition: `${-t * 9}px ${-t * 5}px`, maskImage: 'radial-gradient(ellipse 75% 70% at 50% 50%, black 30%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 75% 70% at 50% 50%, black 30%, transparent 100%)'}} />
+    <div style={{position: 'absolute', width: 900, height: 900, borderRadius: 450, left: 300 + Math.sin(t * 0.25) * 500, top: 120 + Math.cos(t * 0.2) * 160, background: `radial-gradient(circle, ${C.gold}14 0%, transparent 65%)`}} />
+    <AbsoluteFill style={{padding: '80px 140px', fontFamily: FONT.text, color: C.ivory, transform: `scale(${1 + 0.035 * (t / dur)})`}}>
       {label && <div style={{fontFamily: FONT.mono, fontSize: 24, letterSpacing: '0.22em', color: C.gold, opacity: k(t, [0.1, 0.6], [0, 1])}}>{label}</div>}
-      {title && <div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 72, marginTop: 14, opacity: k(t, [0.2, 0.8], [0, 1]), transform: `translateY(${k(t, [0.2, 0.8], [20, 0], easeOut)}px)`}}>{title}</div>}
-      <div style={{flex: 1, position: 'relative', marginTop: 40}}>{children}</div>
+      {title && <div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 80, marginTop: 14, opacity: k(t, [0.2, 0.8], [0, 1]), transform: `translateY(${k(t, [0.2, 0.8], [20, 0], easeOut)}px)`}}>{title}</div>}
+      <div style={{flex: 1, position: 'relative', marginTop: 30, display: 'flex', flexDirection: 'column', justifyContent: 'center'}}><div style={{position: 'relative'}}>{children}</div></div>
       {note && <div style={{fontSize: 24, color: C.muted, opacity: k(t, [1, 1.6], [0, 0.9])}}>{note}</div>}
+    </AbsoluteFill>
     </AbsoluteFill>
   );
 };
 
 const fmt = (v: number, dec = 0) => v.toLocaleString('ru-RU', {minimumFractionDigits: dec, maximumFractionDigits: dec}).replace(/ /g, ' ');
-const Counter: React.FC<{to: number; from?: number; at: number; len?: number; dec?: number; suffix?: string; size?: number; color?: string}> = ({to, from = 0, at, len = 1.2, dec = 0, suffix = '', size = 96, color = C.gold}) => {
+const Counter: React.FC<{to: number; from?: number; at: number; len?: number; dec?: number; suffix?: string; prefix?: string; size?: number; color?: string}> = ({to, from = 0, at, len = 1.2, dec = 0, suffix = '', prefix = '', size = 130, color = C.gold}) => {
   const {t} = useSec();
   const v = from + (to - from) * k(t, [at, at + len], [0, 1], easeOut);
-  return <span style={{fontFamily: FONT.display, fontWeight: 700, fontSize: size, color, fontVariantNumeric: 'tabular-nums'}}>{fmt(v, dec)}{suffix}</span>;
+  return <span style={{fontFamily: FONT.display, fontWeight: 700, fontSize: size, color, fontVariantNumeric: 'tabular-nums'}}>{prefix}{fmt(v, dec)}{suffix}</span>;
 };
 const Pop: React.FC<{at: number; children: React.ReactNode; style?: React.CSSProperties}> = ({at, children, style}) => {
   const {t} = useSec();
@@ -34,7 +39,7 @@ const Pop: React.FC<{at: number; children: React.ReactNode; style?: React.CSSPro
   return <div style={{opacity: p, transform: `scale(${0.85 + 0.15 * p}) translateY(${(1 - p) * 20}px)`, ...style}}>{children}</div>;
 };
 const Card: React.FC<{children: React.ReactNode; style?: React.CSSProperties}> = ({children, style}) => (
-  <div style={{background: PANEL, borderRadius: 18, padding: '40px 48px', border: '1px solid #232B37', ...style}}>{children}</div>
+  <div style={{background: PANEL, borderRadius: 22, padding: '52px 60px', border: '1px solid #232B37', ...style}}>{children}</div>
 );
 const Arrow: React.FC<{at: number; len?: number; w?: number}> = ({at, len = 0.6, w = 160}) => {
   const {t} = useSec();
@@ -54,13 +59,13 @@ export const RegionalPrice: React.FC<{stage?: 'prices' | 'deal'}> = ({stage = 'd
   return (
     <Frame label="РЕГИОНАЛЬНЫЕ ЦЕНЫ · ПРИМЕР" title="Одна и та же игра">
       <div style={{display: 'flex', gap: 60, alignItems: 'stretch', marginTop: 40}}>
-        <Pop at={a} style={{flex: 1}}><Card><div style={{fontSize: 34, color: C.muted}}>Магазин в России</div><Counter to={500} at={a} suffix=" ₽" /></Card></Pop>
-        <Pop at={b} style={{flex: 1}}><Card><div style={{fontSize: 34, color: C.muted}}>Магазин в США</div><Counter to={2000} at={b} suffix=" ₽" color={C.ivory} /></Card></Pop>
+        <Pop at={a} style={{flex: 1}}><Card><div style={{fontSize: 40, color: C.muted, marginBottom: 10}}>Магазин в России</div><Counter to={500} at={a} suffix=" ₽" /></Card></Pop>
+        <Pop at={b} style={{flex: 1}}><Card><div style={{fontSize: 40, color: C.muted, marginBottom: 10}}>Магазин в США</div><Counter to={2000} at={b} suffix=" ₽" color={C.ivory} /></Card></Pop>
       </div>
       {stage === 'deal' && (
         <div style={{display: 'flex', gap: 40, alignItems: 'center', marginTop: 60}}>
-          <Pop at={c} style={{flex: 1}}><Card style={{borderColor: C.gold}}><div style={{fontSize: 34, color: C.muted}}>Продавец предлагает иностранному покупателю</div><Counter to={1500} at={c} suffix=" ₽" /></Card></Pop>
-          <Pop at={d} style={{flex: 0.8}}><Card style={{borderColor: GREEN}}><div style={{fontSize: 34, color: C.muted}}>Разница до расходов</div><Counter to={1000} at={d} suffix=" ₽" color={GREEN} /></Card></Pop>
+          <Pop at={c} style={{flex: 1}}><Card style={{borderColor: C.gold}}><div style={{fontSize: 40, color: C.muted, marginBottom: 10}}>Продавец предлагает иностранному покупателю</div><Counter to={1500} at={c} suffix=" ₽" /></Card></Pop>
+          <Pop at={d} style={{flex: 0.8}}><Card style={{borderColor: GREEN}}><div style={{fontSize: 40, color: C.muted, marginBottom: 10}}>Разница до расходов</div><Counter to={1000} at={d} suffix=" ₽" color={GREEN} /></Card></Pop>
         </div>
       )}
       <Sfx name="pop" at={a} /><Sfx name="pop" at={b} />
@@ -76,9 +81,9 @@ export const PriceJump: React.FC<{label: string; title: string; from: number; to
   return (
     <Frame label={label} title={title} note={note}>
       <div style={{display: 'flex', alignItems: 'center', gap: 50, marginTop: 70}}>
-        <Pop at={a} style={{flex: 1}}><Card><div style={{fontSize: 34, color: C.muted}}>{fromLabel}</div><Counter to={from} at={a} len={0.6} dec={dec} suffix={unit} color={C.ivory} /></Card></Pop>
+        <Pop at={a} style={{flex: 1}}><Card><div style={{fontSize: 40, color: C.muted, marginBottom: 10}}>{fromLabel}</div><Counter to={from} at={a} len={0.6} dec={from < 10 && from % 1 ? 2 : dec} suffix={unit} color={C.ivory} /></Card></Pop>
         <Arrow at={b - 0.4} />
-        <Pop at={b} style={{flex: 1}}><Card style={{borderColor: C.gold}}><div style={{fontSize: 34, color: C.muted}}>{toLabel}</div><Counter from={from} to={to} at={b} len={1.4} dec={dec} suffix={unit} /></Card></Pop>
+        <Pop at={b} style={{flex: 1}}><Card style={{borderColor: C.gold}}><div style={{fontSize: 40, color: C.muted, marginBottom: 10}}>{toLabel}</div><Counter from={from} to={to} at={b} len={1.4} dec={dec} suffix={unit} /></Card></Pop>
         <Pop at={c}><div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 110, color: GREEN}}>{badge}</div></Pop>
       </div>
       <Sfx name="pop" at={a} /><Sfx name="counter" at={b} vol={0.45} /><Sfx name="rise_tone" at={b} vol={0.35} /><Sfx name="thud" at={c} vol={0.5} />
@@ -89,7 +94,7 @@ export const PriceJump: React.FC<{label: string; title: string; from: number; to
 /* ── 3. Дни задержки: N ячеек заполняются, замок ── */
 export const DayCells: React.FC<{label: string; title: string; days: number; sub?: string; color?: string}> = ({label, title, days, sub, color = RED}) => {
   const {t, dur} = useSec();
-  const start = 0.9, end = Math.min(dur * 0.7, start + days * 0.35);
+  const start = 0.9, end = Math.max(start + days * 0.3, dur * 0.7);
   const step = (end - start) / days;
   return (
     <Frame label={label} title={title}>
@@ -98,13 +103,13 @@ export const DayCells: React.FC<{label: string; title: string; days: number; sub
           const p = k(t, [start + i * step, start + i * step + step * 0.8], [0, 1]);
           return (
             <div key={i} style={{flex: 1}}>
-              <div style={{fontFamily: FONT.mono, fontSize: 26, color: C.muted, marginBottom: 12}}>{i + 1}</div>
-              <div style={{height: 110, borderRadius: 10, background: '#1E252F', overflow: 'hidden'}}><div style={{height: '100%', width: `${p * 100}%`, background: color, opacity: 0.85}} /></div>
+              <div style={{fontFamily: FONT.mono, fontSize: days > 10 ? 28 : 36, color: C.muted, marginBottom: 14, textAlign: 'center'}}>{i + 1}</div>
+              <div style={{height: 170, borderRadius: 12, background: '#1E252F', overflow: 'hidden'}}><div style={{height: '100%', width: `${p * 100}%`, background: color, opacity: 0.85}} /></div>
             </div>
           );
         })}
       </div>
-      {sub && <Pop at={end + 0.2} style={{marginTop: 70, fontFamily: FONT.display, fontWeight: 700, fontSize: 56}}>{sub}</Pop>}
+      {sub && <Pop at={end + 0.2} style={{marginTop: 80, fontFamily: FONT.display, fontWeight: 700, fontSize: 68}}>{sub}</Pop>}
       {Array.from({length: days}, (_, i) => <Sfx key={i} name="tick" at={start + i * step} vol={0.35} />)}
       <Sfx name="lock" at={end + 0.2} vol={0.7} />
     </Frame>
@@ -115,18 +120,18 @@ export const DayCells: React.FC<{label: string; title: string; days: number; sub
 export const Turnover: React.FC = () => {
   const {t, dur} = useSec();
   const lane = (y: number, label: string, cycles: number, locked: boolean, at: number) => {
-    const w = 1500;
+    const w = 1640;
     const prog = k(t, [at, at + dur * 0.4], [0, 1], (x) => x);
     return (
       <div style={{position: 'absolute', top: y, left: 0, width: w}}>
-        <div style={{fontSize: 36, color: C.muted, marginBottom: 18}}>{label}</div>
-        <div style={{position: 'relative', height: 90, background: '#1A2029', borderRadius: 12}}>
-          {Array.from({length: 7}, (_, d) => <div key={d} style={{position: 'absolute', left: (d * w) / 7, top: 0, bottom: 0, borderLeft: '1px solid #2A3340'}}><span style={{position: 'absolute', top: 96, left: 8, fontFamily: FONT.mono, fontSize: 22, color: C.muted}}>день {d + 1}</span></div>)}
+        <div style={{fontSize: 42, color: C.muted, marginBottom: 20}}>{label}</div>
+        <div style={{position: 'relative', height: 130, background: '#1A2029', borderRadius: 12}}>
+          {Array.from({length: 7}, (_, d) => <div key={d} style={{position: 'absolute', left: (d * w) / 7, top: 0, bottom: 0, borderLeft: '1px solid #2A3340'}}><span style={{position: 'absolute', top: 140, left: 10, fontFamily: FONT.mono, fontSize: 26, color: C.muted}}>день {d + 1}</span></div>)}
           {locked && <div style={{position: 'absolute', left: 0, top: 0, bottom: 0, width: w * Math.min(1, prog * 1.05), background: `${RED}55`, borderRadius: 12}} />}
           {Array.from({length: cycles}, (_, i) => {
             const x = ((i + 0.5) / cycles) * w;
             const vis = prog * w > x;
-            return <div key={i} style={{position: 'absolute', left: x - 34, top: 11, width: 68, height: 68, borderRadius: 34, background: vis ? GREEN : '#2A3340', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 30, transform: `scale(${vis ? 1 : 0.7})`}}>$</div>;
+            return <div key={i} style={{position: 'absolute', left: x - 50, top: 15, width: 100, height: 100, borderRadius: 50, background: vis ? GREEN : '#2A3340', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 30, transform: `scale(${vis ? 1 : 0.7})`}}>$</div>;
           })}
         </div>
       </div>
@@ -134,8 +139,10 @@ export const Turnover: React.FC = () => {
   };
   return (
     <Frame label="ОБОРОТ ОДНОГО КАПИТАЛА · МОДЕЛЬ" title="Купил → продал → снова купил">
+      <div style={{position: 'relative', height: 640}}>
       {lane(30, 'До 29 марта 2018 — капитал оборачивается несколько раз', 5, false, 0.8)}
-      {t > dur * 0.45 && lane(330, 'После — предмет заморожен на 7 дней', 1, true, dur * 0.45)}
+      {t > dur * 0.45 && lane(340, 'После — предмет заморожен на 7 дней', 1, true, dur * 0.45)}
+      </div>
       {[1, 2, 3, 4, 5].map((i) => <Sfx key={i} name="blip" at={0.8 + (i - 0.5) * (dur * 0.4) / 5} vol={0.35} />)}
       <Sfx name="lock" at={dur * 0.45} vol={0.7} /><Sfx name="drop" at={dur * 0.6} vol={0.4} />
     </Frame>
@@ -147,17 +154,28 @@ export const Spread: React.FC = () => {
   const {t, dur} = useSec();
   const m = k(t, [dur * 0.5, dur * 0.85], [0, 1]);
   const buy = 10 + 0.9 * m, sell = 12 - 0.9 * m;
+  const fly = k(t, [1.4, 2.4], [0, 1], easeOut);
+  const traders = Math.round(k(t, [dur * 0.45, dur * 0.85], [1, 24], (x) => x));
   const box = (title: string, v: number, col: string, at: number) => (
-    <Pop at={at} style={{flex: 1}}><Card><div style={{fontSize: 34, color: C.muted}}>{title}</div><div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 100, color: col}}>${v.toFixed(2)}</div></Card></Pop>
+    <Pop at={at} style={{width: 640}}><Card style={{textAlign: 'center'}}><div style={{fontSize: 40, color: C.muted, marginBottom: 10}}>{title}</div><div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 130, color: col, fontVariantNumeric: 'tabular-nums'}}>${v.toFixed(2)}</div></Card></Pop>
   );
   return (
     <Frame label="АРБИТРАЖ · УСЛОВНЫЙ ПРИМЕР" title="Купить дешевле — продать дороже">
-      <div style={{display: 'flex', gap: 60, marginTop: 60}}>{box('Площадка A — покупка', buy, C.ivory, 0.6)}{box('Площадка B — продажа', sell, C.gold, 1.2)}</div>
-      <Pop at={1.9} style={{marginTop: 60, fontFamily: FONT.display, fontWeight: 700, fontSize: 64}}>
-        Разница: <span style={{color: m > 0.6 ? RED : GREEN}}>${(sell - buy).toFixed(2)}</span>
-        {m > 0.3 && <span style={{fontSize: 36, color: C.muted, marginLeft: 30}}>больше трейдеров — меньше разница</span>}
-      </Pop>
-      <Sfx name="pop" at={0.6} /><Sfx name="pop" at={1.2} /><Sfx name="cash" at={2.2} vol={0.4} /><Sfx name="drop" at={dur * 0.55} vol={0.4} />
+      <div style={{position: 'relative', display: 'flex', justifyContent: 'space-between', marginTop: 150}}>
+        {box('Площадка A — покупка', buy, C.ivory, 0.6)}{box('Площадка B — продажа', sell, C.gold, 1.2)}
+        <Img src={staticFile('skins/ak-vulcan.png')} style={{position: 'absolute', top: -170, left: 140 + fly * 860, width: 360, height: 160, objectFit: 'contain', opacity: k(t, [0.8, 1.2], [0, 1]), filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.6))'}} />
+      </div>
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 60}}>
+        <Pop at={2.2} style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 80}}>
+          Разница: <span style={{color: m > 0.6 ? RED : GREEN, fontVariantNumeric: 'tabular-nums'}}>${(sell - buy).toFixed(2)}</span>
+        </Pop>
+        <Pop at={dur * 0.45} style={{display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', width: 640}}>
+          <span style={{fontSize: 34, color: C.muted, marginRight: 16}}>трейдеров:</span>
+          {Array.from({length: traders}, (_, i) => <div key={i} style={{width: 18, height: 34, borderRadius: 9, background: C.gold, opacity: 0.85}} />)}
+        </Pop>
+      </div>
+      <Sfx name="pop" at={0.6} /><Sfx name="pop" at={1.2} /><Sfx name="whoosh_short" at={1.4} vol={0.4} /><Sfx name="cash" at={2.3} vol={0.4} />
+      <Sfx name="counter" at={dur * 0.45} vol={0.3} /><Sfx name="drop" at={dur * 0.6} vol={0.4} />
     </Frame>
   );
 };
@@ -210,16 +228,16 @@ export type Pt = {d: string; v: number};
 export const CaseChart: React.FC<{name: string; pts: Pt[]; show?: number; badge?: {from: number; to: number; text: string}; hi?: number}> = ({name, pts, show, badge, hi}) => {
   const {t, dur} = useSec();
   const n = show ?? pts.length;
-  const W = 1560, H = 560, x0 = 60, y0 = 40;
+  const W = 1560, H = 520, x0 = 70, y0 = 60;
   const lv = (v: number) => Math.log10(v);
   const minL = lv(0.2), maxL = lv(Math.max(...pts.map((p) => p.v)) * 1.6);
   const px = (i: number) => x0 + (i / (pts.length - 1)) * (W - 2 * x0);
   const py = (v: number) => y0 + H - ((lv(v) - minL) / (maxL - minL)) * H;
-  const at = (i: number) => 0.8 + i * Math.min(1.6, (dur * 0.6) / n);
+  const at = (i: number) => 0.8 + i * ((dur * 0.72) / Math.max(1, n - 1 + 0.4));
   const draw = k(t, [at(0), at(n - 1) + 0.6], [0, 1], (x) => x);
   const path = pts.slice(0, n).map((p, i) => `${i ? 'L' : 'M'}${px(i)},${py(p.v)}`).join(' ');
   return (
-    <Frame label="АРХИВНЫЕ ТОЧКИ ЦЕН" title={name} note="Опорные точки из исторической подборки, не непрерывный график торгов.">
+    <Frame label="АРХИВНЫЕ ТОЧКИ ЦЕН" title={name}>
       <svg width={W} height={H + 120} style={{overflow: 'visible'}}>
         {[1, 10, 100, 1000].filter((v) => lv(v) < maxL).map((v) => (
           <g key={v}><line x1={0} x2={W} y1={py(v)} y2={py(v)} stroke="#222A35" strokeWidth={2} /><text x={W + 14} y={py(v) + 8} fill={C.muted} fontSize={24} fontFamily="JetBrains Mono">{v} ₽</text></g>
@@ -444,6 +462,129 @@ export const Trust: React.FC = () => {
       </div>
       <Pop at={dur * 0.75} style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 52, marginTop: 30}}>Чем выше доверие — тем крупнее сделки</Pop>
       {Array.from({length: steps}, (_, i) => <Sfx key={i} name="blip" at={0.8 + i * ((dur * 0.65) / steps)} vol={0.3} />)}
+    </Frame>
+  );
+};
+
+/* ── 16. Предоплата: покупатель платит первым, продавец выполняет заказ ── */
+export const Prepay: React.FC = () => {
+  const {t, dur} = useSec();
+  const pay = k(t, [dur * 0.2, dur * 0.42], [0, 1], easeOut);
+  const ship = k(t, [dur * 0.55, dur * 0.77], [0, 1], easeOut);
+  const party = (who: string, sub: string, at: number) => (
+    <Pop at={at} style={{width: 420}}><Card style={{textAlign: 'center'}}><div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 60}}>{who}</div><div style={{fontSize: 32, color: C.muted, marginTop: 8}}>{sub}</div></Card></Pop>
+  );
+  return (
+    <Frame label="КАК РАБОТАЛИ СДЕЛКИ" title="Сначала оплата — потом заказ">
+      <div style={{position: 'relative', height: 520}}>
+        <div style={{position: 'absolute', left: 0, top: 150}}>{party('Покупатель', 'платит заранее', 0.5)}</div>
+        <div style={{position: 'absolute', right: 0, top: 150}}>{party('Продавец', 'репутация на форуме', 0.9)}</div>
+        <div style={{position: 'absolute', left: 470, right: 470, top: 120, height: 3, background: '#2A3340'}} />
+        <div style={{position: 'absolute', left: 470, right: 470, top: 400, height: 3, background: '#2A3340'}} />
+        <div style={{position: 'absolute', top: 70, left: `calc(470px + ${pay} * (100% - 1040px))`, opacity: pay > 0 && pay < 1 ? 1 : pay >= 1 ? 0.35 : 0, fontFamily: FONT.display, fontWeight: 700, fontSize: 64, color: GREEN}}>$</div>
+        <div style={{position: 'absolute', top: 340, right: `calc(470px + ${ship} * (100% - 1060px))`, opacity: ship > 0 && ship < 1 ? 1 : ship >= 1 ? 0.35 : 0, width: 100, height: 100}}>
+          <Img src={staticFile('skins/awp-fade.png')} style={{width: 140, height: 100, objectFit: 'contain'}} />
+        </div>
+        <Pop at={dur * 0.82} style={{position: 'absolute', left: 0, right: 0, top: 470, textAlign: 'center', fontSize: 44, color: C.gold}}>Всё держалось на доверии</Pop>
+      </div>
+      <Sfx name="pop" at={0.5} vol={0.35} /><Sfx name="pop" at={0.9} vol={0.35} />
+      <Sfx name="whoosh_short" at={dur * 0.2} vol={0.45} /><Sfx name="cash" at={dur * 0.42} vol={0.45} />
+      <Sfx name="whoosh_short" at={dur * 0.55} vol={0.45} /><Sfx name="lock" at={dur * 0.77} vol={0.4} />
+    </Frame>
+  );
+};
+
+/* ── 17. Заморозка капитала: $1 000 стоят в предметах 7 дней ── */
+export const Frozen: React.FC = () => {
+  const {t, dur} = useSec();
+  const days = Math.min(7, Math.floor(k(t, [1, dur * 0.55], [0, 7], (x) => x)));
+  const fall = k(t, [dur * 0.5, dur * 0.8], [0, 1], easeOut);
+  const pts = Array.from({length: 30}, (_, i) => {
+    const x = (i / 29) * 820;
+    const base = 120 + Math.sin(i * 1.3) * 14;
+    const y = base + (i > 14 ? (i - 14) * 14 * fall : 0);
+    return `${x},${y}`;
+  }).join(' ');
+  return (
+    <Frame label="ЕСЛИ ПРЕДМЕТ ЖДЁТ НЕДЕЛЮ" title="Капитал заморожен">
+      <div style={{display: 'flex', gap: 70, alignItems: 'center'}}>
+        <Card style={{width: 620, textAlign: 'center'}}>
+          <div style={{fontSize: 36, color: C.muted}}>В предметах</div>
+          <Counter to={1000} at={0.6} prefix="$" color={C.ivory} />
+          <div style={{display: 'flex', gap: 10, marginTop: 30, justifyContent: 'center'}}>
+            {Array.from({length: 7}, (_, i) => <div key={i} style={{width: 62, height: 62, borderRadius: 10, background: i < days ? `${RED}cc` : '#2A3340'}} />)}
+          </div>
+          <div style={{fontFamily: FONT.mono, fontSize: 28, color: C.muted, marginTop: 16}}>день {Math.max(1, days)} из 7</div>
+        </Card>
+        <div style={{flex: 1}}>
+          <svg width={840} height={360} style={{overflow: 'visible'}}>
+            <polyline points={pts} fill="none" stroke={fall > 0.05 ? RED : C.ivory} strokeWidth={6} strokeLinejoin="round" strokeDasharray={1400} strokeDashoffset={1400 * (1 - k(t, [0.8, dur * 0.5], [0, 1]))} />
+          </svg>
+          <div style={{display: 'flex', gap: 30, marginTop: 10}}>
+            <Pop at={dur * 0.5}><Card style={{padding: '26px 34px'}}><div style={{fontSize: 34}}>Покупатель исчез</div></Card></Pop>
+            <Pop at={dur * 0.62}><Card style={{padding: '26px 34px', borderColor: RED}}><div style={{fontSize: 34}}>Цена упала</div></Card></Pop>
+          </div>
+          <Pop at={dur * 0.76} style={{marginTop: 26, fontFamily: FONT.display, fontWeight: 700, fontSize: 54, color: RED}}>Прибыль → убыток</Pop>
+        </div>
+      </div>
+      <Sfx name="counter" at={0.6} vol={0.35} />
+      {Array.from({length: 7}, (_, i) => <Sfx key={i} name="tick" at={1 + ((dur * 0.55 - 1) * (i + 1)) / 7} vol={0.4} />)}
+      <Sfx name="drop" at={dur * 0.5} vol={0.5} /><Sfx name="pop" at={dur * 0.62} vol={0.35} /><Sfx name="thud" at={dur * 0.76} vol={0.55} />
+    </Frame>
+  );
+};
+
+/* ── 18. Сдвиг спроса и предложения после контрактов на ножи ── */
+export const DemandShift: React.FC = () => {
+  const {t, dur} = useSec();
+  const a = k(t, [dur * 0.15, dur * 0.45], [0, 1], easeOut);
+  const b = k(t, [dur * 0.45, dur * 0.75], [0, 1], easeOut);
+  const col = (img: string[], title: string, what: string, p: number, color: string, up: boolean, at: number) => (
+    <Pop at={at} style={{flex: 1}}>
+      <Card style={{textAlign: 'center', height: 560, position: 'relative'}}>
+        <div style={{display: 'flex', justifyContent: 'center', gap: 10, height: 150}}>{img.map((s) => <Img key={s} src={staticFile(`skins/${s}.png`)} style={{width: 220, height: 140, objectFit: 'contain'}} />)}</div>
+        <div style={{fontFamily: FONT.display, fontWeight: 700, fontSize: 54, marginTop: 20}}>{title}</div>
+        <div style={{fontSize: 36, color: C.muted, marginTop: 10}}>{what}</div>
+        <svg width={160} height={180} viewBox="0 0 160 180" style={{marginTop: 20, transform: `translateY(${(1 - p) * (up ? 40 : -40)}px)`, opacity: p}}>
+          <polygon points={up ? '80,0 160,90 105,90 105,180 55,180 55,90 0,90' : '80,180 160,90 105,90 105,0 55,0 55,90 0,90'} fill={color} />
+        </svg>
+      </Card>
+    </Pop>
+  );
+  return (
+    <Frame label="ПОСЛЕ 22.10.2025 · МОДЕЛЬ" title="Экономика сразу нескольких категорий">
+      <div style={{display: 'flex', gap: 60}}>
+        {col(['ak-fire-serpent', 'awp-lightning-strike'], 'Красные Covert', 'нужны для контрактов — спрос', a, GREEN, true, 0.5)}
+        {col(['karambit-tiger-tooth', 'gloves-orange'], 'Ножи и перчатки', 'новый источник — предложение', b, C.gold, true, dur * 0.4)}
+      </div>
+      <Sfx name="pop" at={0.5} vol={0.35} /><Sfx name="rise_tone" at={dur * 0.15} vol={0.4} />
+      <Sfx name="pop" at={dur * 0.4} vol={0.35} /><Sfx name="rise_tone" at={dur * 0.45} vol={0.4} />
+    </Frame>
+  );
+};
+
+/* ── 19. Март 2026: скином можно пользоваться, пока он выставлен на продажу ── */
+export const ListedUse: React.FC = () => {
+  const {t, dur} = useSec();
+  const sw = k(t, [dur * 0.45, dur * 0.55], [0, 1], easeOut);
+  return (
+    <Frame label="МАРТ 2026 · STEAM MARKET" title="Выставлен на продажу — и в игре">
+      <div style={{display: 'flex', gap: 80, alignItems: 'center'}}>
+        <Pop at={0.5} style={{width: 760}}>
+          <Card style={{textAlign: 'center'}}>
+            <Img src={staticFile('skins/ak-vulcan.png')} style={{width: 560, height: 260, objectFit: 'contain', filter: `grayscale(${1 - sw}) brightness(${0.6 + 0.4 * sw})`}} />
+            <div style={{display: 'inline-block', marginTop: 20, padding: '12px 28px', borderRadius: 10, background: '#2A3340', fontSize: 34}}>Лот на торговой площадке</div>
+          </Card>
+        </Pop>
+        <div style={{flex: 1, fontSize: 44}}>
+          <Pop at={1}><div style={{color: C.muted}}>Пользоваться в игре</div></Pop>
+          <div style={{marginTop: 30, width: 260, height: 120, borderRadius: 60, background: sw > 0.5 ? GREEN : '#3A4554', position: 'relative', opacity: k(t, [1, 1.5], [0, 1])}}>
+            <div style={{position: 'absolute', top: 10, left: 10 + 140 * sw, width: 100, height: 100, borderRadius: 50, background: C.ivory}} />
+          </div>
+          <Pop at={dur * 0.65}><div style={{marginTop: 50}}>Меняется поведение продавцов и число активных лотов</div></Pop>
+        </div>
+      </div>
+      <Sfx name="pop" at={0.5} vol={0.35} /><Sfx name="blip" at={dur * 0.45} vol={0.5} /><Sfx name="pop" at={dur * 0.65} vol={0.35} />
     </Frame>
   );
 };

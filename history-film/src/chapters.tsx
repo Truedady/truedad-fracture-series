@@ -1,6 +1,6 @@
 import React from 'react';
 import {G, I, L, P, Scene} from './film';
-import {BREAKOUT, BotScan, CaseChart, CaseFlow, Chronicle, CovertMerge, DayCells, GAMMA2, GLOVE, Liquidity, Online, PriceJump, Protection, RegionalPrice, Spread, ThreeCases, Trust, Turnover} from './graphics';
+import {BREAKOUT, BotScan, CaseChart, CaseFlow, Chronicle, CovertMerge, DayCells, DemandShift, Frozen, GAMMA2, GLOVE, ListedUse, Liquidity, Online, Prepay, PriceJump, Protection, RegionalPrice, Spread, ThreeCases, Trust, Turnover} from './graphics';
 import {Quote} from './quote';
 
 /*
@@ -25,11 +25,11 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
     scenes: [
       {n: 16, plans: [P('A02_steam_trading_2011', 'tilt', {fx: 640, fy: 420}), P('A02_steam_trading_2011', 'scroll', {fx: 640, fy: 600})]},
       {n: 17, plans: [P('A38', 'scroll', {fx: 640, fy: 700}), G(() => <RegionalPrice stage="prices" />)]},
-      {n: 18, plans: [G(() => <RegionalPrice />)]},
+      {n: 18, plans: [G(() => <RegionalPrice />, {w: 2.2}), I('A31_holiday_sale_2014', {mode: 'card', width: 1400, dir: 'right'})]},
       {n: 19, plans: [L(W04, 'K04', {dir: 'in', mode: 'full'}), P('A30', 'push', {fx: 560, fy: 520}), I('A31_holiday_sale_2014', {dir: 'left', mode: 'card', width: 1500}), P('A76', 'scroll', {fx: 560, fy: 520})]},
-      {n: 20, plans: [P('A02_steam_trading_2011', 'panR', {fx: 640, fy: 560, z: 1.35}), G(Trust, {w: 2})]},
+      {n: 20, plans: [P('A02_steam_trading_2011', 'panR', {fx: 640, fy: 560, z: 1.35}), G(Trust, {w: 1.6}), G(Prepay, {w: 1.3}), P('A38', 'drift', {fx: 640, fy: 520, w: 0.9})]},
       {n: 21, plans: [P('A36', 'push', {fx: 640, fy: 520}), P('A38', 'pull', {fx: 640, fy: 520})]},
-      {n: 22, plans: [P('A37', 'tilt', {fx: 640, fy: 420}), P('A37', 'scroll', {fx: 640, fy: 700})]},
+      {n: 22, plans: [P('A37', 'tilt', {fx: 640, fy: 420}), P('A37', 'scroll', {fx: 640, fy: 700}), P('A51', 'drift', {fx: 560, fy: 520, gray: true, w: 0.7})]},
     ],
   },
   {
@@ -37,7 +37,7 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
     title: 'Сторонние маркеты, рулетки и боты',
     scenes: [
       {n: 23, plans: [I('A23_market_2016', {mode: 'card', width: 1250, dir: 'right'}), P('A80', 'push', {fx: 640, fy: 600}), I('A43_csgolounge', {mode: 'card', width: 1400, dir: 'in'})]},
-      {n: 24, plans: [G(Spread)]},
+      {n: 24, plans: [I('A23_market_2016', {mode: 'full', dir: 'left', w: 0.7}), G(Spread, {w: 1.4})]},
       {n: 25, plans: [P('A51', 'scroll', {fx: 560, fy: 1000}), G(BotScan, {w: 1.6}), I('A74_market_2016', {mode: 'card', width: 1250, dir: 'left'}), P('A78_market_cases_today', 'panR', {fx: 800, fy: 600})]},
       {n: 26, plans: [L(K('05_CSGODouble_архив_курса'), 'K05', {dir: 'in', mode: 'full', w: 1.3}), I('A43_csgolounge', {mode: 'card', width: 1400, dir: 'right'}), P('A80', 'scroll', {fx: 640, fy: 900})]},
       {n: 27, plans: [P('A42', 'push', {fx: 640, fy: 520}), P('A42', 'scroll', {fx: 640, fy: 1000})]},
@@ -50,7 +50,7 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
     scenes: [
       {n: 29, plans: [P('A40', 'push', {fx: 560, fy: 640})]},
       {n: 30, plans: [P('A41', 'scroll', {fx: 640, fy: 600}), G(() => <DayCells label="STEAM GUARD · 09.03.2016" title="Без мобильного аутентификатора" days={15} sub="Обмен и продажа — задержка до 15 дней" />, {w: 1.3})]},
-      {n: 31, plans: [G(() => <PriceJump label="ЕДИНИЧНЫЙ ПРИМЕР ИЗ ТОГО ПЕРИОДА" title="Перекос цен между площадками" from={3} to={30} unit=" ₽" fromLabel="На одной площадке" toLabel="На другой" badge="×10" />, {w: 1.6}), I('A74_market_2016', {mode: 'card', width: 1250, dir: 'out'})]},
+      {n: 31, plans: [I('A74_market_2016', {mode: 'card', width: 1250, dir: 'in'}), G(() => <PriceJump label="ЕДИНИЧНЫЙ ПРИМЕР ИЗ ТОГО ПЕРИОДА" title="Перекос цен между площадками" from={3} to={30} unit=" ₽" fromLabel="На одной площадке" toLabel="На другой" badge="×10" />, {w: 1.3}), P('A78_market_cases_today', 'panL', {fx: 800, fy: 600, w: 0.8})]},
       {n: 32, plans: [P('A39', 'scroll', {fx: 640, fy: 800}), P('A40', 'pull', {fx: 560, fy: 640})]},
     ],
   },
@@ -61,7 +61,7 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
       {n: 33, plans: [I('A85_pubg_keyart_2017', {mode: 'full', dir: 'in', tr: 'dip'})]},
       {n: 34, plans: [G(Online)]},
       {n: 35, plans: [I('A50_pubg_market', {mode: 'card', width: 1150, dir: 'right'}), P('A48', 'push', {fx: 640, fy: 600}), I('A49_pubg_trenchcoat_market', {mode: 'card', width: 1350, dir: 'in'})]},
-      {n: 36, plans: [L(K('06_PUBG_Trenchcoat_цена_архив_курса'), 'K06', {mode: 'card', dir: 'right'}), G(() => <PriceJump label="PUBG · TRENCH COAT" title="За полгода в отдельный период" from={3000} to={53000} unit=" ₽" fromLabel="Было" toLabel="Стало" badge="×18" />, {w: 1.5})]},
+      {n: 36, plans: [L(K('06_PUBG_Trenchcoat_цена_архив_курса'), 'K06', {mode: 'card', dir: 'right'}), G(() => <PriceJump label="PUBG · TRENCH COAT" title="За полгода в отдельный период" from={3000} to={53000} unit=" ₽" fromLabel="Было" toLabel="Стало" badge="×18" />, {w: 1.2}), I('A85_pubg_keyart_2017', {mode: 'full', dir: 'out', w: 0.8})]},
       {n: 37, plans: [P('A51', 'push', {fx: 560, fy: 520}), P('A52', 'push', {fx: 720, fy: 380, tr: 'whip'})]},
     ],
   },
@@ -70,8 +70,8 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
     title: 'Худшая весна для трейдеров',
     scenes: [
       {n: 38, plans: [P('A51', 'scroll', {fx: 560, fy: 1100, tr: 'dip'})]},
-      {n: 39, plans: [G(() => <DayCells label="CS:GO · 29.03.2018" title="После обмена — ждать неделю" days={7} sub="Повторная передача — через 7 дней" />)]},
-      {n: 40, plans: [G(Turnover)]},
+      {n: 39, plans: [P('A51', 'push', {fx: 560, fy: 760, w: 0.8}), G(() => <DayCells label="CS:GO · 29.03.2018" title="После обмена — ждать неделю" days={7} sub="Повторная передача — через 7 дней" />)]},
+      {n: 40, plans: [G(Turnover, {w: 1.5}), G(Frozen, {w: 1.5}), P('A51', 'scroll', {fx: 560, fy: 1250, w: 0.8})]},
       {n: 41, plans: [P('A52', 'tilt', {fx: 720, fy: 380}), P('A52', 'scroll', {fx: 720, fy: 860})]},
       {n: 42, plans: [P('A51', 'pull', {fx: 560, fy: 520, gray: true}), P('A52', 'pull', {fx: 720, fy: 380, gray: true}), P('A78_market_listing_today', 'drift', {fx: 800, fy: 600})]},
     ],
@@ -80,15 +80,15 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
     id: 'Ch08-InvestBoom',
     title: 'Инвестиционный бум',
     scenes: [
-      {n: 43, plans: [P('A78_market_cases_today', 'panR', {fx: 800, fy: 520, tr: 'dip'})]},
-      {n: 44, plans: [G(() => <CaseChart name="Перчаточный кейс (Glove Case)" pts={GLOVE} show={2} badge={{from: 0, to: 1, text: '×800'}} />)]},
-      {n: 45, plans: [G(() => <CaseChart name="Перчаточный кейс (Glove Case)" pts={GLOVE} hi={2} />)]},
-      {n: 46, plans: [G(() => <CaseChart name="Кейс операции «Прорыв»" pts={BREAKOUT} badge={{from: 0, to: 1, text: '≈×150'}} />)]},
-      {n: 47, plans: [G(() => <CaseChart name="Gamma 2" pts={GAMMA2} badge={{from: 0, to: 1, text: '≈×190'}} />)]},
+      {n: 43, plans: [P('A10', 'drift', {fx: 800, fy: 700, tr: 'dip', w: 0.8}), P('A78_market_cases_today', 'panR', {fx: 800, fy: 520})]},
+      {n: 44, plans: [G(() => <PriceJump label="ПЕРЧАТОЧНЫЙ КЕЙС · GLOVE CASE" title="За два с половиной года" from={0.25} to={200} unit=" ₽" fromLabel="Январь 2019" toLabel="Июнь 2021" badge="×800" />, {w: 1.2}), G(() => <CaseChart name="Перчаточный кейс (Glove Case)" pts={GLOVE} show={2} />)]},
+      {n: 45, plans: [P('A57', 'push', {fx: 800, fy: 450, w: 0.6}), G(() => <CaseChart name="Перчаточный кейс (Glove Case)" pts={GLOVE} hi={2} />, {w: 1.4})]},
+      {n: 46, plans: [G(() => <PriceJump label="КЕЙС ОПЕРАЦИИ «ПРОРЫВ»" title="Январь 2019 → июнь 2021" from={1.5} to={220} unit=" ₽" fromLabel="Январь 2019" toLabel="Июнь 2021" badge="≈×150" />), G(() => <CaseChart name="Кейс операции «Прорыв»" pts={BREAKOUT} hi={2} />, {w: 1.3})]},
+      {n: 47, plans: [G(() => <PriceJump label="GAMMA 2" title="Январь 2019 → сентябрь 2021" from={0.25} to={47} unit=" ₽" fromLabel="Январь 2019" toLabel="Сентябрь 2021" badge="≈×190" />), G(() => <CaseChart name="Gamma 2" pts={GAMMA2} hi={2} />, {w: 1.3})]},
       {n: 48, plans: [P('A78_market_listing_today', 'scroll', {fx: 800, fy: 700}), P('A78_market_listing_today', 'panL', {fx: 800, fy: 560})]},
       {n: 49, plans: [P('A10', 'tilt', {fx: 800, fy: 2700}), G(() => <CaseFlow part="supply" />, {w: 1.5})]},
-      {n: 50, plans: [G(() => <CaseFlow part="investors" />)]},
-      {n: 51, plans: [G(Liquidity, {w: 2}), G(ThreeCases, {w: 1.4}), P('A78_market_cases_today', 'drift', {fx: 800, fy: 700})]},
+      {n: 50, plans: [P('A78_market_listing_today', 'tilt', {fx: 800, fy: 600, w: 0.6}), G(() => <CaseFlow part="investors" />, {w: 1.4})]},
+      {n: 51, plans: [G(Liquidity, {w: 2.2}), P('A78_market_listing_today', 'scroll', {fx: 800, fy: 700}), G(ThreeCases, {w: 1.3}), P('A78_market_cases_today', 'drift', {fx: 800, fy: 700, w: 0.9}), L(K('09_RMR_капсула_архив_курса'), 'K09', {mode: 'full', dir: 'in', w: 0.8})]},
     ],
   },
   {
@@ -100,7 +100,7 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
       {n: 54, plans: [L(K('08_Старые_командные_наклейки_архив_курса'), 'K08', {mode: 'full', dir: 'left'}), G(() => <PriceJump label="СТАРЫЙ ФОРМАТ · КОМАНДНЫЕ НАКЛЕЙКИ" title="Фиксированная цена" from={64} to={16} unit=" ₽" fromLabel="Обычная цена" toLabel="На распродаже" badge="−75%" />)]},
       {n: 55, plans: [L(K('09_RMR_капсула_архив_курса'), 'K09', {mode: 'card', dir: 'in'}), G(() => <PriceJump label="RMR 2020 · КАПСУЛЫ" title="Случайная наклейка из капсулы" from={76} to={19} unit=" ₽" fromLabel="Капсула" toLabel="Во время скидки" badge="−75%" />)]},
       {n: 56, plans: [L(K('09_RMR_капсула_архив_курса'), 'K09', {mode: 'full', dir: 'out'}), P('A53', 'scroll', {fx: 560, fy: 800})]},
-      {n: 57, plans: [L(K('10_RMR_график_после_продаж_архив_курса'), 'K10', {mode: 'card', dir: 'right'})]},
+      {n: 57, plans: [L(K('10_RMR_график_после_продаж_архив_курса'), 'K10', {mode: 'card', dir: 'right'}), P('A55', 'pull', {fx: 560, fy: 700, w: 0.8})]},
       {n: 58, plans: [P('A56', 'push', {fx: 560, fy: 640}), L(K('11_Stockholm_2021_архив_курса'), 'K11', {mode: 'full', dir: 'left', w: 1.2}), P('A56', 'scroll', {fx: 560, fy: 900}), P('A54', 'pull', {fx: 720, fy: 520}), L(K('09_RMR_капсула_архив_курса'), 'K09', {mode: 'card', dir: 'out'})]},
     ],
   },
@@ -120,14 +120,14 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
     title: 'Новая экономика CS2',
     scenes: [
       {n: 64, plans: [P('A61', 'push', {fx: 640, fy: 520, tr: 'dip'})]},
-      {n: 65, plans: [G(() => <Protection part="rule" />)]},
-      {n: 66, plans: [G(() => <Protection part="risk" />)]},
+      {n: 65, plans: [P('A61', 'scroll', {fx: 640, fy: 700, w: 0.9}), G(() => <Protection part="rule" />, {w: 1.2})]},
+      {n: 66, plans: [G(() => <Protection part="risk" />, {w: 1.3}), P('A78_market_listing_today', 'drift', {fx: 800, fy: 600, w: 0.7})]},
       {n: 67, plans: [I('A63_genesis_collection', {mode: 'card', width: 1450, dir: 'in'})]},
       {n: 68, plans: [I('A63_genesis_terminal', {mode: 'full', dir: 'right'}), I('A63_genesis_collection', {mode: 'full', dir: 'out'})]},
-      {n: 69, plans: [P('A66', 'scroll', {fx: 800, fy: 1150})]},
-      {n: 70, plans: [G(CovertMerge)]},
-      {n: 71, plans: [P('A66', 'push', {fx: 800, fy: 1200}), P('A78_market_cases_today', 'panL', {fx: 800, fy: 560}), P('A78_market_listing_today', 'drift', {fx: 800, fy: 600})]},
-      {n: 72, plans: [P('A78_market_listing_today', 'push', {fx: 900, fy: 420})]},
+      {n: 69, plans: [P('A66', 'tilt', {fx: 800, fy: 500, w: 0.7}), P('A66', 'scroll', {fx: 800, fy: 1150})]},
+      {n: 70, plans: [P('A66', 'push', {fx: 800, fy: 900, w: 0.6}), G(CovertMerge, {w: 1.6})]},
+      {n: 71, plans: [P('A78_market_cases_today', 'panL', {fx: 800, fy: 560}), G(DemandShift, {w: 1.6}), P('A78_market_listing_today', 'drift', {fx: 800, fy: 600, w: 0.8}), P('A66', 'pull', {fx: 800, fy: 1200, w: 0.8})]},
+      {n: 72, plans: [G(ListedUse, {w: 1.3}), P('A78_market_listing_today', 'push', {fx: 900, fy: 420, w: 0.8})]},
       {n: 73, plans: [P('A69', 'tilt', {fx: 800, fy: 900}), I('A70_major_shop_2026', {mode: 'full', dir: 'in'})]},
       {n: 74, plans: [I('A70_souvenir_2026', {mode: 'full', dir: 'left'}), P('A71', 'push', {fx: 800, fy: 500}), I('A70_cologne_coin_tokens_2026', {mode: 'full', dir: 'out'}), P('A01', 'pull', {fx: 800, fy: 700, gray: true})]},
     ],
@@ -136,7 +136,7 @@ export const CHAPTERS: {id: string; title: string; scenes: Scene[]}[] = [
     id: 'Final',
     title: 'Финал',
     scenes: [
-      {n: 75, plans: [P('A37', 'push', {fx: 640, fy: 420, gray: true, tr: 'dip'})]},
+      {n: 75, plans: [L(W04, 'K04', {mode: 'full', dir: 'out', gray: true, tr: 'dip', w: 0.8}), P('A37', 'push', {fx: 640, fy: 420, gray: true})]},
       {n: 76, plans: [P('A51', 'push', {fx: 560, fy: 520, gray: true})]},
       {n: 77, plans: [G(() => <Chronicle items={[{y: '2017', txt: 'подарочные игры', img: 'sources/A37.jpg'}, {y: '2018', txt: 'скорость обменов', img: 'sources/A51.jpg'}, {y: '2021', txt: 'наклейки RMR', img: 'sources/A54.jpg'}, {y: '2025', txt: 'ножи и контракты', img: 'sources/A66.jpg'}, {y: '2026', txt: 'сувениры и стикеры', img: 'sources/A69.jpg'}]} />)]},
       {n: 78, plans: [P('A78_market_listing_today', 'panR', {fx: 800, fy: 600}), G(ThreeCases), P('A10', 'drift', {fx: 800, fy: 500}), P('A01', 'pull', {fx: 800, fy: 700, gray: true}), L(W04, 'K04', {mode: 'full', dir: 'up', gray: true}), P('A57', 'push', {fx: 800, fy: 450})]},

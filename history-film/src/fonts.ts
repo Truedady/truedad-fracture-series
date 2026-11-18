@@ -14,18 +14,43 @@ let started = false;
 export const ensureFonts = () => {
   if (started) return;
   started = true;
-  const handle = delayRender('fonts', {timeoutInMilliseconds: 60000});
-  const one = (f: (typeof LIST)[number]) => {
+  const handle = delayRender('fonts', {timeoutInMilliseconds: 110000});
+  let done = false;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    continueRender(handle);
+  };
+  // Жёсткий предохранитель: даже если загрузка зависла, кадр рендерится дальше.
+  setTimeout(finish, 15000);
+  const one = (f: (typeof LIST)[number]): Promise<void> => {
     const go = () =>
-      Promise.race([
-        new FontFace(f.family, `url('${staticFile(`fonts/${f.file}`)}')`, {weight: f.weight, unicodeRange: f.range})
-          .load()
-          .then((ff) => {
-            document.fonts.add(ff);
-          }),
-        new Promise<void>((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000)),
-      ]);
+      new Promise<void>((resolve, reject) => {
+        try {
+          const desc: FontFaceDescriptors = {weight: f.weight};
+          if (f.range) desc.unicodeRange = f.range;
+          const ff = new FontFace(f.family, `url('${staticFile(`fonts/${f.file}`)}')`, desc);
+          const timer = setTimeout(() => reject(new Error('timeout')), 8000);
+          ff.load().then(
+            (x) => {
+              clearTimeout(timer);
+              document.fonts.add(x);
+              resolve();
+            },
+            (e) => {
+              clearTimeout(timer);
+              reject(e);
+            },
+          );
+        } catch (e) {
+          reject(e);
+        }
+      });
     return go().catch(go).catch(() => undefined);
   };
-  Promise.all(LIST.map(one)).finally(() => continueRender(handle));
+  try {
+    Promise.all(LIST.map(one)).then(finish, finish);
+  } catch {
+    finish();
+  }
 };

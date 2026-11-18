@@ -28,8 +28,8 @@ export const sceneSec = (n: number) => N[String(n)].sec;
 /* Автоматический выбор перехода, если не задан: разнообразие + смысл. */
 const autoTr = (prev: Plan | undefined, cur: Plan, idx: number, firstOfScene: boolean): Tr => {
   if (!prev) return 'dip';
-  if (cur.kind === 'graphic' || prev.kind === 'graphic') return idx % 2 ? 'zoom' : 'blur';
-  if (cur.kind === 'photo') return idx % 3 === 0 ? 'blur' : 'fade';
+  if (cur.kind === 'graphic' || prev.kind === 'graphic') return (['zoom', 'blur', 'slideUp'] as Tr[])[idx % 3];
+  if (cur.kind === 'photo') return (['blur', 'fade', 'slide'] as Tr[])[idx % 3];
   if (firstOfScene) return (['slide', 'whip', 'slideUp', 'fade'] as Tr[])[idx % 4];
   return idx % 2 ? 'fade' : 'slide';
 };
